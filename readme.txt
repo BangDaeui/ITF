@@ -1,8 +1,9 @@
-RDS : itf2019.cohnbkqepvge.ap-northeast-2.rds.amazonaws.com
+ï»¿RDS : itf2019.cohnbkqepvge.ap-northeast-2.rds.amazonaws.com
 User : itf2019
 Database : itf
 
 190530
-¹æ´ëÀÇ : ·Î±×ÀÎ Ã¢ ¹× ±âº»ÀûÀÎ UI ¼³°è
-±è±ÔÁø : Systemplocy.handlebars Á÷Á¢ DB¿¬°áÇÏ±â
-Çã»ó¹Î : Users.handlebars Á÷Á¢ DB¿¬°áÇÏ±â ¼öÁ¤°ú »èÁ¦ ¹öÆ° value °ª ÇÊ¼ö!
+ê¸°ë³¸ í…œí”Œë¦¿ ì •í•˜ê¸° ! ìƒˆë¡œìš´ê±¸ ì‚¬ìš©í• ì§€ ì•„ë‹ˆë©´ ì§€ê¸ˆ ê·¸ëŒ€ë¡œ ì§„í–‰í• ì§€
+ë°©ëŒ€ì˜ : ë¡œê·¸ì¸ ì°½ ë° ê¸°ë³¸ì ì¸ UI ì„¤ê³„
+ê¹€ê·œì§„ : Systemplocy.handlebars ì§ì ‘ DBì—°ê²°í•˜ê¸°
+í—ˆìƒë¯¼ : Users.handlebars ì§ì ‘ DBì—°ê²°í•˜ê¸° ìˆ˜ì •ê³¼ ì‚­ì œ ë²„íŠ¼ value ê°’ í•„ìˆ˜!
