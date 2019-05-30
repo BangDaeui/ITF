@@ -67,7 +67,7 @@ app.get('/Setting', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    res.render('Dashboard');
+    res.render('Login');
 })
 
 module.exports = app;
