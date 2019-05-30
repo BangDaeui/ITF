@@ -58,6 +58,10 @@ app.get('/Systempolicy', (req, res) => {
     res.render('Systempolicy');
 })
 
+app.get('/Folderpolicymanage', (req, res) => {
+    res.render('Folderpolicymanage');
+})
+
 app.get('/Folderpolicy', (req, res) => {
     res.render('Folderpolicy');
 })

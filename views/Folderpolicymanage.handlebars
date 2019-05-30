@@ -115,74 +115,73 @@
                     <div class="page-header row no-gutters py-4 mb-3 border-bottom">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">in the forest</span>
-                            <h3 class="page-title">Folder Policy</h3>
+                            <h3 class="page-title">폴더 정책1</h3>
                         </div>
                     </div>
                     <!-- End Page Header -->
-                    <!-- User Table -->
+                    <!-- Folder Policy -->
                     <div class="row">
-                        <div class="col">
+                        <div class="col-lg-4">
+                            <div class="card card-small mb-4 pt-3">
+                                <div class="card-header border-bottom text-center">
+                                    <h4 class="mb-0">폴더 정책1</h4>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-4">
+                                        <strong class="text d-block mb-1">경로</strong>
+                                        <span>/Path1</span>
+                                    </li>
+                                    <li class="list-group-item p-4">
+                                        <strong class="text d-block mb-1">설명</strong>
+                                        <span>폴더 기본 정책입니다.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
                             <div class="card card-small mb-4">
                                 <div class="card-header border-bottom">
-                                    <button type="button" class="mb-0 btn btn-sm btn-primary mr-0">Add Folder Policy</button>
-                                    &nbsp;
+                                    <h6 class="m-0">Folder Policy Details</h6>
                                 </div>
-                                <div class="card-body p-0 pb-3 text-center">
-                                    <table class="table mb-0">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th scope="col" class="border-0">#</th>
-                                                <th scope="col" class="border-0">Name</th>
-                                                <th scope="col" class="border-0">Path</th>
-                                                <th scope="col" class="border-0">Createmask</th>
-                                                <th scope="col" class="border-0">Directorymask</th>
-                                                <th scope="col" class="border-0">Manage</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>Honggil</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.23</td>
-                                                <td><a href="/Folderpolicymanage"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>이순신</td>
-                                                <td>Leesun</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.24</td>
-                                                <td><a href="/Folderpolicymanage"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.25</td>
-                                                <td><a href="/Folderpolicymanage"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>민수</td>
-                                                <td>Minsu</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.26</td>
-                                                <td><a href="/Folderpolicymanage"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <form>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="Folder_Name">폴더명</label>
+                                                            <input type="text" class="form-control" id="Folder_Name" placeholder="Folder_Name" value="폴더 정책1"> </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="Folder_Update">폴더 정책 갱신주기 (분)</label>
+                                                            <input type="text" class="form-control" id="Folder_Update" placeholder="Folder_Update" value="5"> </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="Folder_Createmask">생성 파일권한</label>
+                                                            <input type="text" class="form-control" id="Folder_Createmask" placeholder="Folder_Createmask" value="0777">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="Folder_Directorymask">생성 폴더권한</label>
+                                                            <input type="text" class="form-control" id="Folder_Directorymask" placeholder="Folder_Directorymask" value="0777">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="feDescription">Description</label>
+                                                            <textarea class="form-control" name="feDescription" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-accent">Update Account</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- End User Table -->
+                    <!-- End Folder Policy -->
                 </div>
 
             </main>
