@@ -1,0 +1,140 @@
+﻿-- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
+
+-- Policy Table Create SQL
+CREATE TABLE Policy
+(
+    `Policy_No`             INT             NOT NULL    AUTO_INCREMENT COMMENT '시스템 정책 번호', 
+    `Policy_Name`           VARCHAR(255)    NOT NULL    COMMENT '시스템 정책명', 
+    `Policy_Comment`        VARCHAR(255)    NULL        COMMENT '시스템 정책 설명', 
+    `Policy_Update`         INT             NOT NULL    COMMENT '정책 갱신 주기(분)', 
+    `Policy_Mask`           INT             NOT NULL    COMMENT '마스크값', 
+    `Policy_Taskmgr`        INT             NOT NULL    COMMENT '작업관리자', 
+    `Policy_Regedit`        INT             NOT NULL    COMMENT '레지스트리', 
+    `Policy_Cmd`            INT             NOT NULL    COMMENT 'cmd', 
+    `Policy_Snippingtools`  INT             NOT NULL    COMMENT '캡처 도구', 
+    `Policy_Usbwrite`       INT             NOT NULL    COMMENT 'USB 읽기', 
+    `Policy_Usbaccess`      INT             NOT NULL    COMMENT 'USB 활성화', 
+    `Policy_Disk`           INT             NOT NULL    COMMENT '디스크 차단', 
+    `Policy_Clipboard`      INT             NOT NULL    COMMENT '클립보드 차단', 
+    PRIMARY KEY (Policy_No)
+);
+
+ALTER TABLE Policy COMMENT '시스템 정책';
+
+
+-- Groups Table Create SQL
+CREATE TABLE Groups
+(
+    `Groups_No`    INT             NOT NULL    AUTO_INCREMENT COMMENT '그룹 번호', 
+    `Groups_Name`  VARCHAR(255)    NOT NULL    COMMENT '그룹 이름', 
+    PRIMARY KEY (Groups_No)
+);
+
+ALTER TABLE Groups COMMENT '그룹';
+
+
+-- Positions Table Create SQL
+CREATE TABLE Positions
+(
+    `Positions_No`    INT             NOT NULL    AUTO_INCREMENT COMMENT '직책 번호', 
+    `Positions_Name`  VARCHAR(255)    NOT NULL    COMMENT '직책 이름', 
+    PRIMARY KEY (Positions_No)
+);
+
+ALTER TABLE Positions COMMENT '직책';
+
+
+-- User Table Create SQL
+CREATE TABLE User
+(
+    `User_No`        INT            NOT NULL    AUTO_INCREMENT COMMENT '사용자 번호', 
+    `User_Name`      VARCHAR(45)    NOT NULL    COMMENT '사용자 이름', 
+    `User_SMB`       VARCHAR(45)    NOT NULL    COMMENT '사용자 SMB ID', 
+    `User_IP`        VARCHAR(45)    NOT NULL    COMMENT '사용자 IP 주소', 
+    `User_Group`     INT            NOT NULL    COMMENT '부서 번호', 
+    `User_Position`  INT            NOT NULL    COMMENT '직책 번호', 
+    `User_Policy`    INT            NOT NULL    COMMENT '시스템 정책 번호', 
+    PRIMARY KEY (User_No)
+);
+
+ALTER TABLE User COMMENT '사용자';
+
+ALTER TABLE User
+    ADD CONSTRAINT FK_User_User_Group_Groups_Groups_No FOREIGN KEY (User_Group)
+        REFERENCES Groups (Groups_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE User
+    ADD CONSTRAINT FK_User_User_Position_Positions_Positions_No FOREIGN KEY (User_Position)
+        REFERENCES Positions (Positions_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE User
+    ADD CONSTRAINT FK_User_User_Policy_Policy_Policy_No FOREIGN KEY (User_Policy)
+        REFERENCES Policy (Policy_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Folder Table Create SQL
+CREATE TABLE Folder
+(
+    `Folder_No`             INT             NOT NULL    AUTO_INCREMENT COMMENT '폴더정책 번호', 
+    `Folder_Name`           VARCHAR(255)    NOT NULL    COMMENT '폴더정책명', 
+    `Folder_Comment`        VARCHAR(255)    NULL        COMMENT '폴더 정책 설명', 
+    `Folder_Path`           VARCHAR(255)    NOT NULL    COMMENT '폴더정책더 경로', 
+    `Folder_Update`         INT             NOT NULL    COMMENT '정책 갱신 주기(분)', 
+    `Folder_Readonly`       INT             NOT NULL    COMMENT '읽기 전용', 
+    `Folder_Writeable`      INT             NOT NULL    COMMENT '쓰기 허용', 
+    `Folder_Guest`          INT             NOT NULL    COMMENT '게스트 허용', 
+    `Folder_Browsable`      INT             NOT NULL    COMMENT '보임 유무', 
+    `Folder_Createmask`     VARCHAR(45)     NOT NULL    COMMENT '생성되는 파일권한', 
+    `Folder_Directorymask`  VARCHAR(45)     NOT NULL    COMMENT '생성되는 폴더권한', 
+    PRIMARY KEY (Folder_No)
+);
+
+ALTER TABLE Folder COMMENT '폴더정책';
+
+
+-- Auth Table Create SQL
+CREATE TABLE Auth
+(
+    `Auth_No`    INT            NOT NULL    COMMENT '사용자 번호', 
+    `Auth_ID`    VARCHAR(45)    NOT NULL    COMMENT '사용자 아이디', 
+    `Auth_Pass`  VARCHAR(45)    NOT NULL    COMMENT '사용자 비밀번호', 
+    PRIMARY KEY (Auth_No)
+);
+
+ALTER TABLE Auth COMMENT '사용자 인증';
+
+ALTER TABLE Auth
+    ADD CONSTRAINT FK_Auth_Auth_No_User_User_No FOREIGN KEY (Auth_No)
+        REFERENCES User (User_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- WebAuth Table Create SQL
+CREATE TABLE WebAuth
+(
+    `WebAuth_No`    INT            NOT NULL    AUTO_INCREMENT COMMENT '웹 인증 번호', 
+    `WebAuth_ID`    VARCHAR(45)    NOT NULL    COMMENT '웹 인증 아이디', 
+    `WebAuth_Pass`  VARCHAR(45)    NOT NULL    COMMENT '웹 인증 비밀번호', 
+    PRIMARY KEY (WebAuth_No)
+);
+
+ALTER TABLE WebAuth COMMENT '관리자 정보';
+
+
+-- Rule Table Create SQL
+CREATE TABLE Rule
+(
+    `Rule_No`      INT    NOT NULL    AUTO_INCREMENT COMMENT '접근권한번호', 
+    `Rule_Folder`  INT    NOT NULL    COMMENT '폴더정책번호', 
+    `Rule_User`    INT    NOT NULL    COMMENT '사용자번호', 
+    PRIMARY KEY (Rule_No)
+);
+
+ALTER TABLE Rule
+    ADD CONSTRAINT FK_Rule_Rule_User_User_User_No FOREIGN KEY (Rule_User)
+        REFERENCES User (User_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE Rule
+    ADD CONSTRAINT FK_Rule_Rule_Folder_Folder_Folder_No FOREIGN KEY (Rule_Folder)
+        REFERENCES Folder (Folder_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
