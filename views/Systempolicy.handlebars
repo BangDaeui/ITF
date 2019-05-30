@@ -10,9 +10,10 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="/public/styles/shards-dashboards.1.1.0.min.css">
-    <link rel="stylesheet" href="/public/styles/extras.1.1.0.min.css">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="/styles/shards-dashboards.1.1.0.min.css">
+    <link rel="stylesheet" href="/styles/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles/multicheck/multicheck.css">
 </head>
 
 <body class="h-100">
@@ -92,14 +93,14 @@
                                     <span class="d-none d-md-inline-block">Administrator</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-small">
-                                    <a class="dropdown-item" href="/Setting">
+                                    <a class="dropdown-item" href="/Setting.html">
                                         <i class="material-icons">settings</i> Setting</a>
-                                    <!--
+                                    
                                     <a class="dropdown-item" href="#">
                                         <i class="material-icons">vertical_split</i> Blog Posts</a>
                                     <a class="dropdown-item" href="#">
                                         <i class="material-icons">note_add</i> Add New Post</a>
-                                    -->
+                                    
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="#">
                                         <i class="material-icons text-danger">&#xE879;</i> Logout </a>
@@ -115,142 +116,43 @@
                     <div class="page-header row no-gutters py-4 mb-3 border-bottom">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">in the forest</span>
-                            <h3 class="page-title">홍길동</h3>
+                            <h3 class="page-title">Users Settings</h3>
                         </div>
                     </div>
                     <!-- End Page Header -->
+                    <!-- User Table -->
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col">
                             <div class="card card-small mb-4">
-                                <div class="card-header border-bottom">
-                                    <h6 class="m-0">Client Settings</h6>
+                                <div class="card-body p-0 pb-3 text-center">
+                                    <table class="table mb-0">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th scope="col" class="border-0">No</th>
+                                                <th scope="col" class="border-0">Name</th>
+                                                <th scope="col" class="border-0">Policy Comment</th>
+                                                <th scope="col" class="border-0">Policy Update</th>  
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each tmp}}
+                                            <tr style = "cursor:pointer;" onClick = " location.href='/Systempolicy_Manage/{{this.Policy_No}}' " onMouseOver = " indow.status = 'http://ihouse.so.vc' " onMouseOut = " window.status = '' " >
+                                                <td>{{this.Policy_No}}</td>
+                                                <td>{{this.Policy_Name}}</td>
+                                                <td>{{this.Policy_Comment}}</td>
+                                                <td>{{this.Policy_Update}}</td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item p-0 px-3 pt-3">
-                                        <form name="setting" action="/data" method="post">
-                                            <div class="row">
-
-                                                <div class="col-sm-12 col-md-4 mb-3">
-                                                    <!-- Radios -->
-                                                    <strong class="text-muted d-block mb-2">작업관리자 비활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="control1" value=1 name="control" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="control1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="control2" value=0 name="control" class="custom-control-input">
-                                                            <label class="custom-control-label" for="control2">Off</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1"></div>
-                                                    </fieldset>
-                                                    <strong class="text-muted d-block mb-2">캡처 도구 비활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="sniffing1" value=1 name="sniffing" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="sniffing1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="sniffing2" value=0 name="sniffing" class="custom-control-input">
-                                                            <label class="custom-control-label" for="sniffing2">Off</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1"></div>
-                                                    </fieldset>
-                                                    <strong class="text-muted d-block mb-2">디스크 비활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="disk1" value=1 name="disk" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="disk1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="disk2" value=0 name="disk" class="custom-control-input">
-                                                            <label class="custom-control-label" for="disk2">Off</label>
-                                                        </div>
-                                                    </fieldset>
-                                                    <!-- / Radios -->
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 mb-3">
-                                                    <!-- Radios -->
-                                                    <strong class="text-muted d-block mb-2">레지스트리 편집기 비활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="regedit1" value=1 name="regedit" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="regedit1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="regedit2" value=0 name="regedit" class="custom-control-input">
-                                                            <label class="custom-control-label" for="regedit2">Off</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1"></div>
-                                                    </fieldset>
-                                                    <strong class="text-muted d-block mb-2">USB 쓰기 활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="write1" value=1 name="write" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="write1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="write2" value=0 name="write" class="custom-control-input">
-                                                            <label class="custom-control-label" for="write2">Off</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1"></div>
-                                                    </fieldset>
-                                                    <strong class="text-muted d-block mb-2">클립보드 비활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="clipboard1" value=1 name="clipboard" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="clipboard1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="clipboard2" value=0 name="clipboard" class="custom-control-input">
-                                                            <label class="custom-control-label" for="clipboard2">Off</label>
-                                                        </div>
-                                                    </fieldset>
-                                                    <!-- / Radios -->
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 mb-3">
-                                                    <!-- Radios -->
-                                                    <strong class="text-muted d-block mb-2">cmd 비활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="cmd1" value=1 name="cmd" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="cmd1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="cmd2" value=0 name="cmd" class="custom-control-input">
-                                                            <label class="custom-control-label" for="cmd2">Off</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1"></div>
-                                                    </fieldset>
-                                                    <strong class="text-muted d-block mb-2">USB 접근 비활성화</strong>
-                                                    <fieldset>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="access1" value=1 name="access" class="custom-control-input" Checked>
-                                                            <label class="custom-control-label" for="access1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="access2" value=0 name="access" class="custom-control-input">
-                                                            <label class="custom-control-label" for="access2">Off</label>
-                                                        </div>
-                                                    </fieldset>
-                                                    <!-- / Radios -->
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                        <div align=center>
-                                            <button type="submit" class="mb-2 btn btn-lg btn-outline-success mr-1">Setting On</button>
-                                        </div>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
+                    <!-- End User Table -->
                 </div>
-
             </main>
         </div>
-
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -258,7 +160,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
-    <script src="/public/scripts/extras.1.1.0.min.js"></script>
-    <script src="/public/scripts/shards-dashboards.1.1.0.min.js"></script>
-    <script src="/public/scripts/app/app-blog-overview.1.1.0.js"></script>
-</body></html>
+    <script src="/scripts/extras.1.1.0.min.js"></script>
+    <script src="/scripts/shards-dashboards.1.1.0.min.js"></script>
+    <script src="/scripts/app/app-blog-overview.1.1.0.js"></script>
+    <script src="/styles/multicheck/datatable-checkbox-init.js"></script>
+    <script src="/styles/multicheck/jquery.multicheck.js"></script>
+</body>
+
+</html>
