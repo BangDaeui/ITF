@@ -128,7 +128,7 @@
                                 {{#each syspolicy}}
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item p-0 px-3 pt-3">
-                                        <form name="setting" action="/UpdateSystemPolicy/{{this.Policy_No}}" method="post">
+                                        <form name="setting" action="/UpdateSystemPolicy" method="post">
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-4 mb-3">
                                                     <!-- Radios -->
@@ -175,7 +175,7 @@
                                                     <strong class="text-muted d-block mb-2">디스크 비활성화</strong>
                                                     <fieldset>
                                                         <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="disk1" value=1 name="disk" class="custom-control-input" {{#if this.Policy_Disk}}checked{{/if}}> 
+                                                            <input type="radio" id="disk1" value=1 name="disk" class="custom-control-input" {{#if this.Policy_Disk}}checked{{/if}}> >
                                                             <label class="custom-control-label" for="disk1">On</label>
                                                         </div>
                                                         <div class="custom-control custom-radio mb-1">

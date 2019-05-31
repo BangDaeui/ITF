@@ -54,28 +54,32 @@ app.get('/Users', (req, res) => {
     res.render('Users');
     
 })
-
+// System Policy List page
 app.get('/Systempolicy', (req, res) => {
+    // 시스템 정책의 리스트받아 올 정보
     var sql1 = 'select Policy_No, Policy_Name, Policy_Comment, Policy_Update from Policy';
-    conn.query(sql1, function(err, tmp, fields){
+    conn.query(sql1, function(err, syspolicy, fields){
         res.render('Systempolicy', {
-            tmp:tmp      
+            syspolicy:syspolicy      
         });
     });
 })
-
-app.get('/Systempolicy_Manage/:policyid', (req, res) => {
-    var policyid = req.params.policyid;
+// System Policy control page
+app.get('/Systempolicymanage/:policyno', (req, res) => {
+    var policyno = req.params.policyno;
+    // 시스템 정책 세부 정책 Policy_No를 이용해 구분하며 검색
     var sql1 = 'select * from Policy where Policy_No=?';
-        conn.query(sql1, [policyid], function(err, tmp, fields){
+        conn.query(sql1, [policyno], function(err, syspolicy, fields){
         res.render('Systempolicy_Manage', {
-            tmp:tmp      
+            syspolicy:syspolicy      
         });
     });
     //res.render('Systempolicy_Manage');
 })
-
-app.post('/Systempolicy_Manage',(req,res)=>{
+// System Policy Control Update 
+app.post('/UpdateSystemPolicy/:policyno',(req,res)=>{
+    // policyno = 시스템 정책 번호
+    var policyno = req.params.policyno;
     var Policy_Name = req.body.Policy_Name;
     var Policy_Mask = 0;
     var Policy_Taskmgr = req.body.taskmgr;
@@ -87,6 +91,7 @@ app.post('/Systempolicy_Manage',(req,res)=>{
     var Policy_Disk = req.bocy.disk;
     var Policy_Clipboard = req.body.clipboard;
     
+    // System Policy Mask Calculation
     if(Policy_Taskmgr == 1){
         Policy_Mask += 1;
     }
@@ -99,10 +104,10 @@ app.post('/Systempolicy_Manage',(req,res)=>{
     if(Policy_Snipping == 1){
         Policy_Mask += 8;
     }
-    if(Policy_Write == 1){
+    if(Policy_Usbwrite == 1){
         Policy_Mask += 16;
     }
-    if(Policy_Access == 1){
+    if(Policy_Usbaccess == 1){
         Policy_Mask += 32;
     }
     if(Policy_Disk == 1){
@@ -111,10 +116,10 @@ app.post('/Systempolicy_Manage',(req,res)=>{
     if(Policy_Clipboard == 1){
         Policy_Mask += 128;
     }
+    // System Policy Update sql
+    var sql1 = 'update Policy set Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snipping=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
     
-    var sql = 'update Policy set Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snipping=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=?';
-    
-    conn.query(sql,[Policy_Mask, Policy_Control, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snipping, Policy_Usbwrite, Policy_Usbaccess, Policy_Clipboard, ],function(err, tmp, fields){
+    conn.query(sql1,[Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snipping, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno],function(err, tmp, fields){
     console.log(tmp);
     res.redirect('/Systempolicy');
     });
