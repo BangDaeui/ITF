@@ -70,14 +70,14 @@ app.get('/Systempolicymanage/:policyno', (req, res) => {
     // 시스템 정책 세부 정책 Policy_No를 이용해 구분하며 검색
     var sql1 = 'select * from Policy where Policy_No=?';
         conn.query(sql1, [policyno], function(err, syspolicy, fields){
-        res.render('Systempolicy_Manage', {
+        res.render('Systempolicymanage', {
             syspolicy:syspolicy      
         });
     });
     //res.render('Systempolicy_Manage');
 })
 // System Policy Control Update 
-app.post('/UpdateSystemPolicy/:policyno', (req,res) => {
+app.post('/UpdateSystemPolicy/:policyno', (req, res) => {
     // policyno = 시스템 정책 번호
     var policyno = req.params.policyno;
     var Policy_Name = req.body.Policy_Name;
@@ -85,7 +85,7 @@ app.post('/UpdateSystemPolicy/:policyno', (req,res) => {
     var Policy_Taskmgr = req.body.taskmgr;
     var Policy_Regedit = req.body.regedit;
     var Policy_Cmd = req.body.cmd;
-    var Policy_Snipping = req.body.snipping;
+    var Policy_Snippingtools = req.body.snipping;
     var Policy_Usbwrite = req.body.usbwrite;
     var Policy_Usbaccess = req.body.usbaccess;
     var Policy_Disk = req.body.disk;
@@ -101,7 +101,7 @@ app.post('/UpdateSystemPolicy/:policyno', (req,res) => {
     if(Policy_Cmd == 1){
         Policy_Mask += 4;
     }
-    if(Policy_Snipping == 1){
+    if(Policy_Snippingtools == 1){
         Policy_Mask += 8;
     }
     if(Policy_Usbwrite == 1){
@@ -117,9 +117,9 @@ app.post('/UpdateSystemPolicy/:policyno', (req,res) => {
         Policy_Mask += 128;
     }
     // System Policy Update sql
-    var sql1 = 'update Policy set Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snipping=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
+    var sql1 = 'update Policy set Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snippingtools=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
     
-    conn.query(sql1,[Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snipping, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno],function(err, tmp, fields){
+    conn.query(sql1,[Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function(err, tmp, fields){
         console.log(tmp);
         res.redirect('/Systempolicy');
     });
