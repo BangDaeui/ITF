@@ -138,12 +138,12 @@ app.get('/Folderpolicy', (req, res) => {
 });
 
 // Folder Policy Control Page
-app.get('/Folderpolicymanage/:policyno', (req, res) => {
+app.get('/Folderpolicymanage/:folderno', (req, res) => {
     // policyno = Folder_No
-    var policyno = req.params.policyno;
+    var folderno = req.params.folderno;
     // 폴더 정책을 Folder_No을 이용하여 가져온다.
     var sql1 = 'select * from Folder where Folder_No=?';
-    conn.query(sql1, [policyno], function(err, dirpolicy, fields){
+    conn.query(sql1, [folderno], function(err, dirpolicy, fields){
         res.render('Folderpolicymanage', {
             dirpolicy:dirpolicy      
         });
@@ -151,8 +151,8 @@ app.get('/Folderpolicymanage/:policyno', (req, res) => {
 })
 
 // Update Folder Policy
-app.post('/UpdateFolderPolicy/:policyno', (req, res) => {
-    var policyno = req.params.policyno;
+app.post('/UpdateFolderPolicy/:folderno', (req, res) => {
+    var folderno = req.params.folderno;
     var Folder_Name = req.body.Folder_Name;
     var Folder_Comment = req.body.Folder_Comment;
     var Folder_Update = req.body.Folder_Update;
@@ -165,7 +165,7 @@ app.post('/UpdateFolderPolicy/:policyno', (req, res) => {
 
     // 폴더 정책 업데이트
     var sql1 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
-    conn.query(sql1,[Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, policyno], function(err, tmp, fields){
+    conn.query(sql1,[Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function(err, tmp, fields){
         console.log(tmp);
         res.redirect('/Folderpolicy');
     });
