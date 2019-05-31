@@ -77,7 +77,7 @@ app.get('/Systempolicymanage/:policyno', (req, res) => {
     //res.render('Systempolicy_Manage');
 })
 // System Policy Control Update 
-app.post('/UpdateSystemPolicy/:policyno',(req,res)=>{
+app.post('/UpdateSystemPolicy/:policyno', (req,res) => {
     // policyno = 시스템 정책 번호
     var policyno = req.params.policyno;
     var Policy_Name = req.body.Policy_Name;
@@ -88,7 +88,7 @@ app.post('/UpdateSystemPolicy/:policyno',(req,res)=>{
     var Policy_Snipping = req.body.snipping;
     var Policy_Usbwrite = req.body.usbwrite;
     var Policy_Usbaccess = req.body.usbaccess;
-    var Policy_Disk = req.bocy.disk;
+    var Policy_Disk = req.body.disk;
     var Policy_Clipboard = req.body.clipboard;
     
     // System Policy Mask Calculation
@@ -120,8 +120,8 @@ app.post('/UpdateSystemPolicy/:policyno',(req,res)=>{
     var sql1 = 'update Policy set Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snipping=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
     
     conn.query(sql1,[Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snipping, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno],function(err, tmp, fields){
-    console.log(tmp);
-    res.redirect('/Systempolicy');
+        console.log(tmp);
+        res.redirect('/Systempolicy');
     });
     
 })

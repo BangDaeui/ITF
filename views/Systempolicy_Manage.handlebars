@@ -128,7 +128,7 @@
                                 {{#each syspolicy}}
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item p-0 px-3 pt-3">
-                                        <form name="setting" action="/UpdateSystemPolicy/{{this.Policy_No}}" method="post">
+                                        <form name="setting" action="/UpdateSystemPolicy" method="post">
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-4 mb-3">
                                                     <!-- Radios -->
@@ -253,10 +253,10 @@
                                                 </div>
 
                                             </div>
-                                        </form>
                                         <div align=center>
                                             <button type="submit" class="mb-2 btn btn-lg btn-outline-success mr-1">Setting On</button>
                                         </div>
+                                    </form>
                                     </li>
                                 </ul>
                             {{/each}}
