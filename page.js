@@ -38,22 +38,27 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-app.get('/Usersettings', (req, res) => {
-    res.render('Usersettings');
-})
-
+// Dashboard
 app.get('/Dashboard', (req, res) => {
     res.render('Dashboard');
 })
 
+// Eventlog
 app.get('/Eventlog', (req, res) => {
     res.render('Eventlog');
 })
 
+// Users
 app.get('/Users', (req, res) => {
     res.render('Users');
     
 })
+
+// Usersettings
+app.get('/Usersettings', (req, res) => {
+    res.render('Usersettings');
+})
+
 // System Policy List page
 app.get('/Systempolicy', (req, res) => {
     // 시스템 정책의 리스트받아 올 정보
@@ -64,6 +69,7 @@ app.get('/Systempolicy', (req, res) => {
         });
     });
 })
+
 // System Policy control page
 app.get('/Systempolicymanage/:policyno', (req, res) => {
     var policyno = req.params.policyno;
@@ -76,6 +82,7 @@ app.get('/Systempolicymanage/:policyno', (req, res) => {
     });
     //res.render('Systempolicy_Manage');
 })
+
 // System Policy Control Update 
 app.post('/UpdateSystemPolicy/:policyno', (req, res) => {
     // policyno = 시스템 정책 번호
@@ -90,7 +97,7 @@ app.post('/UpdateSystemPolicy/:policyno', (req, res) => {
     var Policy_Usbaccess = req.body.usbaccess;
     var Policy_Disk = req.body.disk;
     var Policy_Clipboard = req.body.clipboard;
-    
+
     // System Policy Mask Calculation
     if(Policy_Taskmgr == 1){
         Policy_Mask += 1;
@@ -121,10 +128,10 @@ app.post('/UpdateSystemPolicy/:policyno', (req, res) => {
     
     conn.query(sql1,[Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function(err, tmp, fields){
         console.log(tmp);
-        res.redirect('/Systempolicy');
     });
-    
+    res.redirect('/Systempolicy');
 })
+
 app.get('/Folderpolicy', (req, res) => {
     res.render('Folderpolicy');
 })
