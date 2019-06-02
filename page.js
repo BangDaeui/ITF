@@ -180,12 +180,24 @@ app.post('/UpdateFolderPolicy/:folderno', (req, res) => {
     });
 })
 
+// Setting
 app.get('/Setting', (req, res) => {
     res.render('Setting');
 })
 
+// Login
 app.get('/', (req, res) => {
     res.render('Login');
 })
+
+// Error
+app.get('*', function(req, res, next) {
+  throw new Error();
+});
+
+// Error
+app.use(function(error, req, res, next) {
+  res.render('Error');
+});
 
 module.exports = app;
