@@ -1,5 +1,5 @@
 ﻿/
-┝ /Login			# 로그인 페이지
+┝ /Login				# 로그인 페이지
 ┝ /Dashboard			# 대시보드 페이지
 ┝ /EventLog			# 이벤트 로그 페이지
 ┝ /Users				# 유저 페이지
