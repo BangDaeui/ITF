@@ -50,13 +50,17 @@ app.get('/Eventlog', (req, res) => {
 
 // Users
 app.get('/Users', (req, res) => {
-    res.render('Users');
-    
+    res.render('Users');    
 })
 
 // Usersettings
 app.get('/Usersettings', (req, res) => {
     res.render('Usersettings');
+})
+
+// Groups
+app.get('/Groups', (req, res) => {
+    res.render('Groups');   
 })
 
 // System Policy List page
@@ -80,7 +84,6 @@ app.get('/Systempolicymanage/:policyno', (req, res) => {
             syspolicy:syspolicy      
         });
     });
-    //res.render('Systempolicy_Manage');
 })
 
 // System Policy Control Update 

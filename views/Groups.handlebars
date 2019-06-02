@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>In The Forest</title>
-    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -36,25 +35,25 @@
                 <div class="nav-wrapper">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link " href="/Dashboard">
+                            <a class="nav-link" href="/Dashboard">
                                 <i class="material-icons">dashboard</i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/EventLog">
+                            <a class="nav-link " href="/EventLog">
                                 <i class="material-icons">event</i>
                                 <span>Event & Log</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/Users">
+                            <a class="nav-link" href="/Users">
                                 <i class="material-icons">assignment_ind</i>
                                 <span>Users</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Groups">
+                            <a class="nav-link active" href="/Groups">
                                 <i class="material-icons">group</i>
                                 <span>Groups</span>
                             </a>
@@ -121,84 +120,44 @@
                     <div class="page-header row no-gutters py-4 mb-3 border-bottom">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">in the forest</span>
-                            <h3 class="page-title">홍길동</h3>
+                            <h3 class="page-title">Groups</h3>
                         </div>
                     </div>
                     <!-- End Page Header -->
-                    <!-- Default Light Table -->
+                    <!-- Groups -->
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card card-small mb-4 pt-3">
-                                <div class="card-header border-bottom text-center">
-                                    <h4 class="mb-0">홍길동</h4>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-4">
-                                        <div class="progress-wrapper">
-                                            <strong class="text-muted d-block mb-2">사용자 디스크 할당량</strong>
-                                            <div class="progress progress-sm">
-                                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%;">
-                                                    <span class="progress-value">55%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item p-4">
-                                        <strong class="text-muted d-block mb-2">Description</strong>
-                                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
+                        <div class="col">
                             <div class="card card-small mb-4">
                                 <div class="card-header border-bottom">
-                                    <h6 class="m-0">Account Details</h6>
+                                    <button type="button" class="mb-0 btn btn-sm btn-primary mr-0">Add Groups</button>
+                                    &nbsp;
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item p-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                <form>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="User_Name">이름</label>
-                                                            <input type="text" class="form-control" id="User_Name" placeholder="User_Name" value="홍길동"> </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="User_ID">SMB ID</label>
-                                                            <input type="text" class="form-control" id="User_ID" placeholder="User_ID" value="Honggil"> </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="User_GS">System Policy</label>
-                                                            <select id="feInputState" class="form-control">
-                                                                <option selected>Default Policy</option>
-                                                                <option>Policy 2</option>
-                                                                <option>Policy 3</option>
-                                                                <option>Policy 4</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="User_IP">IP</label>
-                                                            <input type="text" class="form-control" id="User_IP" placeholder="User_IP" value="192.168.0.23">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="feDescription">Description</label>
-                                                            <textarea class="form-control" name="feDescription" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-accent">Update Account</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <div class="card-body p-0 pb-3 text-center">
+                                    <table class="table mb-0">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th scope="col" class="border-0">No</th>
+                                                <th scope="col" class="border-0">Group Name</th>
+                                                <th scope="col" class="border-0">Group Comment</th>                                         <th scope="col" class="border-0">Group Count</th>
+                                                <th scope="col" class="border-0">Manage</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>그루비룸</td>
+                                                <td>그룹 담당할 사람?</td>
+                                                <td>5명</td>
+                                                <td><a href="/Groupsmanage/"><i class="material-icons text-success">create</i></a>
+                                                <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- End Default Light Table -->
+                    <!-- End Groups -->
                 </div>
 
             </main>
