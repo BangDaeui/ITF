@@ -28,3 +28,4 @@
 ┃┃┝ /Updatefolderpolicy		P 폴더 정책 수정
 ┃┃┝ /Deletefolderpolicy		P 폴더 정책 삭제
 ┝  /Setting			# 설정
+┝  /Error				# 에러
