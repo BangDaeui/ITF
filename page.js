@@ -38,32 +38,32 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-// Dashboard
+// [Get] /Dashboard (대시보드 페이지)
 app.get('/Dashboard', (req, res) => {
     res.render('Dashboard');
 })
 
-// Eventlog
+// [Get] /EventLog (이벤트 로그 페이지)
 app.get('/Eventlog', (req, res) => {
     res.render('Eventlog');
 })
 
-// Users
+// [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
     res.render('Users');    
 })
 
-// Usersettings
+// [Get] /Dashboard (유저 수정 페이지(추후 Usersettings/Usermanage로 소문자 변경 고려))
 app.get('/Usersettings', (req, res) => {
     res.render('Usersettings');
 })
 
-// Groups
+// [Get] /Groups (그룹 페이지)
 app.get('/Groups', (req, res) => {
     res.render('Groups');   
 })
 
-// System Policy List page
+// [Get] /Systempolicy (시스템 정책 페이지)
 app.get('/Systempolicy', (req, res) => {
     // 시스템 정책의 리스트받아 올 정보
     var sql1 = 'select Policy_No, Policy_Name, Policy_Comment, Policy_Update from Policy';
@@ -74,7 +74,7 @@ app.get('/Systempolicy', (req, res) => {
     });
 })
 
-// System Policy Control page
+// [Get] /Systempolicymanage (시스템 수정 페이지)
 app.get('/Systempolicymanage/:policyno', (req, res) => {
     var policyno = req.params.policyno;
     // 시스템 정책 세부 정책 Policy_No를 이용해 구분하며 검색
@@ -86,8 +86,8 @@ app.get('/Systempolicymanage/:policyno', (req, res) => {
     });
 })
 
-// System Policy Control Update 
-app.post('/UpdateSystemPolicy/:policyno', (req, res) => {
+// [Post] /Updatesystempolicy (시스템 정책 수정)
+app.post('/Updatesystempolicy/:policyno', (req, res) => {
     // policyno = 시스템 정책 번호
     var policyno = req.params.policyno;
     var Policy_Name = req.body.Policy_Name;
@@ -135,8 +135,9 @@ app.post('/UpdateSystemPolicy/:policyno', (req, res) => {
     res.redirect('/Systempolicy');
 })
 
-// Folder Policy list
-app.get('/Folderpolicy', (req, res) => {
+
+// [Get] /Folderpolicy (폴더 정책 추가)
+app.get('/Folderpolicy ', (req, res) => {
     // 폴더 정책에 대한 데이터 베이스 정보 모두 가져오기
     var sql1 = 'select * from Folder';
     conn.query(sql1, function(err, dirpolicy, fields){
@@ -146,7 +147,7 @@ app.get('/Folderpolicy', (req, res) => {
     });
 });
 
-// Folder Policy Control Page
+// [Get] /Folderpolicymanage (폴더 정책 수정 페이지)
 app.get('/Folderpolicymanage/:folderno', (req, res) => {
     // policyno = Folder_No
     var folderno = req.params.folderno;
@@ -159,7 +160,7 @@ app.get('/Folderpolicymanage/:folderno', (req, res) => {
     });
 })
 
-// Update Folder Policy
+// [Post] /Folderpolicymanage (폴더 정책 수정)
 app.post('/UpdateFolderPolicy/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     var Folder_Name = req.body.Folder_Name;
@@ -180,17 +181,18 @@ app.post('/UpdateFolderPolicy/:folderno', (req, res) => {
     });
 })
 
-// Setting
+// [Get] /Setting (설정)
 app.get('/Setting', (req, res) => {
     res.render('Setting');
 })
 
-// Login
+
+// [Get] / (로그인 페이지)
 app.get('/', (req, res) => {
     res.render('Login');
 })
 
-// Error
+// [Get] /Error (에러)
 app.get('*', function(req, res, next) {
   throw new Error();
 });
