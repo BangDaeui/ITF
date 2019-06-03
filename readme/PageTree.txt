@@ -1,31 +1,25 @@
-﻿/
-┝ /Login				# 로그인 페이지
-┝ /Dashboard			# 대시보드 페이지
-┝ /EventLog			# 이벤트 로그 페이지
-┝ /Users				# 유저 페이지
-┃┝ /Useradd			# 유저 추가 페이지
+﻿/				G 로그인 페이지
+┝ /Login				P 로그인 
+┝ /Dashboard			G 대시보드 페이지
+┝ /EventLog			G 이벤트 로그 페이지
+┝ /Users				G 유저 페이지
+┃┝ /Useradd			G 유저 추가 페이지
 ┃┃┝ /Adduser			P 유저 추가
-┃┝ /Useraddcsv			# csv를 이용한 유저 추가 페이지 (미정)
-┃┝ /UserSettings			# 유저 수정 페이지 (추후 Usersettings/Usermanage로 소문자 변경 고려)
+┃┝ /Useraddcsv			G csv를 이용한 유저 추가 페이지 (미정)
+┃┝ /UserSettings			G 유저 수정 페이지 (추후 Usersettings/Usermanage로 소문자 변경 고려)
 ┃┃┝ /Updateuser			P 유저 수정
 ┃┝ /Deleteuser			P 유저 삭제
-┝ /Groups			# 그룹 페이지
-┃┝ /Groupsadd			# 그룹 추가 페이지
-┃┃┝ /Addgroups			P 그룹 추가
-┃┝ /Groupsmanage		# 그룹 수정 페이지
-┃┃┝ /Updategroups		P 그룹 수정
-┃┝ /Deletegroups			P 그룹 삭제
-┝  /Systempolicy			# 시스템 정책 페이지
-┃┝ /Systempolicyadd		# 시스템 정책 추가페이지
+┝  /Systempolicy			G 시스템 정책 페이지
+┃┝ /Systempolicyadd		G 시스템 정책 추가페이지
 ┃┃┝ /Addsystempolicy		P 시스템 정책 추가
-┃┝ /Systempolicymanage		# 시스템 정책 수정 페이지
+┃┝ /Systempolicymanage		G 시스템 정책 수정 페이지
 ┃┃┝ /Updatesystempolicy		P 시스템 정책 수정
 ┃┃┝ /Deletesystempolicy		P 시스템 정책 삭제
-┝  /Folderpolicy			# 폴더 정책 페이지
-┃┝ /Folderpolicyadd		# 폴더 정책 추가페이지
+┝  /Folderpolicy			G 폴더 정책 페이지
+┃┝ /Folderpolicyadd		G 폴더 정책 추가페이지
 ┃┃┝ /Addfolderpolicy		P 폴더 정책 추가
-┃┝ /Folderpolicymanage		# 폴더 정책 수정 페이지
+┃┝ /Folderpolicymanage		G 폴더 정책 수정 페이지
 ┃┃┝ /Updatefolderpolicy		P 폴더 정책 수정
 ┃┃┝ /Deletefolderpolicy		P 폴더 정책 삭제
-┝  /Setting			# 설정
-┝  /Error				# 에러
+┝  /Setting			G 설정		
+┝  /Error				G 에러

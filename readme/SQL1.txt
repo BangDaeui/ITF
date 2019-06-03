@@ -22,15 +22,15 @@ CREATE TABLE Policy
 ALTER TABLE Policy COMMENT '시스템 정책';
 
 
--- Groups Table Create SQL
-CREATE TABLE Groups
+-- Department Table Create SQL
+CREATE TABLE Department
 (
-    `Groups_No`    INT             NOT NULL    AUTO_INCREMENT COMMENT '그룹 번호', 
-    `Groups_Name`  VARCHAR(255)    NOT NULL    COMMENT '그룹 이름', 
-    PRIMARY KEY (Groups_No)
+    `Department_No`    INT             NOT NULL    AUTO_INCREMENT COMMENT '부서 번호', 
+    `Department_Name`  VARCHAR(255)    NOT NULL    COMMENT '부서 이름', 
+    PRIMARY KEY (Department_No)
 );
 
-ALTER TABLE Groups COMMENT '그룹';
+ALTER TABLE Department COMMENT '그룹';
 
 
 -- Positions Table Create SQL
@@ -47,24 +47,24 @@ ALTER TABLE Positions COMMENT '직책';
 -- User Table Create SQL
 CREATE TABLE User
 (
-    `User_No`        INT            NOT NULL    AUTO_INCREMENT COMMENT '사용자 번호', 
-    `User_Name`      VARCHAR(45)    NOT NULL    COMMENT '사용자 이름', 
-    `User_SMB`       VARCHAR(45)    NOT NULL    COMMENT '사용자 SMB ID', 
-    `User_IP`        VARCHAR(45)    NOT NULL    COMMENT '사용자 IP 주소', 
-    `User_Group`     INT            NOT NULL    COMMENT '부서 번호', 
-    `User_Position`  INT            NOT NULL    COMMENT '직책 번호', 
-    `User_Policy`    INT            NOT NULL    COMMENT '시스템 정책 번호', 
+    `User_No`          INT            NOT NULL    AUTO_INCREMENT COMMENT '사용자 번호', 
+    `User_Name`        VARCHAR(45)    NOT NULL    COMMENT '사용자 이름', 
+    `User_SMB`         VARCHAR(45)    NOT NULL    COMMENT '사용자 SMB ID', 
+    `User_IP`          VARCHAR(45)    NOT NULL    COMMENT '사용자 IP 주소', 
+    `User_Department`  INT            NOT NULL    COMMENT '부서 번호', 
+    `User_Positions`   INT            NOT NULL    COMMENT '직책 번호', 
+    `User_Policy`      INT            NOT NULL    COMMENT '시스템 정책 번호', 
     PRIMARY KEY (User_No)
 );
 
 ALTER TABLE User COMMENT '사용자';
 
 ALTER TABLE User
-    ADD CONSTRAINT FK_User_User_Group_Groups_Groups_No FOREIGN KEY (User_Group)
-        REFERENCES Groups (Groups_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+    ADD CONSTRAINT FK_User_User_Department_Department_Department_No FOREIGN KEY (User_Department)
+        REFERENCES Department (Department_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE User
-    ADD CONSTRAINT FK_User_User_Position_Positions_Positions_No FOREIGN KEY (User_Position)
+    ADD CONSTRAINT FK_User_User_Positions_Positions_Positions_No FOREIGN KEY (User_Positions)
         REFERENCES Positions (Positions_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE User
@@ -78,7 +78,7 @@ CREATE TABLE Folder
     `Folder_No`             INT             NOT NULL    AUTO_INCREMENT COMMENT '폴더정책 번호', 
     `Folder_Name`           VARCHAR(255)    NOT NULL    COMMENT '폴더정책명', 
     `Folder_Comment`        VARCHAR(255)    NULL        COMMENT '폴더 정책 설명', 
-    `Folder_Path`           VARCHAR(255)    NOT NULL    COMMENT '폴더정책더 경로', 
+    `Folder_Path`           VARCHAR(255)    NOT NULL    COMMENT '폴더정책 경로', 
     `Folder_Update`         INT             NOT NULL    COMMENT '정책 갱신 주기(분)', 
     `Folder_Readonly`       INT             NOT NULL    COMMENT '읽기 전용', 
     `Folder_Writeable`      INT             NOT NULL    COMMENT '쓰기 허용', 

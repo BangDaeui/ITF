@@ -58,11 +58,6 @@ app.get('/Usersettings', (req, res) => {
     res.render('Usersettings');
 })
 
-// Groups
-app.get('/Groups', (req, res) => {
-    res.render('Groups');   
-})
-
 // System Policy List page
 app.get('/Systempolicy', (req, res) => {
     // 시스템 정책의 리스트받아 올 정보
@@ -185,7 +180,7 @@ app.get('/Setting', (req, res) => {
     res.render('Setting');
 })
 
-// Login
+// Login Page
 app.get('/', (req, res) => {
     res.render('Login');
 })
