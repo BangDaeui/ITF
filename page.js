@@ -95,7 +95,7 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     var Policy_Usbaccess = req.body.Policy_Usbaccess;
     var Policy_Disk = req.body.Policy_Disk;
     var Policy_Clipboard = req.body.Policy_Clipboard;
-
+    
     // System Policy Mask Calculation
     if(Policy_Taskmgr == 1){
         Policy_Mask += 1;
@@ -188,7 +188,7 @@ app.get('/', (req, res) => {
     res.render('Login');
 })
 
-// [Get] /Error (에러)
+// Error
 app.get('*', function(req, res, next) {
     throw new Error();
 });
