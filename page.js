@@ -133,7 +133,7 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
 
 
 // [Get] /Folderpolicy (폴더 정책 추가)
-app.get('/Folderpolicy ', (req, res) => {
+app.get('/Folderpolicy', (req, res) => {
     // 폴더 정책에 대한 데이터 베이스 정보 모두 가져오기
     var sql1 = 'select * from Folder';
     conn.query(sql1, function(err, dirpolicy, fields){
