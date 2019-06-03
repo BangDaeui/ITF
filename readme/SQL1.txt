@@ -51,9 +51,9 @@ CREATE TABLE User
     `User_Name`        VARCHAR(45)    NOT NULL    COMMENT '사용자 이름', 
     `User_SMB`         VARCHAR(45)    NOT NULL    COMMENT '사용자 SMB ID', 
     `User_IP`          VARCHAR(45)    NOT NULL    COMMENT '사용자 IP 주소', 
-    `User_Department`  INT            NOT NULL    COMMENT '부서 번호', 
-    `User_Positions`   INT            NOT NULL    COMMENT '직책 번호', 
-    `User_Policy`      INT            NOT NULL    COMMENT '시스템 정책 번호', 
+    `User_Department`  INT            NULL        COMMENT '부서 번호', 
+    `User_Positions`   INT            NULL        COMMENT '직책 번호', 
+    `User_Policy`      INT            NULL        COMMENT '시스템 정책 번호', 
     PRIMARY KEY (User_No)
 );
 
@@ -61,15 +61,15 @@ ALTER TABLE User COMMENT '사용자';
 
 ALTER TABLE User
     ADD CONSTRAINT FK_User_User_Department_Department_Department_No FOREIGN KEY (User_Department)
-        REFERENCES Department (Department_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+        REFERENCES Department (Department_No) ON DELETE SET NULL ON UPDATE RESTRICT;
 
 ALTER TABLE User
     ADD CONSTRAINT FK_User_User_Positions_Positions_Positions_No FOREIGN KEY (User_Positions)
-        REFERENCES Positions (Positions_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+        REFERENCES Positions (Positions_No) ON DELETE SET NULL ON UPDATE RESTRICT;
 
 ALTER TABLE User
     ADD CONSTRAINT FK_User_User_Policy_Policy_Policy_No FOREIGN KEY (User_Policy)
-        REFERENCES Policy (Policy_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+        REFERENCES Policy (Policy_No) ON DELETE SET NULL ON UPDATE RESTRICT;
 
 
 -- Folder Table Create SQL
@@ -131,10 +131,10 @@ CREATE TABLE Rule
 
 ALTER TABLE Rule
     ADD CONSTRAINT FK_Rule_Rule_User_User_User_No FOREIGN KEY (Rule_User)
-        REFERENCES User (User_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+        REFERENCES User (User_No) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE Rule
     ADD CONSTRAINT FK_Rule_Rule_Folder_Folder_Folder_No FOREIGN KEY (Rule_Folder)
-        REFERENCES Folder (Folder_No) ON DELETE RESTRICT ON UPDATE RESTRICT;
+        REFERENCES Folder (Folder_No) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 

@@ -8,7 +8,9 @@ const bodyParser = require('body-parser');
 // handlebars
 const exphbs = require('express-handlebars');
 // path
-const path = require('path'); 
+const path = require('path');
+// cookie-parser
+var cookie = require('cookie-parser');
 
 // sql connection
 var conn = mysql.createConnection({
@@ -38,15 +40,20 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
+// use cookie-parser
+app.use(cookie('!@$!@#!@#'));
+
 // [Post] /Login (대시보드 페이지)
 app.post('/Login', (req, res) => {
     var id = req.body.ID;
     var password = req.body.Pass;
+    res.cookie('ITF', 2, {signed:true});
     // 로그인에 필요한 정보
     var sql1 = 'select * from WebAuth where WebAuth_ID = ?';
     conn.query(sql1, [id], function(err, WebAuth, fields){
         if(password == WebAuth[0].WebAuth_Pass)
         {
+            res.cookie('ITF', WebAuth[0].WebAuth_No, {signed:true});
             res.redirect('/Dashboard');        
         } else {
             res.redirect('/');
@@ -54,13 +61,21 @@ app.post('/Login', (req, res) => {
     });
 })
 
-// [Post] /Logout (대시보드 페이지)
-app.post('/Logout', (req, res) => {
+// [Get] /Logout (대시보드 페이지)
+app.get('/Logout', (req, res) => {
+    res.cookie('ITF', 0, {signed:true});
     res.redirect('/');
 })
 
 // [Get] /Dashboard (대시보드 페이지)
 app.get('/Dashboard', (req, res) => {
+    /*  Login
+    var ITF = parseInt(req.signedCookies.ITF);
+    if (ITF != 1){
+        res.redirect('/');
+        return true;
+    }
+    */
     res.render('Dashboard');
 })
 
