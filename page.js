@@ -58,11 +58,6 @@ app.get('/Usersettings', (req, res) => {
     res.render('Usersettings');
 })
 
-// [Get] /Groups (그룹 페이지)
-app.get('/Groups', (req, res) => {
-    res.render('Groups');   
-})
-
 // [Get] /Systempolicy (시스템 정책 페이지)
 app.get('/Systempolicy', (req, res) => {
     // 시스템 정책의 리스트받아 올 정보
@@ -132,6 +127,7 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     conn.query(sql1,[Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function(err, tmp, fields){
         console.log(tmp);
     });
+    
     res.redirect('/Systempolicy');
 })
 
@@ -161,7 +157,7 @@ app.get('/Folderpolicymanage/:folderno', (req, res) => {
 })
 
 // [Post] /Folderpolicymanage (폴더 정책 수정)
-app.post('/UpdateFolderPolicy/:folderno', (req, res) => {
+app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     var Folder_Name = req.body.Folder_Name;
     var Folder_Comment = req.body.Folder_Comment;
@@ -177,8 +173,9 @@ app.post('/UpdateFolderPolicy/:folderno', (req, res) => {
     var sql1 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
     conn.query(sql1,[Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function(err, tmp, fields){
         console.log(tmp);
-        res.redirect('/Folderpolicy');
     });
+    
+    res.redirect('/Folderpolicy');
 })
 
 // [Get] /Setting (설정)
@@ -193,12 +190,12 @@ app.get('/', (req, res) => {
 
 // [Get] /Error (에러)
 app.get('*', function(req, res, next) {
-  throw new Error();
+    throw new Error();
 });
 
 // Error
 app.use(function(error, req, res, next) {
-  res.render('Error');
+    res.render('Error');
 });
 
 module.exports = app;
