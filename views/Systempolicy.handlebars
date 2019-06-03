@@ -94,12 +94,12 @@
                                 <div class="dropdown-menu dropdown-menu-small">
                                     <a class="dropdown-item" href="/Setting.html">
                                         <i class="material-icons">settings</i> Setting</a>
-
+                                    
                                     <a class="dropdown-item" href="#">
                                         <i class="material-icons">vertical_split</i> Blog Posts</a>
                                     <a class="dropdown-item" href="#">
                                         <i class="material-icons">note_add</i> Add New Post</a>
-
+                                    
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="#">
                                         <i class="material-icons text-danger">&#xE879;</i> Logout </a>
@@ -126,18 +126,11 @@
                                 <div class="card-header border-bottom">
                                     <button type="button" class="mb-0 btn btn-sm btn-primary mr-0">Add System Policy</button>
                                     &nbsp;
-                                    <button type="button" class="mb-0 btn btn-sm btn-danger mr-0">Delete System Policy</button>
                                 </div>
                                 <div class="card-body p-0 pb-3 text-center">
                                     <table class="table mb-0">
                                         <thead class="bg-light">
                                             <tr>
-                                                <td>
-                                                    <div class="custom-control custom-checkbox mb-0">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                                                        <label class="custom-control-label" for="customCheck1"></label>
-                                                    </div>
-                                                </td>
                                                 <th scope="col" class="border-0">No</th>
                                                 <th scope="col" class="border-0">Name</th>
                                                 <th scope="col" class="border-0">Policy Comment</th>
@@ -147,19 +140,14 @@
                                         </thead>
                                         <tbody>
                                             {{#each syspolicy}}
-                                                <tr>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                                                            <label class="custom-control-label" for="customCheck1"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>{{this.Policy_No}}</td>
-                                                    <td>{{this.Policy_Name}}</td>
-                                                    <td>{{this.Policy_Comment}}</td>
-                                                    <td>{{this.Policy_Update}}</td>
-                                                    <td><a href="/Systempolicymanage/{{this.Policy_No}}"><i class="material-icons text-success">create</i></a></td>
-                                                </tr>
+                                            <tr>
+                                                <td>{{this.Policy_No}}</td>
+                                                <td>{{this.Policy_Name}}</td>
+                                                <td>{{this.Policy_Comment}}</td>
+                                                <td>{{this.Policy_Update}}</td>
+                                                <td><a href="/Systempolicymanage/{{this.Policy_No}}"><i class="material-icons text-success">create</i></a>
+                                                <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
+                                            </tr>
                                             {{/each}}
                                         </tbody>
                                     </table>
