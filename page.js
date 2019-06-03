@@ -38,6 +38,27 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
+// [Post] /Login (대시보드 페이지)
+app.post('/Login', (req, res) => {
+    var id = req.body.ID;
+    var password = req.body.Pass;
+    // 로그인에 필요한 정보
+    var sql1 = 'select * from WebAuth where WebAuth_ID = ?';
+    conn.query(sql1, [id], function(err, WebAuth, fields){
+        if(password == WebAuth[0].WebAuth_Pass)
+        {
+            res.redirect('/Dashboard');        
+        } else {
+            res.redirect('/');
+        }
+    });
+})
+
+// [Post] /Logout (대시보드 페이지)
+app.post('/Logout', (req, res) => {
+    res.redirect('/');
+})
+
 // [Get] /Dashboard (대시보드 페이지)
 app.get('/Dashboard', (req, res) => {
     res.render('Dashboard');
