@@ -92,14 +92,14 @@ app.post('/UpdateSystemPolicy/:policyno', (req, res) => {
     var policyno = req.params.policyno;
     var Policy_Name = req.body.Policy_Name;
     var Policy_Mask = 0;
-    var Policy_Taskmgr = req.body.taskmgr;
-    var Policy_Regedit = req.body.regedit;
-    var Policy_Cmd = req.body.cmd;
-    var Policy_Snippingtools = req.body.snipping;
-    var Policy_Usbwrite = req.body.usbwrite;
-    var Policy_Usbaccess = req.body.usbaccess;
-    var Policy_Disk = req.body.disk;
-    var Policy_Clipboard = req.body.clipboard;
+    var Policy_Taskmgr = req.body.Policy_Taskmgr;
+    var Policy_Regedit = req.body.Policy_Regedit;
+    var Policy_Cmd = req.body.Policy_Cmd;
+    var Policy_Snippingtools = req.body.Policy_Snippingtools;
+    var Policy_Usbwrite = req.body.Policy_Usbwrite;
+    var Policy_Usbaccess = req.body.Policy_Usbaccess;
+    var Policy_Disk = req.body.Policy_Disk;
+    var Policy_Clipboard = req.body.Policy_Clipboard;
 
     // System Policy Mask Calculation
     if(Policy_Taskmgr == 1){

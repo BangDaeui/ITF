@@ -168,12 +168,12 @@
                                                         <strong class="text-muted d-block mb-2">작업관리자 비활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="taskmgr1" value=1 name="taskmgr" class="custom-control-input" {{#if this.Policy_Taskmgr}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="taskmgr1">On</label>
+                                                                <input type="radio" id="Policy_Taskmgr1" value=1 name="Policy_Taskmgr" class="custom-control-input" {{#if this.Policy_Taskmgr}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Taskmgr1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="taskmgr2" value=0 name="taskmgr" class="custom-control-input" {{#if this.Policy_Taskmgr}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="taskmgr2">Off</label>
+                                                                <input type="radio" id="Policy_Taskmgr2" value=0 name="Policy_Taskmgr" class="custom-control-input" {{#if this.Policy_Taskmgr}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Taskmgr">Off</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1"></div>
                                                         </fieldset>
@@ -181,12 +181,12 @@
                                                         <strong class="text-muted d-block mb-2">캡처 도구 비활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="snipping1" value=1 name="snipping" class="custom-control-input" {{#if this.Policy_Snipping}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="snipping1">On</label>
+                                                                <input type="radio" id="Policy_Snippingtools1" value=1 name="Policy_Snippingtools" class="custom-control-input" {{#if this.Policy_Snipping}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Snippingtools1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="snipping2" value=0 name="snipping" class="custom-control-input" {{#if this.Policy_Snipping}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="snipping2">Off</label>
+                                                                <input type="radio" id="Policy_Snippingtools2" value=0 name="Policy_Snippingtools" class="custom-control-input" {{#if this.Policy_Snipping}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Snippingtools2">Off</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1"></div>
                                                         </fieldset>
@@ -194,12 +194,12 @@
                                                         <strong class="text-muted d-block mb-2">디스크 비활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="disk1" value=1 name="disk" class="custom-control-input" {{#if this.Policy_Disk}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="disk1">On</label>
+                                                                <input type="radio" id="Policy_Disk1" value=1 name="Policy_Disk" class="custom-control-input" {{#if this.Policy_Disk}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Disk1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="disk2" value=0 name="disk" class="custom-control-input" {{#if this.Policy_Diskj}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="disk2">Off</label>
+                                                                <input type="radio" id="Policy_Disk2" value=0 name="Policy_Disk" class="custom-control-input" {{#if this.Policy_Diskj}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Disk2">Off</label>
                                                             </div>
                                                         </fieldset>
                                                         <!-- / Radios -->
@@ -209,12 +209,12 @@
                                                         <strong class="text-muted d-block mb-2">레지스트리 편집기 비활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="regedit1" value=1 name="regedit" class="custom-control-input" {{#if this.Policy_Regedit}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="regedit1">On</label>
+                                                                <input type="radio" id="Policy_Regedit1" value=1 name="Policy_Regedit" class="custom-control-input" {{#if this.Policy_Regedit}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Regedit1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="regedit2" value=0 name="regedit" class="custom-control-input" {{#if this.Policy_Regedit}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="regedit2">Off</label>
+                                                                <input type="radio" id="Policy_Regedit2" value=0 name="Policy_Regedit" class="custom-control-input" {{#if this.Policy_Regedit}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Regedit2">Off</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1"></div>
                                                         </fieldset>
@@ -222,12 +222,12 @@
                                                         <strong class="text-muted d-block mb-2">클립보드 비활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="clipboard1" value=1 name="clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="clipboard1">On</label>
+                                                                <input type="radio" id="Policy_Clipboard1" value=1 name="Policy_Clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Clipboard1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="clipboard2" value=0 name="clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="clipboard2">Off</label>
+                                                                <input type="radio" id="Policy_Clipboard2" value=0 name="Policy_Clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Clipboard2">Off</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1"></div>
                                                         </fieldset>
@@ -235,12 +235,12 @@
                                                         <strong class="text-muted d-block mb-2">USB 접근 비활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="usbaccess1" value=1 name="usbaccess" class="custom-control-input" {{#if this.Policy_Usbaccess}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="usbaccess1">On</label>
+                                                                <input type="radio" id="Policy_Usbaccess1" value=1 name="Policy_Usbaccess" class="custom-control-input" {{#if this.Policy_Usbaccess}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Usbaccess1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="usbaccess2" value=0 name="usbaccess" class="custom-control-input" {{#if this.Policy_Usbaccess}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="usbaccess2">Off</label>
+                                                                <input type="radio" id="Policy_Usbaccess2" value=0 name="Policy_Usbaccess" class="custom-control-input" {{#if this.Policy_Usbaccess}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Usbaccess2">Off</label>
                                                             </div>
                                                         </fieldset>
                                                         <!-- / Radios -->
@@ -250,12 +250,12 @@
                                                         <strong class="text-muted d-block mb-2">cmd 비활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="cmd1" value=1 name="cmd" class="custom-control-input" {{#if this.Policy_Cmd}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="cmd1">On</label>
+                                                                <input type="radio" id="Policy_Cmd1" value=1 name="Policy_Cmd" class="custom-control-input" {{#if this.Policy_Cmd}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Cmd1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="cmd2" value=0 name="cmd" class="custom-control-input" {{#if this.Policy_Cmd}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="cmd2">Off</label>
+                                                                <input type="radio" id="Policy_Cmd2" value=0 name="Policy_Cmd" class="custom-control-input" {{#if this.Policy_Cmd}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Cmd2">Off</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1"></div>
                                                         </fieldset>
@@ -263,12 +263,12 @@
                                                         <strong class="text-muted d-block mb-2">USB 쓰기 활성화</strong>
                                                         <fieldset>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="usbwrite1" value=1 name="usbwrite" class="custom-control-input" {{#if this.Policy_Usbwrite}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="usbwrite1">On</label>
+                                                                <input type="radio" id="Policy_Usbwrite1" value=1 name="Policy_Usbwrite" class="custom-control-input" {{#if this.Policy_Usbwrite}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Usbwrite1">On</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="usbwrite2" value=0 name="usbwrite" class="custom-control-input" {{#if this.Policy_Usbwrite}}{{else}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="usbwrite2">Off</label>
+                                                                <input type="radio" id="Policy_Usbwrite2" value=0 name="Policy_Usbwrite" class="custom-control-input" {{#if this.Policy_Usbwrite}}{{else}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Usbwrite2">Off</label>
                                                             </div>
                                                             <div class="custom-control custom-radio mb-1"></div>
                                                         </fieldset>
