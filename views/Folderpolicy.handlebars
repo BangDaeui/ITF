@@ -14,17 +14,31 @@
     <link rel="stylesheet" href="/public/styles/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
-        // <!-- 체크박스 전체선택-------------------------------------------------------------------->
-        // <!--http://aramk.tistory.com/21 -->
+        // 체크박스 전체 선택
         function totalcheck() {
-            if ($("#all_checkbox").is(':checked')) {
-                $("input[name=checkboxtest").prop("checked", true);
-                //document.getElementById("b_remove").className = "btn btn-outline btn-danger";
+            if ($("#foldercheckall").is(':checked')) {
+                $("input[name=foldercheck").prop("checked", true);
+                document.getElementById("folderremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("folderremove").disabled = false;
             } else {
-                $("input[name=checkboxtest").prop("checked", false);
-                //document.getElementById("b_remove").className = "btn btn-default disabled";
+                $("input[name=foldercheck").prop("checked", false);
+                document.getElementById("folderremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("folderremove").disabled = true;
             }
         }
+
+        // button 색 변경
+        function buttoncheck() {
+            var tmp = $("input:checkbox[name=foldercheck]:checked").length;
+            if (tmp >= 1) {
+                document.getElementById("folderremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("folderremove").disabled = false;
+            } else {
+                document.getElementById("folderremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("folderremove").disabled = true;
+            }
+        }
+
     </script>
 </head>
 
@@ -136,71 +150,70 @@
                     <div class="row">
                         <div class="col">
                             <form method="post" id="Folderpolicydelete" action="/Deletefolderpolicy">
-                            <div class="card card-small mb-4">
-                                <div class="card-header border-bottom">
-                                    <button type="button" class="mb-0 btn btn-sm btn-primary mr-0">Add Folder Policy</button>
-                                    &nbsp;
-                                    <button type="button" class="mb-0 btn btn-sm btn-danger mr-0" data-toggle="modal" data-target="#exampleModal">Delete Folder Policy</button>
-                                </div>
-                                <div class="card-body p-0 pb-3 text-center">
-                                    <table class="table mb-0">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <td>
-                                                    <div class="custom-control custom-checkbox mb-0">
-                                                        <input type="checkbox" class="custom-control-input" name="all" id="all_checkbox" onClick="totalcheck();">
-                                                        <label class="custom-control-label" for=all_checkbox></label>
+                                <div class="card card-small mb-4">
+                                    <div class="card-header border-bottom">
+                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0">Add Folder Policy</button>
+                                        &nbsp;
+                                        <button disabled type="button" id="folderremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#Foldermodal">Delete Folder Policy</button>
+                                    </div>
+                                    <div class="card-body p-0 pb-3 text-center">
+                                        <table class="table mb-0">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <td>
+                                                        <div class="custom-control custom-checkbox mb-0">
+                                                            <input type="checkbox" class="custom-control-input" name="foldercheckall" id="foldercheckall" onClick="totalcheck();">
+                                                            <label class="custom-control-label" for=foldercheckall></label>
+                                                        </div>
+                                                    </td>
+                                                    <th scope="col" class="border-0">No</th>
+                                                    <th scope="col" class="border-0">Name</th>
+                                                    <th scope="col" class="border-0">Path</th>
+                                                    <th scope="col" class="border-0">Createmask</th>
+                                                    <th scope="col" class="border-0">Directorymask</th>
+                                                    <th scope="col" class="border-0">Manage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each dirpolicy}}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox mb-0">
+                                                                <input type="checkbox" class="custom-control-input" name="foldercheck" id="foldercheck{{this.Folder_No}}" onClick="buttoncheck()" value="{{this.Folder_No}}">
+                                                                <label class="custom-control-label" for="foldercheck{{this.Folder_No}}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{this.Folder_No}}</td>
+                                                        <td>{{this.Folder_Name}}</td>
+                                                        <td>{{this.Folder_Path}}</td>
+                                                        <td>{{this.Folder_Createmask}}</td>
+                                                        <td>{{this.Folder_Directorymask}}</td>
+                                                        <td><a href="/Folderpolicymanage/{{this.Folder_No}}"><i class="material-icons text-success">create</i></a></td>
+                                                    </tr>
+                                                {{/each}}
+                                                <div class="modal fade" id="Foldermodal" tabindex="-1" role="dialog" aria-labelledby="FoldermodalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="FoldermodalLabel">폴더 정책 삭제</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                폴더 정책을 삭제 하시겠습니까?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </td>
-                                                <th scope="col" class="border-0">No</th>
-                                                <th scope="col" class="border-0">Name</th>
-                                                <th scope="col" class="border-0">Path</th>
-                                                <th scope="col" class="border-0">Createmask</th>
-                                                <th scope="col" class="border-0">Directorymask</th>
-                                                <th scope="col" class="border-0">Manage</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{#each dirpolicy}}
-                                            <tr>
-                                                <td>
-                                                    <div class="custom-control custom-checkbox mb-0">
-                                                        <input type="checkbox" class="custom-control-input" name="checkboxtest" id="customCheck{{this.Folder_No}}" value="{{this.Folder_No}}">
-                                                        <label class="custom-control-label" for="customCheck{{this.Folder_No}}"></label>
-                                                    </div>
-                                                </td>
-                                                <td>{{this.Folder_No}}</td>
-                                                <td>{{this.Folder_Name}}</td>
-                                                <td>{{this.Folder_Path}}</td>
-                                                <td>{{this.Folder_Createmask}}</td>
-                                                <td>{{this.Folder_Directorymask}}</td>
-                                                <td><a href="/Folderpolicymanage/{{this.Folder_No}}"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
-                                            {{/each}}
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                              <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">삭제하시겠습니까?</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                      <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                    당신 정말 삭제하실겁니까?
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nope</button>
-                                                    <button type="submit" class="btn btn-primary">Yep</button>
-                                                  </div>
                                                 </div>
-                                              </div>
-                                            </div>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
                             </form>
                         </div>
                     </div>
