@@ -167,6 +167,20 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     res.redirect('/Systempolicy');
 })
 
+app.post('/Deletesystempolicy', (req, res) => {
+    var id = req.body.checkboxtest;
+    console.log(id);
+    var sql1 = 'delete from Policy where Policy_No=?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items);
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Systempolicy');
+});
 
 // [Get] /Folderpolicy (폴더 정책 추가)
 app.get('/Folderpolicy', (req, res) => {
@@ -213,6 +227,21 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     
     res.redirect('/Folderpolicy');
 })
+
+app.post('/Deletefolderpolicy', (req, res) => {
+    var id = req.body.checkboxtest;
+    console.log(id);
+    var sql1 = 'delete from Folder where Folder_No=?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items);
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Folderpolicy');
+});
 
 // [Get] /Setting (설정)
 app.get('/Setting', (req, res) => {
