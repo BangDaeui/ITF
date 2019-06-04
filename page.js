@@ -168,15 +168,16 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
 })
 
 app.post('/Deletesystempolicy', (req, res) => {
-    var id = req.body.checkboxtest;
+    var id = req.body.policycheck;
     console.log(id);
     var sql1 = 'delete from Policy where Policy_No=?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
-            console.log(items);
+            console.log(items + "[policydeleted]");
             conn.query(sql1, [items], function (err, result) {});
         });
     } else {
+        console.log(id + "[policydeleted]");
         conn.query(sql1, [id], function (err, result) {});
     }
     res.redirect('/Systempolicy');
@@ -229,15 +230,16 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
 })
 
 app.post('/Deletefolderpolicy', (req, res) => {
-    var id = req.body.checkboxtest;
+    var id = req.body.foldercheck;
     console.log(id);
     var sql1 = 'delete from Folder where Folder_No=?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
-            console.log(items);
+            console.log(items + "[folderdeleted]");
             conn.query(sql1, [items], function (err, result) {});
         });
     } else {
+        console.log(id + "[folderdeleted]");
         conn.query(sql1, [id], function (err, result) {});
     }
     res.redirect('/Folderpolicy');
