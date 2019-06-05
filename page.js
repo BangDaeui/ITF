@@ -110,13 +110,155 @@ app.get('/Systempolicy', (req, res) => {
     });
 })
 
-// [Get] /Systempolicymanage (시스템 수정 페이지)
-app.get('/Systempolicymanage/:policyno', (req, res) => {
+// [Post] /Addsystempolicy (시스템 정책 추가)
+app.post('/Addsystempolicy', (req, res) => {
+    var Policy_Name = req.body.Policy_Name;
+    var Policy_Comment = req.body.Policy_Comment;
+    var Policy_Update = req.body.Policy_Update;
+    var Policy_Mask = 0;
+    var Policy_Taskmgr = req.body.Policy_Taskmgr;
+    var Policy_Regedit = req.body.Policy_Regedit;
+    var Policy_Cmd = req.body.Policy_Cmd;
+    var Policy_Snippingtools = req.body.Policy_Snippingtools;
+    var Policy_Usbwrite = req.body.Policy_Usbwrite;
+    var Policy_Usbaccess = req.body.Policy_Usbaccess;
+    var Policy_Disk = req.body.Policy_Disk;
+    var Policy_Clipboard = req.body.Policy_Clipboard;
+
+    // System Policy Mask Calculation
+    if (Policy_Taskmgr == 1) {
+        Policy_Mask += 1;
+    }
+    if (Policy_Regedit == 1) {
+        Policy_Mask += 2;
+    }
+    if (Policy_Cmd == 1) {
+        Policy_Mask += 4;
+    }
+    if (Policy_Snippingtools == 1) {
+        Policy_Mask += 8;
+    }
+    if (Policy_Usbwrite == 1) {
+        Policy_Mask += 16;
+    }
+    if (Policy_Usbaccess == 1) {
+        Policy_Mask += 32;
+    }
+    if (Policy_Disk == 1) {
+        Policy_Mask += 64;
+    }
+    if (Policy_Clipboard == 1) {
+        Policy_Mask += 128;
+    }
+    // Insert System Policy
+    var sql1 = 'insert into Policy (Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    conn.query(sql1, [Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard], function (err, tmp, fields) {
+        console.log(tmp);
+    });
+
+    res.redirect('/Systempolicy');
+})
+
+// [Post] /Deletesystempolicy (시스템 정책 삭제)
+app.post('/Deletesystempolicy', (req, res) => {
+    var id = req.body.policycheck;
+    console.log(id);
+    var sql1 = 'delete from Policy where Policy_No=?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[policydeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[policydeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Systempolicy');
+});
+
+// [Get] /Systempolicydetail (시스템 정책 세부 사항 페이지)
+app.get('/Systempolicydetail/:policyno', (req, res) => {
     var policyno = req.params.policyno;
     // 시스템 정책 세부 정책 Policy_No를 이용해 구분하며 검색
+    var sql1 = 'select * from Policy where Policy_No = ?';
+    // 시스템 정책 사용자
+    var sql2 = 'select * from User, Department, Positions where User_Policy = ? and User_Positions = Positions_No and User_Department = Department_No';
+    conn.query(sql1, [policyno], function (err, syspolicy, fields) {
+        conn.query(sql2, [policyno], function (err, policyuser, fields) {
+            res.render('Systempolicydetail', {
+                syspolicy: syspolicy,
+                policyuser: policyuser
+            });
+        })
+    });
+})
+
+// [Get] /Systempolicymanage (시스템 정책 사용자 설정 페이지)
+app.get('/Systempolicymanage/:policyno', (req, res) => {
+    var policyno = req.params.policyno;
+    // 시스템 정책명
+    var sql1 = 'select * from Policy where Policy_No = ?';
+    // 이 정책이 적용되어 있지 않은 사용자
+    var sql2 = 'select * from User, Department, Positions where (User_Policy != ? or ISNULL(User_Policy)) and User_Positions = Positions_No and User_Department = Department_No'
+    // 이 정책이 적용되어 있는 사용자
+    var sql3 = 'select * from User, Department, Positions where User_Policy = ? and User_Positions = Positions_No and User_Department = Department_No';
+    conn.query(sql1, [policyno], function (err, syspolicy, fields) {
+        conn.query(sql2, [policyno], function (err, userexport, fields) {
+            conn.query(sql3, [policyno], function (err, userimport, fields) {
+                res.render('Systempolicymanage', {
+                    syspolicy: syspolicy,
+                    userexport: userexport,
+                    userimport: userimport
+                });
+            });
+        });
+    });
+})
+
+// [Post] /Systempolicyuserin (시스템 정책 사용자 추가)
+app.post('/Systempolicyuserin/:policyno', (req, res) => {
+    var policyno = req.params.policyno;
+    var id = req.body.usercheck1;
+    console.log(id);
+    var sql1 = 'update User set User_Policy = ? where User_No = ?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[Policychanged]");
+            conn.query(sql1, [policyno, items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[Policychanged]");
+        conn.query(sql1, [policyno, id], function (err, result) {});
+    }
+    res.redirect('/Systempolicydetail/'+policyno);
+});
+
+// [Post] /Systempolicyuserout (시스템 정책 사용자 제외)
+app.post('/Systempolicyuserout/:policyno', (req, res) => {
+    var policyno = req.params.policyno;
+    var id = req.body.usercheck2;
+    console.log(id);
+    var sql1 = 'update User set User_Policy = null where User_No = ?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[Policychanged]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[Policychanged]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Systempolicydetail/'+policyno);
+});
+
+// [Get] /Systempolicyedit (시스템 정책 수정 페이지)
+app.get('/Systempolicyedit/:policyno', (req, res) => {
+    var policyno = req.params.policyno;
+    // 시스템 정책 수정 페이지 Policy_No를 이용해 구분하며 검색
     var sql1 = 'select * from Policy where Policy_No=?';
     conn.query(sql1, [policyno], function (err, syspolicy, fields) {
-        res.render('Systempolicymanage', {
+        res.render('Systempolicyedit', {
             syspolicy: syspolicy
         });
     });
@@ -127,6 +269,8 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     // policyno = 시스템 정책 번호
     var policyno = req.params.policyno;
     var Policy_Name = req.body.Policy_Name;
+    var Policy_Comment = req.body.Policy_Comment;
+    var Policy_Update = req.body.Policy_Update;
     var Policy_Mask = 0;
     var Policy_Taskmgr = req.body.Policy_Taskmgr;
     var Policy_Regedit = req.body.Policy_Regedit;
@@ -163,30 +307,14 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
         Policy_Mask += 128;
     }
     // System Policy Update sql
-    var sql1 = 'update Policy set Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snippingtools=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
+    var sql1 = 'update Policy set Policy_Name=?, Policy_Update=?, Policy_Comment=?, Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snippingtools=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
 
-    conn.query(sql1, [Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function (err, tmp, fields) {
+    conn.query(sql1, [Policy_Name, Policy_Update, Policy_Comment, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function (err, tmp, fields) {
         console.log(tmp);
     });
 
     res.redirect('/Systempolicy');
 })
-
-app.post('/Deletesystempolicy', (req, res) => {
-    var id = req.body.policycheck;
-    console.log(id);
-    var sql1 = 'delete from Policy where Policy_No=?';
-    if (Array.isArray(id) == true) {
-        id.forEach(function (items) {
-            console.log(items + "[policydeleted]");
-            conn.query(sql1, [items], function (err, result) {});
-        });
-    } else {
-        console.log(id + "[policydeleted]");
-        conn.query(sql1, [id], function (err, result) {});
-    }
-    res.redirect('/Systempolicy');
-});
 
 // [Get] /Folderpolicy (폴더 정책 추가)
 app.get('/Folderpolicy', (req, res) => {
@@ -197,6 +325,23 @@ app.get('/Folderpolicy', (req, res) => {
             dirpolicy: dirpolicy
         });
     });
+});
+
+// [Post] /Deletefolderpolicy (폴더 정책 삭제)
+app.post('/Deletefolderpolicy', (req, res) => {
+    var id = req.body.foldercheck;
+    console.log(id);
+    var sql1 = 'delete from Folder where Folder_No=?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[folderdeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[folderdeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Folderpolicy');
 });
 
 // [Get] /Folderpolicymanage (폴더 정책 수정 페이지)
@@ -233,22 +378,6 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
 
     res.redirect('/Folderpolicy');
 })
-
-app.post('/Deletefolderpolicy', (req, res) => {
-    var id = req.body.foldercheck;
-    console.log(id);
-    var sql1 = 'delete from Folder where Folder_No=?';
-    if (Array.isArray(id) == true) {
-        id.forEach(function (items) {
-            console.log(items + "[folderdeleted]");
-            conn.query(sql1, [items], function (err, result) {});
-        });
-    } else {
-        console.log(id + "[folderdeleted]");
-        conn.query(sql1, [id], function (err, result) {});
-    }
-    res.redirect('/Folderpolicy');
-});
 
 // [Get] /Setting (설정)
 app.get('/Setting', (req, res) => {
