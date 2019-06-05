@@ -47,14 +47,17 @@ app.use(cookie('!@$!@#!@#'));
 app.post('/Login', (req, res) => {
     var id = req.body.ID;
     var password = req.body.Pass;
-    res.cookie('ITF', 2, {signed:true});
+    res.cookie('ITF', 2, {
+        signed: true
+    });
     // 로그인에 필요한 정보
     var sql1 = 'select * from WebAuth where WebAuth_ID = ?';
-    conn.query(sql1, [id], function(err, WebAuth, fields){
-        if(password == WebAuth[0].WebAuth_Pass)
-        {
-            res.cookie('ITF', WebAuth[0].WebAuth_No, {signed:true});
-            res.redirect('/Dashboard');        
+    conn.query(sql1, [id], function (err, WebAuth, fields) {
+        if (password == WebAuth[0].WebAuth_Pass) {
+            res.cookie('ITF', WebAuth[0].WebAuth_No, {
+                signed: true
+            });
+            res.redirect('/Dashboard');
         } else {
             res.redirect('/');
         }
@@ -63,7 +66,9 @@ app.post('/Login', (req, res) => {
 
 // [Get] /Logout (대시보드 페이지)
 app.get('/Logout', (req, res) => {
-    res.cookie('ITF', 0, {signed:true});
+    res.cookie('ITF', 0, {
+        signed: true
+    });
     res.redirect('/');
 })
 
@@ -86,7 +91,7 @@ app.get('/Eventlog', (req, res) => {
 
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
-    res.render('Users');    
+    res.render('Users');
 })
 
 // [Get] /Dashboard (유저 수정 페이지(추후 Usersettings/Usermanage로 소문자 변경 고려))
@@ -98,9 +103,9 @@ app.get('/Usersettings', (req, res) => {
 app.get('/Systempolicy', (req, res) => {
     // 시스템 정책의 리스트받아 올 정보
     var sql1 = 'select Policy_No, Policy_Name, Policy_Comment, Policy_Update from Policy';
-    conn.query(sql1, function(err, syspolicy, fields){
+    conn.query(sql1, function (err, syspolicy, fields) {
         res.render('Systempolicy', {
-            syspolicy:syspolicy      
+            syspolicy: syspolicy
         });
     });
 })
@@ -110,9 +115,9 @@ app.get('/Systempolicymanage/:policyno', (req, res) => {
     var policyno = req.params.policyno;
     // 시스템 정책 세부 정책 Policy_No를 이용해 구분하며 검색
     var sql1 = 'select * from Policy where Policy_No=?';
-        conn.query(sql1, [policyno], function(err, syspolicy, fields){
+    conn.query(sql1, [policyno], function (err, syspolicy, fields) {
         res.render('Systempolicymanage', {
-            syspolicy:syspolicy      
+            syspolicy: syspolicy
         });
     });
 })
@@ -131,39 +136,39 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     var Policy_Usbaccess = req.body.Policy_Usbaccess;
     var Policy_Disk = req.body.Policy_Disk;
     var Policy_Clipboard = req.body.Policy_Clipboard;
-    
+
     // System Policy Mask Calculation
-    if(Policy_Taskmgr == 1){
+    if (Policy_Taskmgr == 1) {
         Policy_Mask += 1;
     }
-    if(Policy_Regedit == 1){
+    if (Policy_Regedit == 1) {
         Policy_Mask += 2;
     }
-    if(Policy_Cmd == 1){
+    if (Policy_Cmd == 1) {
         Policy_Mask += 4;
     }
-    if(Policy_Snippingtools == 1){
+    if (Policy_Snippingtools == 1) {
         Policy_Mask += 8;
     }
-    if(Policy_Usbwrite == 1){
+    if (Policy_Usbwrite == 1) {
         Policy_Mask += 16;
     }
-    if(Policy_Usbaccess == 1){
+    if (Policy_Usbaccess == 1) {
         Policy_Mask += 32;
     }
-    if(Policy_Disk == 1){
+    if (Policy_Disk == 1) {
         Policy_Mask += 64;
     }
-    if(Policy_Clipboard == 1){
+    if (Policy_Clipboard == 1) {
         Policy_Mask += 128;
     }
     // System Policy Update sql
     var sql1 = 'update Policy set Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snippingtools=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
-    
-    conn.query(sql1,[Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function(err, tmp, fields){
+
+    conn.query(sql1, [Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function (err, tmp, fields) {
         console.log(tmp);
     });
-    
+
     res.redirect('/Systempolicy');
 })
 
@@ -187,9 +192,9 @@ app.post('/Deletesystempolicy', (req, res) => {
 app.get('/Folderpolicy', (req, res) => {
     // 폴더 정책에 대한 데이터 베이스 정보 모두 가져오기
     var sql1 = 'select * from Folder';
-    conn.query(sql1, function(err, dirpolicy, fields){
+    conn.query(sql1, function (err, dirpolicy, fields) {
         res.render('Folderpolicy', {
-            dirpolicy:dirpolicy      
+            dirpolicy: dirpolicy
         });
     });
 });
@@ -200,9 +205,9 @@ app.get('/Folderpolicymanage/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     // 폴더 정책을 Folder_No을 이용하여 가져온다.
     var sql1 = 'select * from Folder where Folder_No=?';
-    conn.query(sql1, [folderno], function(err, dirpolicy, fields){
+    conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
         res.render('Folderpolicymanage', {
-            dirpolicy:dirpolicy      
+            dirpolicy: dirpolicy
         });
     });
 })
@@ -222,10 +227,10 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
 
     // 폴더 정책 업데이트
     var sql1 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
-    conn.query(sql1,[Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function(err, tmp, fields){
+    conn.query(sql1, [Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
         console.log(tmp);
     });
-    
+
     res.redirect('/Folderpolicy');
 })
 
@@ -256,12 +261,12 @@ app.get('/', (req, res) => {
 })
 
 // Error
-app.get('*', function(req, res, next) {
+app.get('*', function (req, res, next) {
     throw new Error();
 });
 
 // Error
-app.use(function(error, req, res, next) {
+app.use(function (error, req, res, next) {
     res.render('Error');
 });
 
