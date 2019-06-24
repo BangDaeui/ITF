@@ -38,6 +38,7 @@
                 document.getElementById("policyremove").disabled = true;
             }
         }
+
     </script>
 </head>
 
@@ -121,11 +122,6 @@
                                     <a class="dropdown-item" href="/Setting.html">
                                         <i class="material-icons">settings</i> Setting</a>
 
-                                    <a class="dropdown-item" href="#">
-                                        <i class="material-icons">vertical_split</i> Blog Posts</a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="material-icons">note_add</i> Add New Post</a>
-
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="/Logout">
                                         <i class="material-icons text-danger">&#xE879;</i> Logout </a>
@@ -149,50 +145,53 @@
                     <div class="row">
                         <div class="col">
                             <form method="post" id="Systempolicydelete" action="/Deletesystempolicy">
-                            <div class="card card-small mb-4">
-                                <div class="card-header border-bottom">
-                                    <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0">Add System Policy</button>
-                                    &nbsp;
-                                    <button type="button" disabled id="policyremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#Policymodal">Delete System Policy</button>
-                                </div>
-                                <div class="card-body p-0 pb-3 text-center">
-                                    <table class="table mb-0">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <td>
-                                                    <div class="custom-control custom-checkbox mb-0">
-                                                        <input type="checkbox" class="custom-control-input" name="policycheckall" id="policycheckall" onClick="totalcheck();">
-                                                        <label class="custom-control-label" for=policycheckall></label>
-                                                    </div>
-                                                </td>
-                                                <th scope="col" class="border-0">No</th>
-                                                <th scope="col" class="border-0">Name</th>
-                                                <th scope="col" class="border-0">Policy Comment</th>
-                                                <th scope="col" class="border-0">Policy Update</th>
-                                                <th scope="col" class="border-0">Manage</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{#each syspolicy}}
+                                <div class="card card-small mb-4">
+                                    <div class="card-header border-bottom">
+                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#Policyaddmodal">Add System Policy</button>
+                                        &nbsp;
+                                        <button type="button" disabled id="policyremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#Policydeletemodal">Delete System Policy</button>
+                                    </div>
+                                    <div class="card-body p-0 pb-0 text-center">
+                                        <table class="table mb-0">
+                                            <thead class="bg-light">
                                                 <tr>
                                                     <td>
                                                         <div class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input" name="policycheck" id="policycheck{{this.Policy_No}}" onClick="buttoncheck()" value="{{this.Policy_No}}">
-                                                            <label class="custom-control-label" for="policycheck{{this.Policy_No}}"></label>
+                                                            <input type="checkbox" class="custom-control-input" name="policycheckall" id="policycheckall" onClick="totalcheck();">
+                                                            <label class="custom-control-label" for=policycheckall></label>
                                                         </div>
                                                     </td>
-                                                    <td>{{this.Policy_No}}</td>
-                                                    <td>{{this.Policy_Name}}</td>
-                                                    <td>{{this.Policy_Comment}}</td>
-                                                    <td>{{this.Policy_Update}}</td>
-                                                    <td><a href="/Systempolicymanage/{{this.Policy_No}}"><i class="material-icons text-success">create</i></a></td>
+                                                    <th scope="col" class="border-0">No</th>
+                                                    <th scope="col" class="border-0">Name</th>
+                                                    <th scope="col" class="border-0">Policy Comment</th>
+                                                    <th scope="col" class="border-0">Policy Update</th>
+                                                    <th scope="col" class="border-0">Manage</th>
                                                 </tr>
-                                            {{/each}}
-                                                <div class="modal fade" id="Policymodal" tabindex="-1" role="dialog" aria-labelledby="PolicymodalLabel" aria-hidden="true">
+                                            </thead>
+                                            <tbody>
+                                                {{#each syspolicy}}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox mb-0">
+                                                                <input type="checkbox" class="custom-control-input" name="policycheck" id="policycheck{{this.Policy_No}}" onClick="buttoncheck()" value="{{this.Policy_No}}">
+                                                                <label class="custom-control-label" for="policycheck{{this.Policy_No}}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{this.Policy_No}}</td>
+                                                        <td>{{this.Policy_Name}}</td>
+                                                        <td>{{this.Policy_Comment}}</td>
+                                                        <td>{{this.Policy_Update}}</td>
+                                                        <td>
+                                                            <a href="/Systempolicydetail/{{this.Policy_No}}"><span class="badge badge-pill badge-outline-primary"><i class="material-icons text-primary">add</i> Detail</span></a>
+                                                        </td>
+                                                    </tr>
+                                                {{/each}}
+                                                <!-- Policy Delete Modal -->
+                                                <div class="modal fade" id="Policydeletemodal" tabindex="-1" role="dialog" aria-labelledby="PolicydeletemodalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="PolicymodalLabel">시스템 정책 삭제</h5>
+                                                                <h5 class="modal-title" id="PolicydeletemodalLabel">Delete System Policy</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -207,16 +206,159 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </tbody>
-                                    </table>
+                                                <!-- End Policy Delete Modal -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- Folicy Add Modal -->
+                            <form method=post action="/Addsystempolicy">
+                            <div class="modal fade" id="Policyaddmodal" tabindex="-1" role="dialog" aria-labelledby="PolicyaddmodalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="PolicyaddmodalLabel">Add System Policy</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-6 mb-1">
+                                                    <label for="Policy_Name">정책명</label>
+                                                    <input type="text" class="form-control" name="Policy_Name" id="Policy_Name" placeholder="정책명" value="">
+                                                    <div class="custom-control custom-radio mb-1"></div>
+                                                </div>
+                                                <div class="col-md-6 mb-1">
+                                                    <label for="Policy_Update">정책 갱신 주기(분)</label>
+                                                    <input type="text" class="form-control" name="Policy_Update" id="Policy_Update" placeholder="정책갱신주기" value="">
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">작업관리자 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Taskmgr1" value=1 name="Policy_Taskmgr" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Taskmgr1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Taskmgr2" value=0 name="Policy_Taskmgr" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Taskmgr2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">레지스트리 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Regedit1" value=1 name="Policy_Regedit" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Regedit1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Regedit2" value=0 name="Policy_Regedit" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Regedit2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">cmd 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Cmd1" value=1 name="Policy_Cmd" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Cmd1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Cmd2" value=0 name="Policy_Cmd" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Cmd2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">클립보드 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Clipboard1" value=1 name="Policy_Clipboard" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Clipboard1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Clipboard2" value=0 name="Policy_Clipboard" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Clipboard2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">캡처 도구 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Snippingtools1" value=1 name="Policy_Snippingtools" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Snippingtools1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Snippingtools2" value=0 name="Policy_Snippingtools" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Snippingtools2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">디스크 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Disk1" value=1 name="Policy_Disk" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Disk1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Disk2" value=0 name="Policy_Disk" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Disk2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">USB 접근 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Usbaccess1" value=1 name="Policy_Usbaccess" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Usbaccess1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Usbaccess2" value=0 name="Policy_Usbaccess" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Usbaccess2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <strong class="text d-block mb-1">USB 쓰기 비활성화</strong>
+                                                    <fieldset>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Usbwrite1" value=1 name="Policy_Usbwrite" class="custom-control-input" checked>
+                                                            <label class="custom-control-label" for="Policy_Usbwrite1">On</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio mb-1">
+                                                            <input type="radio" id="Policy_Usbwrite2" value=0 name="Policy_Usbwrite" class="custom-control-input">
+                                                            <label class="custom-control-label" for="Policy_Usbwrite2">Off</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="feDescription">정책 설명</label>
+                                                    <textarea class="form-control" name="Policy_Comment" rows="3"></textarea>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-outline-success">Create</button>
+                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             </form>
+                            <!-- End Folicy Add Modal -->
                         </div>
                     </div>
                     <!-- End User Table -->
                 </div>
-                                <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
+                <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
                     <span class="copyright ml-auto my-auto mr-2">Copyright © 2019
                         <a rel="nofollow">InTheForest</a>
                     </span>
