@@ -169,8 +169,7 @@
                                                     <th scope="col" class="border-0">No</th>
                                                     <th scope="col" class="border-0">Name</th>
                                                     <th scope="col" class="border-0">Path</th>
-                                                    <th scope="col" class="border-0">Createmask</th>
-                                                    <th scope="col" class="border-0">Directorymask</th>
+                                                    <th scope="col" class="border-0">Comment</th>
                                                     <th scope="col" class="border-0">Manage</th>
                                                 </tr>
                                             </thead>
@@ -186,9 +185,8 @@
                                                         <td>{{this.Folder_No}}</td>
                                                         <td>{{this.Folder_Name}}</td>
                                                         <td>{{this.Folder_Path}}</td>
-                                                        <td>{{this.Folder_Createmask}}</td>
-                                                        <td>{{this.Folder_Directorymask}}</td>
-                                                        <td><a href="/Folderpolicymanage/{{this.Folder_No}}"><i class="material-icons text-success">create</i></a></td>
+                                                        <td>{{this.Folder_Comment}}</td>
+                                                        <td><a href="/Folderpolicymanage/{{this.Folder_No}}"><span class="badge badge-pill badge-outline-primary"><i class="material-icons text-primary">add</i> Detail</span></a></td>
                                                     </tr>
                                                 {{/each}}
                                                 <div class="modal fade" id="Foldermodal" tabindex="-1" role="dialog" aria-labelledby="FoldermodalLabel" aria-hidden="true">
