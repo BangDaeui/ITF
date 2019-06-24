@@ -344,96 +344,20 @@ app.post('/Deletefolderpolicy', (req, res) => {
     res.redirect('/Folderpolicy');
 });
 
-// [Get] /Folderpolicydetail (폴더 정책 세부 사항 페이지)
-app.get('/Folderpolicydetail/:folderno', (req, res) => {
-    // policyno = Folder_No
-    var folderno = req.params.folderno;
-    // 폴더 정책을 Folder_No을 이용하여 가져온다.
-    var sql1 = 'select * from Folder where Folder_No=?';
-    // 폴더 정책 사용자
-    var sql2 = 'select * from User, Rule, Department, Positions where User_No = Rule_User and User_Positions = Positions_No and User_Department = Department_No and Rule_Folder = ?';
-    conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
-        conn.query(sql2, [folderno], function (err, folderuser, fields) {
-            res.render('Folderpolicydetail', {
-                dirpolicy: dirpolicy,
-                folderuser: folderuser
-            });  
-        })
-    });
-})
-
-// [Get] /Folderpolicymanage (폴더 정책 사용자 설정 페이지)
+// [Get] /Folderpolicymanage (폴더 정책 수정 페이지)
 app.get('/Folderpolicymanage/:folderno', (req, res) => {
-    var folderno = req.params.folderno;
-    // 시스템 정책명
-    var sql1 = 'select * from Folder where Folder_No = ?';
-    // 이 정책이 적용되어 있지 않은 사용자
-    var sql2 = 'select * from User, Department, Positions where User_Positions = Positions_No and User_Department = Department_No and User_No NOT IN (select User_No from User, Rule where User_No = Rule_User and Rule_Folder = ?);';
-    // 이 정책이 적용되어 있는 사용자
-    var sql3 = 'select * from User, Rule, Department, Positions where User_No = Rule_User and User_Positions = Positions_No and User_Department = Department_No and Rule_Folder = ?';
-    conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
-        conn.query(sql2, [folderno], function (err, userexport, fields) {
-            conn.query(sql3, [folderno], function (err, userimport, fields) {
-                res.render('Folderpolicymanage', {
-                    dirpolicy: dirpolicy,
-                    userexport: userexport,
-                    userimport: userimport
-                });
-            });
-        });
-    });
-})
-
-// [Post] /Folderpolicyuserin (폴더 정책 사용자 추가)
-app.post('/Folderpolicyuserin/:folderno', (req, res) => {
-    var folderno = req.params.folderno;
-    var id = req.body.usercheck1;
-    console.log(id);
-    var sql1 = 'insert into Rule(Rule_Folder, Rule_User) VALUES(?, ?)';
-    if (Array.isArray(id) == true) {
-        id.forEach(function (items) {
-            console.log(items + "[FolderPolicychanged]");
-            conn.query(sql1, [folderno, items], function (err, result) {});
-        });
-    } else {
-        console.log(id + "[FolderPolicychanged]");
-        conn.query(sql1, [folderno, id], function (err, result) {});
-    }
-    res.redirect('/Folderpolicydetail/'+folderno);
-});
-
-// [Post] /Systempolicyuserout (폴더 정책 사용자 제외)
-app.post('/Folderpolicyuserout/:folderno', (req, res) => {
-    var folderno = req.params.folderno;
-    var id = req.body.usercheck2;
-    console.log(id);
-    var sql1 = 'delete from Rule where Rule_Folder = ? and Rule_User = ?';
-    if (Array.isArray(id) == true) {
-        id.forEach(function (items) {
-            console.log(items + "[FolderPolicychanged]");
-            conn.query(sql1, [folderno, items], function (err, result) {});
-        });
-    } else {
-        console.log(id + "[FolderPolicychanged]");
-        conn.query(sql1, [id], function (err, result) {});
-    }
-    res.redirect('/Folderpolicydetail/'+folderno);
-});
-
-// [Get] /Folderpolicyedit (폴더 정책 수정 페이지)
-app.get('/Folderpolicyedit/:folderno', (req, res) => {
     // policyno = Folder_No
     var folderno = req.params.folderno;
     // 폴더 정책을 Folder_No을 이용하여 가져온다.
     var sql1 = 'select * from Folder where Folder_No=?';
     conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
-        res.render('Folderpolicyedit', {
+        res.render('Folderpolicymanage', {
             dirpolicy: dirpolicy
         });
     });
 })
 
-// [Post] /Updatefolderpolicy (폴더 정책 수정)
+// [Post] /Folderpolicymanage (폴더 정책 수정)
 app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     var Folder_Name = req.body.Folder_Name;
