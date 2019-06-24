@@ -452,7 +452,7 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
         console.log(tmp);
     });
 
-    res.redirect('/Folderpolicy');
+    res.redirect('/Folderpolicydetail/'+folderno);
 })
 
 // [Get] /Setting (설정)
