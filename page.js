@@ -92,7 +92,7 @@ app.get('/Eventlog', (req, res) => {
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
     //User 테이블에 있는 정보를 조회 한다.
-    var sql1 = 'SELECT * FROM User ';
+    var sql1 = 'select * from User';
     conn.query(sql1, function (err, userslist, fields) {
         res.render('Users',{
           userslist: userslist
@@ -108,10 +108,9 @@ app.post('/Usersettings/:userno', (req, res) => {
     var User_IP = req.body.User_IP;
     var userno = req.params.userno;
     // UserSettings 에서 변경된 정보를 SQL에 있는 정보를 업데이트 하는 SQL 쿼리문
-    var sql1 = 'UPDATE User SET User_Name=? , User_IP=?, User_SMB=?, User_Policy=? where User_No=?';
-    conn.query(sql1,[User_Name,User_IP,User_SMB,User_Policy,userno], function (err, tmp, fields) {
-        res.redirect('/Users');
-
+    var sql1 = 'update User set User_Name=?, User_IP=?, User_SMB=?, User_Policy=? where User_No=?';
+    conn.query(sql1, [User_Name, User_IP, User_SMB, User_Policy, userno], function (err, tmp, fields) {
+            res.redirect('/Users');
         });
     });
 
@@ -119,7 +118,7 @@ app.post('/Usersettings/:userno', (req, res) => {
 app.get('/UserSettings/:userno', (req, res) => {
   //User_No 에 따라서 다르게 표시해준다.
   var userno = req.params.userno;
-  //MySql 의 Users 테이블과 Policy 테이블의 데이터중 사용자번호와 설정된 정책 번호를 보여준다..
+  //MySql 의 Users 테이블과 Policy 테이블의 데이터중 사용자번호와 설정된 정책 번호를 보여준다.
   var sql1 = 'select * from User, Policy where User_No = ? and User_Policy = Policy_No';
   //MySql 의 Policy 테이블의 데이터를 다 보여준다.
   var sql2 = 'select * from Policy';
