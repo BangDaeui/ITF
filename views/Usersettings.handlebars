@@ -115,7 +115,8 @@
                     <div class="page-header row no-gutters py-4 mb-3 border-bottom">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">in the forest</span>
-                            <h3 class="page-title">홍길동</h3>
+                            {{#each usersettings}}
+                            <h3 class="page-title">{{this.User_Name}}</h3>
                         </div>
                     </div>
                     <!-- End Page Header -->
@@ -124,7 +125,7 @@
                         <div class="col-lg-4">
                             <div class="card card-small mb-4 pt-3">
                                 <div class="card-header border-bottom text-center">
-                                    <h4 class="mb-0">홍길동</h4>
+                                    <h4 class="mb-0">{{this.User_Name}}</h4>
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item px-4">
@@ -153,28 +154,31 @@
                                     <li class="list-group-item p-3">
                                         <div class="row">
                                             <div class="col">
-                                                <form>
+                                                <form action="/Usersettings/{{this.User_No}}" method="post">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label for="User_Name">이름</label>
-                                                            <input type="text" class="form-control" id="User_Name" placeholder="User_Name" value="홍길동"> </div>
+                                                            <input type="text" class="form-control" id="User_Name" placeholder="User_Name" value="{{this.User_Name}}" name="User_Name"> </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="User_ID">SMB ID</label>
-                                                            <input type="text" class="form-control" id="User_ID" placeholder="User_ID" value="Honggil"> </div>
+                                                            <input type="text" class="form-control" id="User_ID" placeholder="User_ID" value="{{this.User_SMB}}" name="User_SMB"> </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label for="User_GS">System Policy</label>
-                                                            <select id="feInputState" class="form-control">
-                                                                <option selected>Default Policy</option>
-                                                                <option>Policy 2</option>
-                                                                <option>Policy 3</option>
-                                                                <option>Policy 4</option>
-                                                            </select>
+                                                            {{/each}}
+                                                            <select name=User_Policy id="feInputState" class="form-control" >
+
+                                                                  {{#each policyname}}
+                                                                <option  value="{{this.Policy_No}}" name="User_Policy">{{this.Policy_Name}}</option>
+                                                                {{/each}}
+
+                                                                </select>
+                                                                {{#each usersettings}}
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="User_IP">IP</label>
-                                                            <input type="text" class="form-control" id="User_IP" placeholder="User_IP" value="192.168.0.23">
+                                                            <input type="text" class="form-control" id="User_IP" placeholder="User_IP" value="{{this.User_IP}}" name="User_IP">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
@@ -183,7 +187,9 @@
                                                             <textarea class="form-control" name="feDescription" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
                                                         </div>
                                                     </div>
+
                                                     <button type="submit" class="btn btn-accent">Update Account</button>
+                                                    {{/each}}
                                                 </form>
                                             </div>
                                         </div>

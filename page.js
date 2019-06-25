@@ -1,4 +1,4 @@
-// express 
+// express
 const express = require('express');
 const app = express();
 // mysql
@@ -91,13 +91,47 @@ app.get('/Eventlog', (req, res) => {
 
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
-    res.render('Users');
-})
+    //User 테이블에 있는 정보를 조회 한다.
+    var sql1 = 'SELECT * FROM User ';
+    conn.query(sql1, function (err, userslist, fields) {
+        res.render('Users',{
+          userslist: userslist
+    });
+  });
+});
 
 // [Get] /Dashboard (유저 수정 페이지(추후 Usersettings/Usermanage로 소문자 변경 고려))
-app.get('/Usersettings', (req, res) => {
-    res.render('Usersettings');
-})
+app.post('/Usersettings/:userno', (req, res) => {
+    var User_Name = req.body.User_Name;
+    var User_SMB = req.body.User_SMB;
+    var User_Policy = req.body.User_Policy;
+    var User_IP = req.body.User_IP;
+    var userno = req.params.userno;
+    // UserSettings 에서 변경된 정보를 SQL에 있는 정보를 업데이트 하는 SQL 쿼리문
+    var sql1 = 'UPDATE User SET User_Name=? , User_IP=?, User_SMB=?, User_Policy=? where User_No=?';
+    conn.query(sql1,[User_Name,User_IP,User_SMB,User_Policy,userno], function (err, tmp, fields) {
+        res.redirect('/Users');
+
+        });
+    });
+
+//Users 로부터 Id 값을 주소 뒤편에 입력을 받아서 그 입력값을 이용하여 DB에 저장된 값을 검색한다.
+app.get('/UserSettings/:userno', (req, res) => {
+  //User_No 에 따라서 다르게 표시해준다.
+  var userno = req.params.userno;
+  //MySql 의 Users 테이블과 Policy 테이블의 데이터중 사용자번호와 설정된 정책 번호를 보여준다..
+  var sql1 = 'select * from User, Policy where User_No = ? and User_Policy = Policy_No';
+  //MySql 의 Policy 테이블의 데이터를 다 보여준다.
+  var sql2 = 'select * from Policy';
+  conn.query(sql1, [userno], function (err, usersettings, fields) {
+      conn.query(sql2, [userno], function (err, policyname, fiedls) {
+          res.render('Usersettings',{
+              usersettings: usersettings,
+              policyname: policyname
+          });
+      });
+  });
+});
 
 // [Get] /Systempolicy (시스템 정책 페이지)
 app.get('/Systempolicy', (req, res) => {

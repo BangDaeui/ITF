@@ -141,42 +141,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                          {{#each userslist}}
                                             <tr>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>Honggil</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.23</td>
-                                                <td><a href="/UserSettings"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
+                                                <td>{{this.User_No}}</td>
+                                                <td>{{this.User_Name}}</td>
+                                                <td>{{this.User_SMB}}</td>
+                                                <td>{{this.User_Policy}}</td>
+                                                <td>{{this.User_IP}}</td>
+                                                <td>
+                                                  <a href="/UserSettings/{{this.User_No}}"><i class="material-icons text-success">create</i></a>
+                                                    <a href="/pages/delete.html"><i class="material-icons text-danger" >delete</i></a></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>이순신</td>
-                                                <td>Leesun</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.24</td>
-                                                <td><a href="/UserSettings"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.25</td>
-                                                <td><a href="/UserSettings"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>민수</td>
-                                                <td>Minsu</td>
-                                                <td>Default Policy</td>
-                                                <td>192.168.0.26</td>
-                                                <td><a href="/UserSettings"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger">delete</i></a></td>
-                                            </tr>
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
