@@ -8,7 +8,8 @@
 ┃┝ /Deleteuser			P 유저 삭제
 ┃┝ /Useraddcsv			G csv를 이용한 유저 추가 페이지 (미정)
 ┃┝ /Useredit			G 유저 수정 페이지
-┃┃┝ /Updateuser			P 유저 수정
+┃┃┝ /Userdetail			P 유저 세부 사항 페이지
+┃┃┃┝ /Updateuser			P 유저 수정
 ┝  /Systempolicy			G 시스템 정책 페이지
 ┃┝ /Systempolicyadd		G 시스템 정책 추가페이지
 ┃┃┝ /Addsystempolicy		P 시스템 정책 추가
