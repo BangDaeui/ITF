@@ -95,7 +95,7 @@ app.get('/Users', (req, res) => {
     var sql1 = 'select Policy_Name,User_IP,User_Name,User_No,User_SMB from User, Policy where User_Policy = Policy_No';
     conn.query(sql1, function (err, userslist, fields) {
         res.render('Users',{
-          userslist: userslist,
+          userslist: userslist
     });
   });
 });
