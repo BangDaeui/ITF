@@ -92,14 +92,20 @@ app.get('/Eventlog', (req, res) => {
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
     //User 테이블에 있는 정보를 조회 한다.
-    var sql1 = 'select * from User';
+    var sql1 = 'select Policy_Name,User_IP,User_Name,User_No,User_SMB from User, Policy where User_Policy = Policy_No';
     conn.query(sql1, function (err, userslist, fields) {
         res.render('Users',{
-          userslist: userslist
+          userslist: userslist,
     });
   });
 });
 
+app.post('/deleteusers',(req, res) => {
+    var id = req.body.userno;
+    concole.log(userno);
+    var sql1='delete from User where User_No=?';
+
+});
 // [Get] /Dashboard (유저 수정 페이지(추후 Usersettings/Usermanage로 소문자 변경 고려))
 app.post('/Usersettings/:userno', (req, res) => {
     var User_Name = req.body.User_Name;
@@ -110,7 +116,7 @@ app.post('/Usersettings/:userno', (req, res) => {
     // UserSettings 에서 변경된 정보를 SQL에 있는 정보를 업데이트 하는 SQL 쿼리문
     var sql1 = 'update User set User_Name=?, User_IP=?, User_SMB=?, User_Policy=? where User_No=?';
     conn.query(sql1, [User_Name, User_IP, User_SMB, User_Policy, userno], function (err, tmp, fields) {
-            res.redirect('/Users');
+          res.redirect('/Users');
         });
     });
 
@@ -390,7 +396,7 @@ app.get('/Folderpolicydetail/:folderno', (req, res) => {
             res.render('Folderpolicydetail', {
                 dirpolicy: dirpolicy,
                 folderuser: folderuser
-            });  
+            });
         })
     });
 })
