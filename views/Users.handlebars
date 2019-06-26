@@ -146,13 +146,13 @@
                                                 <td>{{this.User_No}}</td>
                                                 <td>{{this.User_Name}}</td>
                                                 <td>{{this.User_SMB}}</td>
-                                                <td>{{this.User_Policy}}</td>
+                                                <td>{{this.Policy_Name}}</td>
                                                 <td>{{this.User_IP}}</td>
                                                 <td>
                                                   <a href="/UserSettings/{{this.User_No}}"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger" >delete</i></a></td>
+                                                    <a href="/delete/{{this.User_No}}"><i class="material-icons text-danger" >delete</i></a></td>
                                             </tr>
-                                            {{/each}}
+                                          {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
