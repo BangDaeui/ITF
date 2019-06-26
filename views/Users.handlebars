@@ -13,6 +13,33 @@
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="/public/styles/shards-dashboards.1.1.0.min.css">
     <link rel="stylesheet" href="/public/styles/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        // 체크박스 전체 선택
+        function totalcheck() {
+            if ($("#usercheckall").is(':checked')) {
+                $("input[name=usercheck").prop("checked", true);
+                document.getElementById("userremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("userremove").disabled = false;
+            } else {
+                $("input[name=usercheck").prop("checked", false);
+                document.getElementById("userremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("userremove").disabled = true;
+            }
+        }
+
+        // button 색 변경
+        function buttoncheck() {
+            var tmp = $("input:checkbox[name=usercheck]:checked").length;
+            if (tmp >= 1) {
+                document.getElementById("userremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("userremove").disabled = false;
+            } else {
+                document.getElementById("userremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("userremove").disabled = true;
+            }
+        }
+
+    </script>
 </head>
 
 <body class="h-100">
@@ -115,23 +142,32 @@
                     <div class="page-header row no-gutters py-4 mb-3 border-bottom">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">in the forest</span>
-                            <h3 class="page-title">Users Settings</h3>
+                            <h3 class="page-title">Users</h3>
                         </div>
                     </div>
                     <!-- End Page Header -->
                     <!-- User Table -->
                     <div class="row">
                         <div class="col">
-                            <div class="card card-small mb-4">
-                                <div class="card-header border-bottom">
-                                    <button type="button" class="mb-0 btn btn-sm btn-primary mr-0">Add User</button>
-                                    &nbsp;
-                                    <button type="button" class="mb-0 btn btn-sm btn-primary mr-0">Add User with CSV</button>
-                                </div>
+                            <form method="post" id="Userdelete" action="/Deleteuser">
+                                <div class="card card-small mb-4">
+                                    <div class="card-header border-bottom">
+                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#Policyaddmodal">Add User</button>
+                                        &nbsp;
+                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#Policyaddmodal">Add User with CSV</button>
+                                        &nbsp;
+                                        <button type="button" disabled id="userremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#Userdeletemodal">Delete User</button>
+                                    </div>
                                 <div class="card-body p-0 pb-3 text-center">
                                     <table class="table mb-0">
                                         <thead class="bg-light">
                                             <tr>
+                                                <th scope="col" class="border-0">
+                                                    <div class="custom-control custom-checkbox mb-0">
+                                                        <input type="checkbox" class="custom-control-input" name="usercheckall" id="usercheckall" onClick="totalcheck();">
+                                                        <label class="custom-control-label" for=usercheckall></label>
+                                                    </div>
+                                                </th>
                                                 <th scope="col" class="border-0">No</th>
                                                 <th scope="col" class="border-0">Name</th>
                                                 <th scope="col" class="border-0">SMB ID</th>
@@ -143,20 +179,48 @@
                                         <tbody>
                                           {{#each userslist}}
                                             <tr>
+                                                <td>
+                                                <div class="custom-control custom-checkbox mb-0">
+                                                    <input type="checkbox" class="custom-control-input" name="usercheck" id="usercheck{{this.User_No}}" onClick="buttoncheck()" value="{{this.User_No}}">
+                                                    <label class="custom-control-label" for="usercheck{{this.User_No}}"></label>
+                                                </div>
+                                                </td>
                                                 <td>{{this.User_No}}</td>
                                                 <td>{{this.User_Name}}</td>
                                                 <td>{{this.User_SMB}}</td>
                                                 <td>{{this.User_Policy}}</td>
                                                 <td>{{this.User_IP}}</td>
                                                 <td>
-                                                  <a href="/UserSettings/{{this.User_No}}"><i class="material-icons text-success">create</i></a>
-                                                    <a href="/pages/delete.html"><i class="material-icons text-danger" >delete</i></a></td>
+                                                    <a href="/Usersettings/{{this.User_No}}"><span class="badge badge-pill badge-outline-primary"><i class="material-icons text-primary">add</i> Detail</span></a>
+                                                </td>
                                             </tr>
                                             {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                                <!-- User Delete Modal -->
+                                <div class="modal fade" id="Userdeletemodal" tabindex="-1" role="dialog" aria-labelledby="UserdeletemodalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="UserdeletemodalLabel">Delete User</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                사용자를 삭제 하시겠습니까?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End User Delete Modal -->
+                            </form>
                         </div>
                     </div>
                     <!-- End User Table -->
