@@ -349,7 +349,7 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     res.redirect('/Systempolicy');
 })
 
-// [Get] /Folderpolicy (폴더 정책 추가)
+// [Get] /Folderpolicy (폴더 정책 페이지)
 app.get('/Folderpolicy', (req, res) => {
     // 폴더 정책에 대한 데이터 베이스 정보 모두 가져오기
     var sql1 = 'select * from Folder';
