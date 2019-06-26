@@ -3,12 +3,11 @@
 ┝ /Dashboard			G 대시보드 페이지
 ┝ /EventLog			G 이벤트 로그 페이지
 ┝ /Users				G 유저 페이지
-┃┝ /Useradd			G 유저 추가 페이지
-┃┃┝ /Adduser			P 유저 추가
+┃┝ /Adduser			P 유저 추가
 ┃┝ /Deleteuser			P 유저 삭제
 ┃┝ /Useraddcsv			G csv를 이용한 유저 추가 페이지 (미정)
-┃┝ /Useredit			G 유저 수정 페이지
-┃┃┝ /Userdetail			P 유저 세부 사항 페이지
+┃┝ /Userdetail			G 유저 세부 사항 페이지
+┃┃┝ /Useredit			G 유저 수정 페이지
 ┃┃┃┝ /Updateuser			P 유저 수정
 ┝  /Systempolicy			G 시스템 정책 페이지
 ┃┝ /Systempolicyadd		G 시스템 정책 추가페이지
