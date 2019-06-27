@@ -100,8 +100,22 @@ app.get('/Users', (req, res) => {
   });
 });
 
-// [Get] /Dashboard (유저 수정 페이지(추후 Usersettings/Usermanage로 소문자 변경 고려))
-app.post('/Usersettings/:userno', (req, res) => {
+// [Get] /Userdetail (유저 자세히 보기 페이지)
+app.get('/Userdetail/:userno', (req, res) => {
+    var userno = req.params.userno;
+    var sql1 = 'select * from User, Department, Positions, Policy where User_Positions = Positions_No and User_Department = Department_No and User_Policy = Policy_No and User_No = ?';
+    var sql2 = 'select * from User, Rule, Folder where User_No = Rule_User and Folder_No = Rule_Folder and User_No = ?';
+    conn.query(sql1, [userno], function (err, userdetail, fields) {
+        conn.query(sql2, [userno], function (err, userfolder, fields) {
+            res.render('Userdetail', {
+                userdetail: userdetail,
+                userfolder: userfolder
+            })
+        })
+    }) 
+})
+// [Post] /Updateuser (유저 수정)
+app.post('/Updateuser/:userno', (req, res) => {
     var User_Name = req.body.User_Name;
     var User_SMB = req.body.User_SMB;
     var User_Policy = req.body.User_Policy;
@@ -114,8 +128,8 @@ app.post('/Usersettings/:userno', (req, res) => {
         });
     });
 
-//Users 로부터 Id 값을 주소 뒤편에 입력을 받아서 그 입력값을 이용하여 DB에 저장된 값을 검색한다.
-app.get('/UserSettings/:userno', (req, res) => {
+// [Get] /Iseredit (유저 수정 페이지)
+app.get('/Useredit/:userno', (req, res) => {
   //User_No 에 따라서 다르게 표시해준다.
   var userno = req.params.userno;
   //MySql 의 Users 테이블과 Policy 테이블의 데이터중 사용자번호와 설정된 정책 번호를 보여준다.
@@ -124,7 +138,7 @@ app.get('/UserSettings/:userno', (req, res) => {
   var sql2 = 'select * from Policy';
   conn.query(sql1, [userno], function (err, usersettings, fields) {
       conn.query(sql2, [userno], function (err, policyname, fiedls) {
-          res.render('Usersettings',{
+          res.render('Useredit', {
               usersettings: usersettings,
               policyname: policyname
           });
