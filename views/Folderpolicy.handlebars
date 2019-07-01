@@ -152,7 +152,7 @@
                             <form method="post" id="Folderpolicydelete" action="/Deletefolderpolicy">
                                 <div class="card card-small mb-4">
                                     <div class="card-header border-bottom">
-                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0">Add Folder Policy</button>
+                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#Folderaddmodal">Add Folder Policy</button>
                                         &nbsp;
                                         <button disabled type="button" id="folderremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#Foldermodal">Delete Folder Policy</button>
                                     </div>
@@ -213,9 +213,113 @@
                                     </div>
                                 </div>
                             </form>
+                            <!-- Folder Folicy Add Modal -->
+                            <form method=post action="/Addfolderpolicy">
+                                <div class="modal fade" id="Folderaddmodal" tabindex="-1" role="dialog" aria-labelledby="FolderaddmodalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="FolderaddmodalLabel">Add Folder Policy</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Name">폴더 정책명</label>
+                                                                <input type="text" class="form-control" id="Folder_Name" name="Folder_Name" placeholder="Folder_Name"> </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Update">폴더 정책 갱신주기 (분)</label>
+                                                                <input type="text" class="form-control" id="Folder_Update" name="Folder_Update" placeholder="Folder_Update"> </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="Folder_Path">폴더 경로</label>
+                                                                <input type="text" class="form-control" id="Folder_Path" name="Folder_Path" placeholder="Folder_Path" value="/"> </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Createmask">생성 파일권한</label>
+                                                                <input type="text" class="form-control" id="Folder_Createmask" name="Folder_Createmask" placeholder="Folder_Createmask">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Directorymask">생성 폴더권한</label>
+                                                                <input type="text" class="form-control" id="Folder_Directorymask" name="Folder_Directorymask" placeholder="Folder_Directorymask">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Readonly">읽기 전용</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Readonly1" value=1 name="Folder_Readonly" class="custom-control-input" checked>
+                                                                    <label class="custom-control-label" for="Folder_Readonly1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Readonly2" value=0 name="Folder_Readonly" class="custom-control-input">
+                                                                    <label class="custom-control-label" for="Folder_Readonly2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Writeable">쓰기 허용</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Writeable1" value=1 name="Folder_Writeable" class="custom-control-input" checked>
+                                                                    <label class="custom-control-label" for="Folder_Writeable1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Writeable2" value=0 name="Folder_Writeable" class="custom-control-input">
+                                                                    <label class="custom-control-label" for="Folder_Writeable2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Guest">게스트 허용</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Guest1" value=1 name="Folder_Guest" class="custom-control-input" checked>
+                                                                    <label class="custom-control-label" for="Folder_Guest1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Guest2" value=0 name="Folder_Guest" class="custom-control-input">
+                                                                    <label class="custom-control-label" for="Folder_Guest2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Browsable">폴더 보임 유무</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Browsable1" value=1 name="Folder_Browsable" class="custom-control-input" checked>
+                                                                    <label class="custom-control-label" for="Folder_Browsable1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Browsable2" value=0 name="Folder_Browsable" class="custom-control-input">
+                                                                    <label class="custom-control-label" for="Folder_Browsable2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="feDescription">폴더 정책 설명</label>
+                                                                <textarea class="form-control" name="Folder_Comment" rows="3"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-outline-success">Create</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- End Folder Policy Add Modal -->
                         </div>
                     </div>
-                    <!-- End User Table -->
+                    <!-- End Folder Policy Table -->
                 </div>
                 <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
                     <span class="copyright ml-auto my-auto mr-2">Copyright © 2019

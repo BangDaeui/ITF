@@ -360,6 +360,27 @@ app.get('/Folderpolicy', (req, res) => {
     });
 });
 
+// [Post] /Addfolderpolicy (폴더 정책 추가)
+app.post('/Addfolderpolicy', (req, res) => {
+    var Folder_Name = req.body.Folder_Name;
+    var Folder_Path = req.body.Folder_Path;
+    var Folder_Comment = req.body.Folder_Comment;
+    var Folder_Update = req.body.Folder_Update;
+    var Folder_Readonly = req.body.Folder_Readonly;
+    var Folder_Writeable = req.body.Folder_Writeable;
+    var Folder_Guest = req.body.Folder_Guest;
+    var Folder_Browsable = req.body.Folder_Browsable;
+    var Folder_Createmask = req.body.Folder_Createmask;
+    var Folder_Directorymask = req.body.Folder_Directorymask;
+
+    // 폴더 정책 추가
+    var sql1 = 'insert into Folder (Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+    conn.query(sql1, [Folder_Name, Folder_Path,  Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask], function (err, tmp, fields) {
+        console.log(tmp);
+    });
+    res.redirect('/Folderpolicy');
+});
+
 // [Post] /Deletefolderpolicy (폴더 정책 삭제)
 app.post('/Deletefolderpolicy', (req, res) => {
     var id = req.body.foldercheck;
