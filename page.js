@@ -99,6 +99,25 @@ app.get('/Users', (req, res) => {
     });
   });
 });
+//[Post] /Deleteuser (유저삭제)
+app.post('/Deleteuser', (req, res) => {
+    var id = req.body.usercheck;
+    console.log(id);
+    //체크된 사용자를 삭제하는 SQL쿼리문
+    var sql1 = 'delete from User where User_No=?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+          //중복체크가 되면 이곳을 실행하면
+            console.log(items + "[usersdeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        //단일체크가 되면 이곳을 실행한다.
+        console.log(id + "[usersdeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Users');
+});
 
 // [Get] /Dashboard (유저 수정 페이지(추후 Usersettings/Usermanage로 소문자 변경 고려))
 app.post('/Usersettings/:userno', (req, res) => {
