@@ -92,12 +92,31 @@ app.get('/Eventlog', (req, res) => {
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
     //User 테이블에 있는 정보를 조회 한다.
-    var sql1 = 'select * from User';
+    var sql1 = 'select Policy_Name,User_IP,User_Name,User_No,User_SMB from User, Policy where User_Policy = Policy_No';
     conn.query(sql1, function (err, userslist, fields) {
         res.render('Users',{
           userslist: userslist
     });
   });
+});
+//[Post] /Deleteuser (유저삭제)
+app.post('/Deleteuser', (req, res) => {
+    var id = req.body.usercheck;
+    console.log(id);
+    //체크된 사용자를 삭제하는 SQL쿼리문
+    var sql1 = 'delete from User where User_No=?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+          //중복체크가 되면 이곳을 실행하면
+            console.log(items + "[usersdeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        //단일체크가 되면 이곳을 실행한다.
+        console.log(id + "[usersdeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Users');
 });
 
 // [Get] /Userdetail (유저 자세히 보기 페이지)
@@ -425,7 +444,7 @@ app.get('/Folderpolicydetail/:folderno', (req, res) => {
             res.render('Folderpolicydetail', {
                 dirpolicy: dirpolicy,
                 folderuser: folderuser
-            });  
+            });
         })
     });
 })
