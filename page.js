@@ -43,14 +43,14 @@ app.use(bodyParser.text());
 // use cookie-parser
 app.use(cookie('!@$!@#!@#'));
 
-// [Post] /Login (대시보드 페이지)
+// [Post] /Login (로그인)
 app.post('/Login', (req, res) => {
     var id = req.body.ID;
     var password = req.body.Pass;
     res.cookie('ITF', 2, {
         signed: true
     });
-    // 로그인에 필요한 정보
+    // [select] 인증 데이터
     var sql1 = 'select * from WebAuth where WebAuth_ID = ?';
     conn.query(sql1, [id], function (err, WebAuth, fields) {
         if (password == WebAuth[0].WebAuth_Pass) {
@@ -64,7 +64,7 @@ app.post('/Login', (req, res) => {
     });
 })
 
-// [Get] /Logout (대시보드 페이지)
+// [Get] /Logout (로그아웃)
 app.get('/Logout', (req, res) => {
     res.cookie('ITF', 0, {
         signed: true
@@ -91,28 +91,27 @@ app.get('/Eventlog', (req, res) => {
 
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
-    //User 테이블에 있는 정보를 조회 한다.
+    // [select] 사용자 데이터
     var sql1 = 'select Policy_Name,User_IP,User_Name,User_No,User_SMB from User, Policy where User_Policy = Policy_No';
     conn.query(sql1, function (err, userslist, fields) {
-        res.render('Users',{
-          userslist: userslist
+        res.render('Users', {
+            userslist: userslist
+        });
     });
-  });
 });
+
 //[Post] /Deleteuser (유저삭제)
 app.post('/Deleteuser', (req, res) => {
     var id = req.body.usercheck;
     console.log(id);
-    //체크된 사용자를 삭제하는 SQL쿼리문
+    // [delete] 사용자 삭제
     var sql1 = 'delete from User where User_No=?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
-          //중복체크가 되면 이곳을 실행하면
             console.log(items + "[usersdeleted]");
             conn.query(sql1, [items], function (err, result) {});
         });
     } else {
-        //단일체크가 되면 이곳을 실행한다.
         console.log(id + "[usersdeleted]");
         conn.query(sql1, [id], function (err, result) {});
     }
@@ -122,7 +121,9 @@ app.post('/Deleteuser', (req, res) => {
 // [Get] /Userdetail (유저 자세히 보기 페이지)
 app.get('/Userdetail/:userno', (req, res) => {
     var userno = req.params.userno;
+    // [select] 단일 사용자의 데이터
     var sql1 = 'select * from User, Department, Positions, Policy where User_Positions = Positions_No and User_Department = Department_No and User_Policy = Policy_No and User_No = ?';
+    // [select] 사용자가 소속된 폴더 정책
     var sql2 = 'select * from User, Rule, Folder where User_No = Rule_User and Folder_No = Rule_Folder and User_No = ?';
     conn.query(sql1, [userno], function (err, userdetail, fields) {
         conn.query(sql2, [userno], function (err, userfolder, fields) {
@@ -131,8 +132,26 @@ app.get('/Userdetail/:userno', (req, res) => {
                 userfolder: userfolder
             })
         })
-    }) 
+    })
 })
+
+// [Get] /Useredit (유저 수정 페이지)
+app.get('/Useredit/:userno', (req, res) => {
+    var userno = req.params.userno;
+    // [select] 단일 사용자의 데이터와 사용자의 시스템 정책
+    var sql1 = 'select * from User, Policy where User_No = ? and User_Policy = Policy_No';
+    // [select] 폴더 정책
+    var sql2 = 'select * from Policy';
+    conn.query(sql1, [userno], function (err, usersettings, fields) {
+        conn.query(sql2, [userno], function (err, policyname, fiedls) {
+            res.render('Useredit', {
+                usersettings: usersettings,
+                policyname: policyname
+            });
+        });
+    });
+});
+
 // [Post] /Updateuser (유저 수정)
 app.post('/Updateuser/:userno', (req, res) => {
     var User_Name = req.body.User_Name;
@@ -140,34 +159,16 @@ app.post('/Updateuser/:userno', (req, res) => {
     var User_Policy = req.body.User_Policy;
     var User_IP = req.body.User_IP;
     var userno = req.params.userno;
-    // UserSettings 에서 변경된 정보를 SQL에 있는 정보를 업데이트 하는 SQL 쿼리문
+    // [update] 사용자 데이터 수정
     var sql1 = 'update User set User_Name=?, User_IP=?, User_SMB=?, User_Policy=? where User_No=?';
     conn.query(sql1, [User_Name, User_IP, User_SMB, User_Policy, userno], function (err, tmp, fields) {
-            res.redirect('/Users');
-        });
+        res.redirect('/Users');
     });
-
-// [Get] /Iseredit (유저 수정 페이지)
-app.get('/Useredit/:userno', (req, res) => {
-  //User_No 에 따라서 다르게 표시해준다.
-  var userno = req.params.userno;
-  //MySql 의 Users 테이블과 Policy 테이블의 데이터중 사용자번호와 설정된 정책 번호를 보여준다.
-  var sql1 = 'select * from User, Policy where User_No = ? and User_Policy = Policy_No';
-  //MySql 의 Policy 테이블의 데이터를 다 보여준다.
-  var sql2 = 'select * from Policy';
-  conn.query(sql1, [userno], function (err, usersettings, fields) {
-      conn.query(sql2, [userno], function (err, policyname, fiedls) {
-          res.render('Useredit', {
-              usersettings: usersettings,
-              policyname: policyname
-          });
-      });
-  });
 });
 
 // [Get] /Systempolicy (시스템 정책 페이지)
 app.get('/Systempolicy', (req, res) => {
-    // 시스템 정책의 리스트받아 올 정보
+    // [select] 시스템 정책
     var sql1 = 'select Policy_No, Policy_Name, Policy_Comment, Policy_Update from Policy';
     conn.query(sql1, function (err, syspolicy, fields) {
         res.render('Systempolicy', {
@@ -216,7 +217,7 @@ app.post('/Addsystempolicy', (req, res) => {
     if (Policy_Clipboard == 1) {
         Policy_Mask += 128;
     }
-    // Insert System Policy
+    // [insert] 시스템 정책 추가
     var sql1 = 'insert into Policy (Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     conn.query(sql1, [Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard], function (err, tmp, fields) {
@@ -230,6 +231,7 @@ app.post('/Addsystempolicy', (req, res) => {
 app.post('/Deletesystempolicy', (req, res) => {
     var id = req.body.policycheck;
     console.log(id);
+    // [delete] 시스템 정책 삭제
     var sql1 = 'delete from Policy where Policy_No=?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
@@ -246,9 +248,9 @@ app.post('/Deletesystempolicy', (req, res) => {
 // [Get] /Systempolicydetail (시스템 정책 세부 사항 페이지)
 app.get('/Systempolicydetail/:policyno', (req, res) => {
     var policyno = req.params.policyno;
-    // 시스템 정책 세부 정책 Policy_No를 이용해 구분하며 검색
+    // [select] 단일 시스템 정책
     var sql1 = 'select * from Policy where Policy_No = ?';
-    // 시스템 정책 사용자
+    // [select] 해당 시스템 정책을 적용한 사용자 검색
     var sql2 = 'select * from User, Department, Positions where User_Policy = ? and User_Positions = Positions_No and User_Department = Department_No';
     conn.query(sql1, [policyno], function (err, syspolicy, fields) {
         conn.query(sql2, [policyno], function (err, policyuser, fields) {
@@ -263,11 +265,11 @@ app.get('/Systempolicydetail/:policyno', (req, res) => {
 // [Get] /Systempolicymanage (시스템 정책 사용자 설정 페이지)
 app.get('/Systempolicymanage/:policyno', (req, res) => {
     var policyno = req.params.policyno;
-    // 시스템 정책명
+    // [select] 시스템 정책 데이터 (정책명 사용위함)
     var sql1 = 'select * from Policy where Policy_No = ?';
-    // 이 정책이 적용되어 있지 않은 사용자
+    // [select] 해당 정책이 적용되어 있지 않은 사용자
     var sql2 = 'select * from User, Department, Positions where (User_Policy != ? or ISNULL(User_Policy)) and User_Positions = Positions_No and User_Department = Department_No'
-    // 이 정책이 적용되어 있는 사용자
+    // [select] 해당 정책이 적용되어 있는 사용자
     var sql3 = 'select * from User, Department, Positions where User_Policy = ? and User_Positions = Positions_No and User_Department = Department_No';
     conn.query(sql1, [policyno], function (err, syspolicy, fields) {
         conn.query(sql2, [policyno], function (err, userexport, fields) {
@@ -287,6 +289,7 @@ app.post('/Systempolicyuserin/:policyno', (req, res) => {
     var policyno = req.params.policyno;
     var id = req.body.usercheck1;
     console.log(id);
+    // [update] 사용자 시스템 정책 적용
     var sql1 = 'update User set User_Policy = ? where User_No = ?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
@@ -297,7 +300,7 @@ app.post('/Systempolicyuserin/:policyno', (req, res) => {
         console.log(id + "[Policychanged]");
         conn.query(sql1, [policyno, id], function (err, result) {});
     }
-    res.redirect('/Systempolicydetail/'+policyno);
+    res.redirect('/Systempolicydetail/' + policyno);
 });
 
 // [Post] /Systempolicyuserout (시스템 정책 사용자 제외)
@@ -305,6 +308,7 @@ app.post('/Systempolicyuserout/:policyno', (req, res) => {
     var policyno = req.params.policyno;
     var id = req.body.usercheck2;
     console.log(id);
+    // [update] 사용자 시스템 정책 적용 해제
     var sql1 = 'update User set User_Policy = null where User_No = ?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
@@ -315,13 +319,13 @@ app.post('/Systempolicyuserout/:policyno', (req, res) => {
         console.log(id + "[Policychanged]");
         conn.query(sql1, [id], function (err, result) {});
     }
-    res.redirect('/Systempolicydetail/'+policyno);
+    res.redirect('/Systempolicydetail/' + policyno);
 });
 
 // [Get] /Systempolicyedit (시스템 정책 수정 페이지)
 app.get('/Systempolicyedit/:policyno', (req, res) => {
     var policyno = req.params.policyno;
-    // 시스템 정책 수정 페이지 Policy_No를 이용해 구분하며 검색
+    // [select] 시스템 정책 데이터
     var sql1 = 'select * from Policy where Policy_No=?';
     conn.query(sql1, [policyno], function (err, syspolicy, fields) {
         res.render('Systempolicyedit', {
@@ -332,7 +336,6 @@ app.get('/Systempolicyedit/:policyno', (req, res) => {
 
 // [Post] /Updatesystempolicy (시스템 정책 수정)
 app.post('/Updatesystempolicy/:policyno', (req, res) => {
-    // policyno = 시스템 정책 번호
     var policyno = req.params.policyno;
     var Policy_Name = req.body.Policy_Name;
     var Policy_Comment = req.body.Policy_Comment;
@@ -372,7 +375,8 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     if (Policy_Clipboard == 1) {
         Policy_Mask += 128;
     }
-    // System Policy Update sql
+    
+    // [update] 시스템 정책 수정
     var sql1 = 'update Policy set Policy_Name=?, Policy_Update=?, Policy_Comment=?, Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snippingtools=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
 
     conn.query(sql1, [Policy_Name, Policy_Update, Policy_Comment, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard, policyno], function (err, tmp, fields) {
@@ -384,7 +388,7 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
 
 // [Get] /Folderpolicy (폴더 정책 페이지)
 app.get('/Folderpolicy', (req, res) => {
-    // 폴더 정책에 대한 데이터 베이스 정보 모두 가져오기
+    // [select] 폴더 정책
     var sql1 = 'select * from Folder';
     conn.query(sql1, function (err, dirpolicy, fields) {
         res.render('Folderpolicy', {
@@ -406,9 +410,9 @@ app.post('/Addfolderpolicy', (req, res) => {
     var Folder_Createmask = req.body.Folder_Createmask;
     var Folder_Directorymask = req.body.Folder_Directorymask;
 
-    // 폴더 정책 추가
+    // [insert] 폴더 정책 추가
     var sql1 = 'insert into Folder (Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-    conn.query(sql1, [Folder_Name, Folder_Path,  Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask], function (err, tmp, fields) {
+    conn.query(sql1, [Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask], function (err, tmp, fields) {
         console.log(tmp);
     });
     res.redirect('/Folderpolicy');
@@ -418,6 +422,7 @@ app.post('/Addfolderpolicy', (req, res) => {
 app.post('/Deletefolderpolicy', (req, res) => {
     var id = req.body.foldercheck;
     console.log(id);
+    // [delete] 폴더 정책 삭제
     var sql1 = 'delete from Folder where Folder_No=?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
@@ -433,11 +438,10 @@ app.post('/Deletefolderpolicy', (req, res) => {
 
 // [Get] /Folderpolicydetail (폴더 정책 세부 사항 페이지)
 app.get('/Folderpolicydetail/:folderno', (req, res) => {
-    // policyno = Folder_No
     var folderno = req.params.folderno;
-    // 폴더 정책을 Folder_No을 이용하여 가져온다.
+    // [select] 폴더 정책 데이터
     var sql1 = 'select * from Folder where Folder_No=?';
-    // 폴더 정책 사용자
+    // [select] 해당 폴더 정책을 적용한 사용자 검색
     var sql2 = 'select * from User, Rule, Department, Positions where User_No = Rule_User and User_Positions = Positions_No and User_Department = Department_No and Rule_Folder = ?';
     conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
         conn.query(sql2, [folderno], function (err, folderuser, fields) {
@@ -452,11 +456,11 @@ app.get('/Folderpolicydetail/:folderno', (req, res) => {
 // [Get] /Folderpolicymanage (폴더 정책 사용자 설정 페이지)
 app.get('/Folderpolicymanage/:folderno', (req, res) => {
     var folderno = req.params.folderno;
-    // 시스템 정책명
+    // [select] 폴더 정책 데이터 (정책명 사용위함)
     var sql1 = 'select * from Folder where Folder_No = ?';
-    // 이 정책이 적용되어 있지 않은 사용자
+    // [select] 해당 정책이 적용되어 있지 않은 사용자
     var sql2 = 'select * from User, Department, Positions where User_Positions = Positions_No and User_Department = Department_No and User_No NOT IN (select User_No from User, Rule where User_No = Rule_User and Rule_Folder = ?);';
-    // 이 정책이 적용되어 있는 사용자
+    // [select] 해당 정책이 적용되어 있는 사용자
     var sql3 = 'select * from User, Rule, Department, Positions where User_No = Rule_User and User_Positions = Positions_No and User_Department = Department_No and Rule_Folder = ?';
     conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
         conn.query(sql2, [folderno], function (err, userexport, fields) {
@@ -476,6 +480,7 @@ app.post('/Folderpolicyuserin/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     var id = req.body.usercheck1;
     console.log(id);
+    // [insert] 폴더 정책 사용자 추가
     var sql1 = 'insert into Rule(Rule_Folder, Rule_User) VALUES(?, ?)';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
@@ -486,7 +491,7 @@ app.post('/Folderpolicyuserin/:folderno', (req, res) => {
         console.log(id + "[FolderPolicychanged]");
         conn.query(sql1, [folderno, id], function (err, result) {});
     }
-    res.redirect('/Folderpolicydetail/'+folderno);
+    res.redirect('/Folderpolicydetail/' + folderno);
 });
 
 // [Post] /Systempolicyuserout (폴더 정책 사용자 제외)
@@ -494,6 +499,7 @@ app.post('/Folderpolicyuserout/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     var id = req.body.usercheck2;
     console.log(id);
+    // [delete] 폴더 정책 사용자 제외
     var sql1 = 'delete from Rule where Rule_Folder = ? and Rule_User = ?';
     if (Array.isArray(id) == true) {
         id.forEach(function (items) {
@@ -504,14 +510,14 @@ app.post('/Folderpolicyuserout/:folderno', (req, res) => {
         console.log(id + "[FolderPolicychanged]");
         conn.query(sql1, [id], function (err, result) {});
     }
-    res.redirect('/Folderpolicydetail/'+folderno);
+    res.redirect('/Folderpolicydetail/' + folderno);
 });
 
 // [Get] /Folderpolicyedit (폴더 정책 수정 페이지)
 app.get('/Folderpolicyedit/:folderno', (req, res) => {
     // policyno = Folder_No
     var folderno = req.params.folderno;
-    // 폴더 정책을 Folder_No을 이용하여 가져온다.
+    // [select] 폴더 정책 데이터
     var sql1 = 'select * from Folder where Folder_No=?';
     conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
         res.render('Folderpolicyedit', {
@@ -533,13 +539,13 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var Folder_Createmask = req.body.Folder_Createmask;
     var Folder_Directorymask = req.body.Folder_Directorymask;
 
-    // 폴더 정책 업데이트
+    // [update] 폴더 정책 수정
     var sql1 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
     conn.query(sql1, [Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
         console.log(tmp);
     });
 
-    res.redirect('/Folderpolicydetail/'+folderno);
+    res.redirect('/Folderpolicydetail/' + folderno);
 })
 
 // [Get] /Setting (설정)
@@ -552,12 +558,12 @@ app.get('/', (req, res) => {
     res.render('Login');
 })
 
-// Error
+// [Get] Error (에러)
 app.get('*', function (req, res, next) {
     throw new Error();
 });
 
-// Error
+// [Get] Error page (에러 페이지)
 app.use(function (error, req, res, next) {
     res.render('Error');
 });

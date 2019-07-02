@@ -1,5 +1,6 @@
 ﻿/				G 로그인 페이지
 ┝ /Login			P 로그인 
+┝ /Logout			G 로그아웃
 
 ┝ /Dashboard			G 대시보드 페이지
 

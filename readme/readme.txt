@@ -15,8 +15,15 @@ UI
 
 	https://designrevision.com/docs/shards/using-icons.html
 
-190530
+개선사항
 
-	방대의 : 로그인 창 및 기본적인 UI 설계
-	김규진 : Systemplocy.handlebars 직접 DB연결하기
-	허상민 : Users.handlebars 직접 DB연결하기 수정과 삭제 버튼 value 값 필수!
+	Dashboard 구상
+	Useradd Modal UI 구현
+	Useradd Post 구현
+	Userdetail UI 개선
+	Useredit UI 개선
+	Systempolicyedit UI 개선
+	FolderPolicy 생성파일권한 폴더생성권한 UI 개선
+	Folderpolicyedit UI 개선
+	Setting 비밀번호 변경 UI 구현
+	Setting 부서 및 직책 관리 페이지
