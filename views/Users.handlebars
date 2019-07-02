@@ -152,9 +152,9 @@
                             <form method="post" id="Userdelete" action="/Deleteuser">
                                 <div class="card card-small mb-4">
                                     <div class="card-header border-bottom">
-                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#Policyaddmodal">Add User</button>
+                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#Useraddmodal">Add User</button>
                                         &nbsp;
-                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#Policyaddmodal">Add User with CSV</button>
+                                        <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#UseraddmodalCSV">Add User with CSV</button>
                                         &nbsp;
                                         <button type="button" disabled id="userremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#Userdeletemodal">Delete User</button>
                                     </div>
@@ -188,7 +188,7 @@
                                                 <td>{{this.User_No}}</td>
                                                 <td>{{this.User_Name}}</td>
                                                 <td>{{this.User_SMB}}</td>
-                                                <td>{{this.Policy_Name}}</td>
+                                                <td>{{this.User_Policy}}</td>
                                                 <td>{{this.User_IP}}</td>
                                                 <td>
                                                     <a href="/Userdetail/{{this.User_No}}"><span class="badge badge-pill badge-outline-primary"><i class="material-icons text-primary">add</i> Detail</span></a>
@@ -221,6 +221,97 @@
                                 </div>
                                 <!-- End User Delete Modal -->
                             </form>
+                              <!-- User Add Modal -->
+                            <form method=post action="/Adduser">
+                                <div class="modal fade" id="Useraddmodal" tabindex="-1" role="dialog" aria-labelledby="UseraddmodalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="UseraddmodalLabel">Add User</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="User_Name">사용자이름</label>
+                                                                <input type="text" class="form-control" id="User_Name" name="User_Name" placeholder="사용자이름"> </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="User_SMB">SMB ID</label>
+                                                                <input type="text" class="form-control" id="User_SMB" name="User_SMB" placeholder="SMB ID"> </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="User_IP">IP</label>
+                                                                <input type="text" class="form-control" id="User_IP" name="User_IP" placeholder="IP"> </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="User_Policy">시스템 정책</label>
+                                                                <select name="User_Policy" id="feInputState" class="form-control" >
+                                                                    {{#each policy}}
+                                                                    <option  value="{{this.Policy_No}}" name="User_Policy">{{this.Policy_Name}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="User_Department">부서</label>
+                                                                <select name="User_Department" id="feInputState" class="form-control" >
+                                                                    {{#each department}}
+                                                                    <option  value="{{this.Department_No}}" name="User_Department">{{this.Department_Name}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
+                                                             <div class="form-group col-md-6">
+                                                                <label for="User_Positions">직책</label>
+                                                                <select name="User_Positions" id="feInputState" class="form-control" >
+                                                                    {{#each positions}}
+                                                                    <option  value="{{this.Positions_No}}" name="User_Positions">{{this.Positions_Name}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-outline-success">Add</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- End User Add Modal -->
+                            <!-- User Add Modal CSV -->
+                            <form action="/Addusercsv" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1">
+                                <div class="modal fade" id="UseraddmodalCSV" tabindex="-1" role="dialog" aria-labelledby="UseraddmodalCSV" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="UseraddmodalCSVLabel">Addusercsv</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group col-md-12">
+                                                  <input type="file" class="custom-file-input" id="customFile" name="avatar">
+                                                  <label class="custom-file-label" for="customFile">CSV file input</label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" id="submitForm" class="btn btn-outline-success">Add</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- End User Add Modal CSV -->
                         </div>
                     </div>
                     <!-- End User Table -->

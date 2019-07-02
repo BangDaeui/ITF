@@ -168,13 +168,11 @@
                                                             <label for="User_GS">System Policy</label>
                                                             {{/each}}
                                                             <select name=User_Policy id="feInputState" class="form-control" >
-
-                                                                  {{#each policyname}}
+                                                                {{#each policyname}}
                                                                 <option  value="{{this.Policy_No}}" name="User_Policy">{{this.Policy_Name}}</option>
                                                                 {{/each}}
-
-                                                                </select>
-                                                                {{#each usersettings}}
+                                                            </select>
+                                                            {{#each usersettings}}
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="User_IP">IP</label>
@@ -187,7 +185,6 @@
                                                             <textarea class="form-control" name="feDescription" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
                                                         </div>
                                                     </div>
-
                                                     <button type="submit" class="btn btn-accent">Update Account</button>
                                                     {{/each}}
                                                 </form>

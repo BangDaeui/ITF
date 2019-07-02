@@ -11,7 +11,14 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 // cookie-parser
 var cookie = require('cookie-parser');
-
+// fast-csv
+var csv = require('fast-csv');
+// fs
+var fs = require('fs');
+// multer
+var multer  = require('multer')
+// upload
+var upload = multer({ dest: 'uploads/' })     
 // sql connection
 var conn = mysql.createConnection({
     host: 'itf2019.cohnbkqepvge.ap-northeast-2.rds.amazonaws.com',
@@ -92,12 +99,62 @@ app.get('/Eventlog', (req, res) => {
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
     // [select] 사용자 데이터
-    var sql1 = 'select Policy_Name,User_IP,User_Name,User_No,User_SMB from User, Policy where User_Policy = Policy_No';
+    var sql1 = 'select * from User left outer join Policy on User_Policy=Policy_No where User_Policy is null or User_Policy=Policy_No;';
+    // [select] 시스템 정책
+    var sql2 = 'select * from Policy';
+    // [select] 부서
+    var sql3 = 'select * from Department';
+    // [select] 직책
+    var sql4 = 'select * from Positions';
     conn.query(sql1, function (err, userslist, fields) {
-        res.render('Users', {
-            userslist: userslist
+        conn.query(sql2, function (err, policy, fields) {
+            conn.query(sql3, function (err, department, fields) {
+                conn.query(sql4, function (err, positions, fields) {
+                    res.render('Users', {
+                        userslist: userslist,
+                        policy: policy,
+                        department: department,
+                        positions: positions
+                    });
+                });
+            }); 
         });
     });
+});
+
+// [Post] /Adduser (유저추가)
+app.post('/Adduser', (req, res) => {
+    var User_Name = req.body.User_Name;
+    var User_SMB = req.body.User_SMB;
+    var User_IP = req.body.User_IP;
+    var User_Department = req.body.User_Department;
+    var User_Positions = req.body.User_Positions;
+    var User_Policy = req.body.User_Policy;
+    // [insert] 사용자 추가
+    var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values (?, ?, ?, ?, ?, ?)';
+    conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy], function(err, tmp, result){
+        console.log(tmp);
+    })
+    res.redirect('/Users');
+});
+
+// [Post] /Addusercsv (유저추가CSV)
+app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
+    console.log(req.file.filename);
+    var filename = req.file.filename;
+    var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values (?, ?, ?, ?, ?, ?)';
+    var read = fs.createReadStream('C:/ITF/uploads/' + filename)
+    .pipe(csv())
+    .on('data', function(data) {
+        console.log(data);
+        conn.query(sql1, [data[0], data[1], data[2], data[3], data[4], data[5]], function (err, tmp, result){
+            console.log(tmp);
+        })
+    })
+    .on('end', function(data){
+        console.log('Read finished');
+    })
+    res.redirect('/Users');
 });
 
 //[Post] /Deleteuser (유저삭제)
@@ -122,7 +179,7 @@ app.post('/Deleteuser', (req, res) => {
 app.get('/Userdetail/:userno', (req, res) => {
     var userno = req.params.userno;
     // [select] 단일 사용자의 데이터
-    var sql1 = 'select * from User, Department, Positions, Policy where User_Positions = Positions_No and User_Department = Department_No and User_Policy = Policy_No and User_No = ?';
+    var sql1 = 'select * from Department, Positions, User left outer join Policy on User_Policy=Policy_No where User_Positions = Positions_No and User_Department = Department_No and User_No = ?';
     // [select] 사용자가 소속된 폴더 정책
     var sql2 = 'select * from User, Rule, Folder where User_No = Rule_User and Folder_No = Rule_Folder and User_No = ?';
     conn.query(sql1, [userno], function (err, userdetail, fields) {
