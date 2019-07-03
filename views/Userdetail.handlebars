@@ -145,7 +145,7 @@
                                         <h6 class="m-0">User Detail</h6>
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item p-8 mb-2">
+                                        <li class="list-group-item p-8 mb-4">
                                             <div class="row">
                                                 <div class="col-md-11">
                                                     <p></p>
@@ -159,15 +159,20 @@
                                                         <strong class="mr-1">직책:</strong>
                                                         {{this.Positions_Name}}
                                                     </span>
-                                                    <span class="d-flex mb-6">
+                                                    <span class="d-flex mb-4">
                                                         <i class="material-icons mr-1">laptop_windows</i>
-                                                        <strong class="mr-1">적용된 시스템 정책:</strong>
-                                                        {{this.Policy_Name}}&nbsp;&nbsp;
+                                                        <strong class="mr-1">적용된 시스템 정책:</strong>   
+                                                        {{#if this.Policy_No}}
+                                                        {{this.Policy_Name}}&nbsp;&nbsp; 
                                                         <a href="/Systempolicydetail/{{this.Policy_No}}">
                                                         <strong class="text-success">자세히보기</strong>
                                                         </a>
+                                                        {{else}}
+                                                        없음
+                                                        {{/if}}
                                                     </span>
-                                                    <br><br><br>
+                                                    <span class="d-flex mb-4"></span>
+                                                    <span class="d-flex mb-2"></span>
                                                 </div>
                                             </div>
                                         </li>
