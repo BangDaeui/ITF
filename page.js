@@ -196,7 +196,7 @@ app.get('/Userdetail/:userno', (req, res) => {
 app.get('/Useredit/:userno', (req, res) => {
     var userno = req.params.userno;
     // [select] 단일 사용자의 데이터와 사용자의 시스템 정책
-    var sql1 = 'select * from User, Policy where User_No = ? and User_Policy = Policy_No';
+    var sql1 = 'select * from User left outer join Policy on User_Policy = Policy_No where User_No = ?';
     // [select] 폴더 정책
     var sql2 = 'select * from Policy';
     conn.query(sql1, [userno], function (err, usersettings, fields) {
