@@ -99,7 +99,7 @@ app.get('/Eventlog', (req, res) => {
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
     // [select] 사용자 데이터
-    var sql1 = 'select * from User left outer join Policy on User_Policy=Policy_No where User_Policy is null or User_Policy=Policy_No;';
+    var sql1 = 'select * from User left outer join Policy on User_Policy=Policy_No where User_Policy is null or User_Policy=Policy_No order by User_No;';
     // [select] 시스템 정책
     var sql2 = 'select * from Policy';
     // [select] 부서
