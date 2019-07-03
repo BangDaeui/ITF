@@ -112,10 +112,10 @@ var server = net.createServer(function(client){
     client.on('end',function(){
         console.log('Client disconnected');
     });
-    var sql = 'select a10 from hello';
+    var sql = 'select * from User, Policy where User_Policy = Policy_No';
     conn.query(sql,function(err, tmp, fields){
-        console.log(tmp[0].a10);
-        client.write(tmp[0].a10.toString());
+        console.log(tmp[0].User_Mask);
+        client.write(tmp[0].User_Mask.toString());
     });
 });
 
