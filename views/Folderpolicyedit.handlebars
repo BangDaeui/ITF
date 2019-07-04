@@ -115,124 +115,120 @@
                     <div class="page-header row no-gutters py-4 mb-3 border-bottom">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">in the forest</span>
-                            {{#each dirpolicy}}<h3 class="page-title">{{this.Folder_Name}}</h3>{{/each}}
+                            {{#each dirpolicy}}
+                                <h3 class="page-title">{{this.Folder_Name}}</h3>
+                            {{/each}}
                         </div>
                     </div>
                     <!-- End Page Header -->
                     <!-- Folder Policy -->
-                    <div class="row">
-                        {{#each dirpolicy}}
-                            <div class="col-lg-4">
-                                <div class="card card-small mb-4 pt-3">
-                                    <div class="card-header border-bottom text-center">
-                                        <h4 class="mb-0">{{this.Folder_Name}}</h4>
+                    <form name="Folder_Setting" action="/Updatefolderpolicy/{{this.Folder_No}}" method="post">
+                        <div class="row">
+                            {{#each dirpolicy}}
+                                <div class="col-lg-4">
+                                    <div class="card card-small mb-4 pt-3">
+                                        <div class="card-header border-bottom text-center">
+                                            <h4 class="mb-0">{{this.Folder_Name}}</h4>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item p-4">
+                                                <strong class="text d-block mb-1">경로</strong>
+                                                <span>{{this.Folder_Path}}</span>
+                                                <p></p>
+                                                <strong class="text d-block mb-1">설명</strong>
+                                                <textarea class="form-control" name="Folder_Comment" rows="5">{{this.Folder_Comment}}</textarea>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{/each}}
+                            <div class="col-lg-8">
+                                <div class="card card-small mb-4">
+                                    <div class="card-header border-bottom">
+                                        <h6 class="m-0">Folder Policy Details</h6>
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item p-4">
-                                            <strong class="text d-block mb-1">경로</strong>
-                                            <span>{{this.Folder_Path}}</span>
-                                        </li>
-                                        <li class="list-group-item p-4">
-                                            <strong class="text d-block mb-1">설명</strong>
-                                            <span>{{this.Folder_Comment}}</span>
+                                        <li class="list-group-item p-3">
+                                            <div class="row">
+                                                <div class="col">
+                                                    {{#each dirpolicy}}
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Name">폴더 정책명</label>
+                                                                <input type="text" class="form-control" id="Folder_Name" name="Folder_Name" placeholder="Folder_Name" value='{{this.Folder_Name}}'> </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Update">폴더 정책 갱신주기 (분)</label>
+                                                                <input type="text" class="form-control" id="Folder_Update" name="Folder_Update" placeholder="Folder_Update" value="{{this.Folder_Update}}"> </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Createmask">생성 파일권한</label>
+                                                                <input type="text" class="form-control" id="Folder_Createmask" name="Folder_Createmask" placeholder="Folder_Createmask" value="{{this.Folder_Createmask}}">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Directorymask">생성 폴더권한</label>
+                                                                <input type="text" class="form-control" id="Folder_Directorymask" name="Folder_Directorymask" placeholder="Folder_Directorymask" value="{{this.Folder_Directorymask}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Readonly">읽기 전용</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Readonly1" value=1 name="Folder_Readonly" class="custom-control-input" {{#if this.Folder_Readonly}}checked{{else}}{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Readonly1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Readonly2" value=0 name="Folder_Readonly" class="custom-control-input" {{#if this.Folder_Readonly}}{{else}}checked{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Readonly2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Writeable">쓰기 허용</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Writeable1" value=1 name="Folder_Writeable" class="custom-control-input" {{#if this.Folder_Writeable}}checked{{else}}{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Writeable1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Writeable2" value=0 name="Folder_Writeable" class="custom-control-input" {{#if this.Folder_Writeable}}{{else}}checked{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Writeable2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Guest">게스트 허용</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Guest1" value=1 name="Folder_Guest" class="custom-control-input" {{#if this.Folder_Guest}}checked{{else}}{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Guest1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Guest2" value=0 name="Folder_Guest" class="custom-control-input" {{#if this.Folder_Guest}}{{else}}checked{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Guest2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Folder_Browsable">보임 유무</label>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Browsable1" value=1 name="Folder_Browsable" class="custom-control-input" {{#if this.Folder_Browsable}}checked{{else}}{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Browsable1">On</label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio mb-1">
+                                                                    <input type="radio" id="Folder_Browsable2" value=0 name="Folder_Browsable" class="custom-control-input" {{#if this.Folder_Browsable}}{{else}}checked{{/if}}>
+                                                                    <label class="custom-control-label" for="Folder_Browsable2">Off</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div align="right"><button type="submit" class="btn btn-outline-primary">Update Folder Policy</button></div>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                        {{/each}}
-                        <div class="col-lg-8">
-                            <div class="card card-small mb-4">
-                                <div class="card-header border-bottom">
-                                    <h6 class="m-0">Folder Policy Details</h6>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item p-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                {{#each dirpolicy}}
-                                                <form name="Folder_Setting" action="/Updatefolderpolicy/{{this.Folder_No}}" method="post">
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Name">폴더 정책명</label>
-                                                            <input type="text" class="form-control" id="Folder_Name" name="Folder_Name" placeholder="Folder_Name" value='{{this.Folder_Name}}'> </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Update">폴더 정책 갱신주기 (분)</label>
-                                                            <input type="text" class="form-control" id="Folder_Update" name="Folder_Update" placeholder="Folder_Update" value="{{this.Folder_Update}}"> </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Createmask">생성 파일권한</label>
-                                                            <input type="text" class="form-control" id="Folder_Createmask" name="Folder_Createmask" placeholder="Folder_Createmask" value="{{this.Folder_Createmask}}">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Directorymask">생성 폴더권한</label>
-                                                            <input type="text" class="form-control" id="Folder_Directorymask" name="Folder_Directorymask" placeholder="Folder_Directorymask" value="{{this.Folder_Directorymask}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Readonly">읽기 전용</label>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Readonly1" value=1 name="Folder_Readonly" class="custom-control-input"  {{#if this.Folder_Readonly}}checked{{else}}{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Readonly1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Readonly2" value=0 name="Folder_Readonly" class="custom-control-input" {{#if this.Folder_Readonly}}{{else}}checked{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Readonly2">Off</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Writeable">쓰기 허용</label>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Writeable1" value=1 name="Folder_Writeable" class="custom-control-input" {{#if this.Folder_Writeable}}checked{{else}}{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Writeable1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Writeable2" value=0 name="Folder_Writeable" class="custom-control-input" {{#if this.Folder_Writeable}}{{else}}checked{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Writeable2">Off</label>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Guest">게스트 허용</label>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Guest1" value=1 name="Folder_Guest" class="custom-control-input" {{#if this.Folder_Guest}}checked{{else}}{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Guest1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Guest2" value=0 name="Folder_Guest" class="custom-control-input" {{#if this.Folder_Guest}}{{else}}checked{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Guest2">Off</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="Folder_Browsable">보임 유무</label>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Browsable1" value=1 name="Folder_Browsable" class="custom-control-input" {{#if this.Folder_Browsable}}checked{{else}}{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Browsable1">On</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="Folder_Browsable2" value=0 name="Folder_Browsable" class="custom-control-input" {{#if this.Folder_Browsable}}{{else}}checked{{/if}}>
-                                                            <label class="custom-control-label" for="Folder_Browsable2">Off</label>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="feDescription">설명</label>
-                                                            <textarea class="form-control" name="Folder_Comment" rows="5">{{this.Folder_Comment}}</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div align="right"><button type="submit" class="btn btn-outline-primary">Update Folder Policy</button></div>
-                                                </form>
-                                                {{/each}}
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
-                    </div>
+                    </form>
                     <!-- End Folder Policy -->
                 </div>
                 <footer class="main-footer d-flex p-2 px-3 bg-white border-top">

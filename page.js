@@ -196,15 +196,26 @@ app.get('/Userdetail/:userno', (req, res) => {
 app.get('/Useredit/:userno', (req, res) => {
     var userno = req.params.userno;
     // [select] 단일 사용자의 데이터와 사용자의 시스템 정책
-    var sql1 = 'select * from User left outer join Policy on User_Policy = Policy_No where User_No = ?';
-    // [select] 폴더 정책
+    var sql1 = 'select * from Department, Positions, User left outer join Policy on User_Policy=Policy_No where User_Positions = Positions_No and User_Department = Department_No and User_No = ?';
+    // [select] 시스템 정책
     var sql2 = 'select * from Policy';
+    // [select] 부서
+    var sql3 = 'select * from Department';
+    // [select] 직책
+    var sql4 = 'select * from Positions';
+
     conn.query(sql1, [userno], function (err, usersettings, fields) {
-        conn.query(sql2, [userno], function (err, policyname, fiedls) {
-            res.render('Useredit', {
-                usersettings: usersettings,
-                policyname: policyname
-            });
+        conn.query(sql2, function (err, policy, fields) {
+            conn.query(sql3, function (err, department, fields) {
+                conn.query(sql4, function (err, positions, fields) {
+                    res.render('Useredit', {
+                        usersettings: usersettings,
+                        policy: policy,
+                        department: department,
+                        positions: positions
+                    });
+                });
+            }); 
         });
     });
 });
@@ -215,10 +226,13 @@ app.post('/Updateuser/:userno', (req, res) => {
     var User_SMB = req.body.User_SMB;
     var User_Policy = req.body.User_Policy;
     var User_IP = req.body.User_IP;
+    var User_Department = req.body.User_Department;
+    var User_Positions = req.body.User_Positions;
+    var User_Policy = req.body.User_Policy;
     var userno = req.params.userno;
     // [update] 사용자 데이터 수정
-    var sql1 = 'update User set User_Name=?, User_IP=?, User_SMB=?, User_Policy=? where User_No=?';
-    conn.query(sql1, [User_Name, User_IP, User_SMB, User_Policy, userno], function (err, tmp, fields) {
+    var sql1 = 'update User set User_Name=?, User_IP=?, User_SMB=?, User_Policy=?, User_Department=?, User_Positions=?, User_Policy=? where User_No=?';
+    conn.query(sql1, [User_Name, User_IP, User_SMB, User_Policy, User_Department, User_Positions, User_Policy, userno], function (err, tmp, fields) {
         res.redirect('/Users');
     });
 });
