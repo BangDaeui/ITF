@@ -88,7 +88,18 @@ app.get('/Dashboard', (req, res) => {
         return true;
     }
     */
-    res.render('Dashboard');
+    // [select] 사용자 인원, 시스템 정책 수, 폴더 정책 수
+    var sql1 = 'select (SELECT COUNT(*) FROM User) Usern, (SELECT COUNT(*) FROM Policy) Policyn, (SELECT COUNT(*) FROM Folder) Foldern from DUAL';
+    // [select] 폴더 정책
+    var sql2 = 'select * from Folder';
+    conn.query(sql1, function (err, num, fields) {
+        conn.query(sql2, function (err, folder, fields) {
+            res.render('Dashboard', {
+                num: num,
+                folder: folder
+            });
+        });
+    });
 })
 
 // [Get] /EventLog (이벤트 로그 페이지)
