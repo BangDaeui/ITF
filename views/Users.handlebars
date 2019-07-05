@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/public/styles/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
-        // 체크박스 전체 선택
+        // User 체크박스 전체 선택
         function totalcheck() {
             if ($("#usercheckall").is(':checked')) {
                 $("input[name=usercheck").prop("checked", true);
@@ -26,7 +26,18 @@
                 document.getElementById("userremove").disabled = true;
             }
         }
-
+        // Folder Policy 체크박스 전체 선택
+        function totalcheck() {
+            if ($("#foldercheckall").is(':checked')) {
+                $("input[name=foldercheck").prop("checked", true);
+                document.getElementById("folderremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("folderremove").disabled = false;
+            } else {
+                $("input[name=foldercheck").prop("checked", false);
+                document.getElementById("folderremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("folderremove").disabled = true;
+            }
+        }
         // button 색 변경
         function buttoncheck() {
             var tmp = $("input:checkbox[name=usercheck]:checked").length;
@@ -188,7 +199,7 @@
                                                 <td>{{this.User_No}}</td>
                                                 <td>{{this.User_Name}}</td>
                                                 <td>{{this.User_SMB}}</td>
-                                                <td>{{this.User_Policy}}</td>
+                                                <td>{{this.Policy_Name}}</td>
                                                 <td>{{this.User_IP}}</td>
                                                 <td>
                                                     <a href="/Userdetail/{{this.User_No}}"><span class="badge badge-pill badge-outline-primary"><i class="material-icons text-primary">add</i> Detail</span></a>
@@ -221,7 +232,7 @@
                                 </div>
                                 <!-- End User Delete Modal -->
                             </form>
-                              <!-- User Add Modal -->
+                            <!-- User Add Modal -->
                             <form method=post action="/Adduser">
                                 <div class="modal fade" id="Useraddmodal" tabindex="-1" role="dialog" aria-labelledby="UseraddmodalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
@@ -278,6 +289,71 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-success" data-dismiss="modal" data-toggle="modal" data-target="#Useraddnextmodal">Next</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- End User Add Modal -->
+                            <!-- User Add Next Modal -->
+                                <div class="modal fade" id="Useraddnextmodal" tabindex="-1" role="dialog" aria-labelledby="UseraddnextmodalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="UseraddnextmodalLabel">Add User</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <div class="card-header border-bottom">
+                                                                    <h6 class="m-0">정책 적용 사용자</h6>
+                                                                </div>
+                                                                <ul class="list-group list-group-flush">
+                                                                    <table class="table mb-2">
+                                                                        <thead class="bg-light text-center">
+                                                                            <tr>
+                                                                                <th>
+                                                                                    <div class="custom-control custom-checkbox mb-0">
+                                                                                        <input type="checkbox" class="custom-control-input" name="foldercheckall" id="foldercheckall" onClick="totalcheck();">
+                                                                                        <label class="custom-control-label" for=foldercheckall></label>
+                                                                                    </div>
+                                                                                </th>
+                                                                                <th scope="col" class="border-0">No</th>
+                                                                                <th scope="col" class="border-0">Name</th>
+                                                                                <th scope="col" class="border-0">Path</th>
+                                                                                <th scope="col" class="border-0">Comment</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="text-center">
+                                                                            {{#each folder}}
+                                                                                <tr>
+                                                                                    <td>
+                                                                                    <div class="custom-control custom-checkbox mb-0">
+                                                                                        <input type="checkbox" class="custom-control-input" name="foldercheck" id="foldercheck{{this.Folder_No}}" onClick="buttoncheck()" value="{{this.Folder_No}}">
+                                                                                        <label class="custom-control-label" for="foldercheck{{this.Folder_No}}"></label>
+                                                                                    </div>
+                                                                                    </td>
+                                                                                    <td>{{this.Folder_No}}</td>
+                                                                                    <td>{{this.Folder_Name}}</td>
+                                                                                    <td>{{this.Folder_Path}}</td>
+                                                                                    <td>{{this.Folder_Comment}}</td>
+                                                                                </tr>
+                                                                            {{/each}}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
                                                 <button type="submit" class="btn btn-outline-success">Add</button>
                                                 <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
                                             </div>
@@ -285,7 +361,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- End User Add Modal -->
+                            <!-- End User Add Next Modal -->
                             <!-- User Add Modal CSV -->
                             <form action="/Addusercsv" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1">
                                 <div class="modal fade" id="UseraddmodalCSV" tabindex="-1" role="dialog" aria-labelledby="UseraddmodalCSV" aria-hidden="true">

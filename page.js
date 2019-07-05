@@ -106,15 +106,20 @@ app.get('/Users', (req, res) => {
     var sql3 = 'select * from Department';
     // [select] 직책
     var sql4 = 'select * from Positions';
+    // [select] 폴더 정책
+    var sql5 = 'select * from Folder';
     conn.query(sql1, function (err, userslist, fields) {
         conn.query(sql2, function (err, policy, fields) {
             conn.query(sql3, function (err, department, fields) {
                 conn.query(sql4, function (err, positions, fields) {
-                    res.render('Users', {
-                        userslist: userslist,
-                        policy: policy,
-                        department: department,
-                        positions: positions
+                    conn.query(sql5, function (err, folder, fields) {
+                        res.render('Users', {
+                            userslist: userslist,
+                            policy: policy,
+                            department: department,
+                            positions: positions,
+                            folder: folder
+                        });
                     });
                 });
             }); 
@@ -130,10 +135,25 @@ app.post('/Adduser', (req, res) => {
     var User_Department = req.body.User_Department;
     var User_Positions = req.body.User_Positions;
     var User_Policy = req.body.User_Policy;
+    var foldercheck = req.body.foldercheck;
     // [insert] 사용자 추가
     var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values (?, ?, ?, ?, ?, ?)';
+    // [select] 위에서 생성된 사용자 확인
+    var sql2 = 'select * from User where User_SMB = ?'
+    // [insert] 폴더정책 추가
+    var sql3 = 'insert into Rule(Rule_Folder, Rule_User) VALUES(?, ?)';
     conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy], function(err, tmp, result){
-        console.log(tmp);
+        conn.query(sql2, [User_SMB], function(err, tmp2, result){
+            if (Array.isArray(foldercheck) == true) {
+                foldercheck.forEach(function (items) {
+                    console.log(items + "[FolderPolicy]");
+                    conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {});
+                });
+            } else {
+                console.log(id + "[FolderPolicychanged]");
+                conn.query(sql3, [foldercheck, tmp2[0].User_No], function (err, result) {});
+            }
+        })
     })
     res.redirect('/Users');
 });
