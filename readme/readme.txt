@@ -22,6 +22,10 @@ UI
 	Useradd Post 구현 			[김규진]
 	Userdetail UI 개선 			[방대의] √ (사실상 김규진이 함)
 	Useredit UI 개선 				[방대의] √
+	Useradd Modal UI 구현 			[김규진] √
+	Useradd Post 구현 			[김규진] √
+	Userdetail UI 개선 			[방대의]
+	Useredit UI 개선 				[방대의]
 	Systempolicyedit UI 개선 			[허상민]
 	FolderPolicy 생성파일권한 폴더생성권한 UI 개선	[김규진]
 	Folderpolicyedit UI 개선			[방대의] √
