@@ -18,8 +18,8 @@ UI
 개선사항
 
 	Dashboard 구상				[방대의]
-	Useradd Modal UI 구현 			[김규진]
-	Useradd Post 구현 			[김규진]
+	Useradd Modal UI 구현 			[김규진] √
+	Useradd Post 구현 			[김규진] √
 	Userdetail UI 개선 			[방대의]
 	Useredit UI 개선 				[방대의]
 	Systempolicyedit UI 개선 			[허상민]
