@@ -162,6 +162,37 @@
                     {{/each}}
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom">
+                            <h6 class="m-0">System Policy</h6>
+                        </div>
+                        <div class="card-body p-0 pb-3 text-center">
+                            <table class="table mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th scope="col" class="border-0">No</th>
+                                        <th scope="col" class="border-0">Name</th>
+                                        <th scope="col" class="border-0">Comment</th>
+                                        <th scope="col" class="border-0">Num of People</th>
+                                        <th scope="col" class="border-0">Manage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each policy}}
+                                        <tr>
+                                            <td>{{this.Policy_No}}</td>
+                                            <td>{{this.Policy_Name}}</td>
+                                            <td>{{this.Policy_Comment}}</td>
+                                            <td>{{this.Policyn}}</td>
+                                            <td>
+                                                <a href="/Systempolicydetail/{{this.Policy_No}}"><span class="badge badge-pill badge-outline-primary"><i class="material-icons text-primary">add</i> Detail</span></a>
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card card-small mb-4">
+                        <div class="card-header border-bottom">
                             <h6 class="m-0">Folder Policy</h6>
                         </div>
                         <div class="card-body p-0 pb-3 text-center">
