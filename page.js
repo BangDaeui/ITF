@@ -91,7 +91,7 @@ app.get('/Dashboard', (req, res) => {
     // [select] 사용자 인원, 시스템 정책 수, 폴더 정책 수
     var sql1 = 'select (SELECT COUNT(*) FROM User) Usern, (SELECT COUNT(*) FROM Policy) Policyn, (SELECT COUNT(*) FROM Folder) Foldern from DUAL';
     // [select] 폴더 정책
-    var sql2 = 'select * from Folder';
+    var sql2 = 'select Folder_No, Folder_Name, Folder_Path, (SELECT COUNT(*) FROM Rule where Rule_Folder = Folder_No) AS Foldern from Folder;';
     conn.query(sql1, function (err, num, fields) {
         conn.query(sql2, function (err, folder, fields) {
             res.render('Dashboard', {
