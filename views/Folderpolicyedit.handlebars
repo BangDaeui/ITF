@@ -122,7 +122,7 @@
                     </div>
                     <!-- End Page Header -->
                     <!-- Folder Policy -->
-                    <form name="Folder_Setting" action="/Updatefolderpolicy/{{this.Folder_No}}" method="post">
+                    <form name="Folder_Setting" action="/Updatefolderpolicy/{{#each dirpolicy}}{{this.Folder_No}}{{/each}}" method="post">
                         <div class="row">
                             {{#each dirpolicy}}
                                 <div class="col-lg-4">
