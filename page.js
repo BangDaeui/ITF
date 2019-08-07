@@ -166,7 +166,6 @@ app.post('/Adduser', (req, res) => {
                     conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {});
                 });
             } else {
-                console.log(id + "[FolderPolicychanged]");
                 conn.query(sql3, [foldercheck, tmp2[0].User_No], function (err, result) {});
             }
         })
@@ -540,6 +539,7 @@ app.post('/Deletefolderpolicy', (req, res) => {
         console.log(id + "[folderdeleted]");
         conn.query(sql1, [id], function (err, result) {});
     }
+    SettingSamba();
     res.redirect('/Folderpolicy');
 });
 
@@ -598,6 +598,7 @@ app.post('/Folderpolicyuserin/:folderno', (req, res) => {
         console.log(id + "[FolderPolicychanged]");
         conn.query(sql1, [folderno, id], function (err, result) {});
     }
+    SettingSamba();
     res.redirect('/Folderpolicydetail/' + folderno);
 });
 
@@ -617,6 +618,7 @@ app.post('/Folderpolicyuserout/:folderno', (req, res) => {
         console.log(id + "[FolderPolicychanged]");
         conn.query(sql1, [id], function (err, result) {});
     }
+    SettingSamba();
     res.redirect('/Folderpolicydetail/' + folderno);
 });
 
@@ -651,7 +653,7 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     conn.query(sql1, [Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
         console.log(tmp);
     });
-
+    SettingSamba();
     res.redirect('/Folderpolicydetail/' + folderno);
 })
 
@@ -674,5 +676,73 @@ app.get('*', function (req, res, next) {
 app.use(function (error, req, res, next) {
     res.render('Error');
 });
+
+function SettingSamba() {
+    exec("cat smb.txt > /etc/samba/smb.conf", function (error, stdout, stderr) {
+        console.log('stdout: ' + stdout);
+        console.log('stderr: ' + stderr);
+        if (error !== null) {
+            console.log('exec error: ' + error);
+        }
+    });
+
+    var sql1 = 'select * from Folder;';
+    var sql2 = 'select * from Rule, User where Rule_User = User_No and Rule_Folder = ?;';
+    conn.query(sql1, async function (err, result, fields) {
+        console.log(result.length);
+        for (var i = 0; i < result.length; i++){
+            await async.series([
+                function(callback){
+                    console.log('2' + i);
+                    renum = result[i].Folder_No;
+                    exec("echo -e \"\n[" + result[i].Folder_Name + "]\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tcomment = " + result[i].Folder_Comment + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tpath = " + result[i].Folder_Path + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tpublic = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    if (result[i].Folder_writable) {
+                        exec("echo -e \"\twritable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    }
+                    else {
+                        exec("echo -e \"\twritable = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    }
+                    if (result[i].Folder_browsable) {
+                        exec("echo -e \"\tbrowseable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    }
+                    else {
+                        exec("echo -e \"\tbrowseable = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    }
+
+                    exec("echo -e \"\tcreate mask = " + result[i].Folder_Createmask + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tdirectory mask = " + result[i].Folder_Directorymask + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("printf \"\tvalid users = \" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    callback(null);
+                }, 
+
+                function(callback){
+                    conn.query(sql2, [renum], function (err, user, fields) {
+                        for (var j = 0; j < user.length; j++) {
+                            console.log(j);
+                            if (j == user.length - 1){
+                                exec("printf \"" + user[j].User_SMB + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                                callback(null);
+                            }
+                            else {
+                                exec("printf \"" + user[j].User_SMB + ",\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                            }
+                        }
+                    })                   
+                },
+
+                function(callback){
+                    console.log('done');
+                    exec("printf \"\n\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    callback(null);
+                }
+            ])
+
+        }
+        exec("sudo service smb restart", function (error, stdout, stderr) {});
+    });
+}
 
 module.exports = app;
