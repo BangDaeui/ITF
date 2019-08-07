@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 // path
 const path = require('path');
+// async
+const async = require('async');
 // cookie-parser
 var cookie = require('cookie-parser');
 // fast-csv
@@ -16,7 +18,7 @@ var csv = require('fast-csv');
 // fs
 var fs = require('fs');
 // multer
-var multer  = require('multer')
+var multer  = require('multer');
 // upload
 var upload = multer({ dest: 'uploads/' })     
 // sql connection
