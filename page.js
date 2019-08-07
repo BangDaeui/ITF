@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 // path
 const path = require('path');
+// exec
+var exec = require('child_process').execSync;
 // async
 const async = require('async');
 // cookie-parser
@@ -73,14 +75,14 @@ function SettingSamba() {
                     exec("echo -e \"\n[" + result[i].Folder_Name + "]\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     exec("echo -e \"\tcomment = " + result[i].Folder_Comment + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     exec("echo -e \"\tpath = " + result[i].Folder_Path + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
-                    exec("echo -e \"\tpublic = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
-                    if (result[i].Folder_writable) {
+                    exec("echo -e \"\tpublic = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    if (result[i].Folder_Writeable) {
                         exec("echo -e \"\twritable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     }
                     else {
                         exec("echo -e \"\twritable = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     }
-                    if (result[i].Folder_browsable) {
+                    if (result[i].Folder_Browsable) {
                         exec("echo -e \"\tbrowseable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     }
                     else {
