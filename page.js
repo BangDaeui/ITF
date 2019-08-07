@@ -166,6 +166,7 @@ app.post('/Adduser', (req, res) => {
                     conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {});
                 });
             } else {
+                console.log(id + "[FolderPolicychanged]");
                 conn.query(sql3, [foldercheck, tmp2[0].User_No], function (err, result) {});
             }
         })
@@ -176,19 +177,24 @@ app.post('/Adduser', (req, res) => {
 // [Post] /Addusercsv (유저추가CSV)
 app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
     console.log(req.file.filename);
+    var csvData = [];
     var filename = req.file.filename;
-    var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values (?, ?, ?, ?, ?, ?)';
+  
     var read = fs.createReadStream('C:/Users/LAIDA9/Desktop/GIT프로젝트/ITF/uploads/' + filename)
-        .pipe(csv())
+        .pipe(csv.parse())
         .on('data', function(data) {
-            console.log(data);
-            conn.query(sql1, [data[0], data[1], data[2], data[3], data[4], data[5]], function (err, tmp, result){
-                console.log(tmp);
-            })
+            csvData.push(data);
+            //console.log(csvData.shift()[0]);
         })
         .on('end', function(data){
             console.log('Read finished');
-        })
+            //csvData.shift();
+            console.log(csvData);
+            var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values ?';
+            conn.query(sql1, [csvData], function (err, tmp, result){
+                console.log(tmp);
+            })
+        });
     res.redirect('/Users');
 });
 
