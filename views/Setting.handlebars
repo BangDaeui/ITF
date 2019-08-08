@@ -134,13 +134,65 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-7">
-                                <button type="submit" class="btn btn-dark btn-block">Login</button>
+                                <button type="submit" class="btn btn-dark btn-block" data-toggle="modal" data-target="#Usersettingmodal">Login</button>
                               </div>
                             </div>
                         </div>
                     </div>
                     <!-- End Password -->
+                    <!--Lgoin Model-->
+                    <form method=post action="/UserSetting">
+                        <div class="modal fade" id="Usersettingmodal" tabindex="-1" role="dialog" aria-labelledby="UsersettingmodalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="UsersettingmodalLabel">Setting</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2>비밀번호 변경</h2>
+                                                <div class="form-row">
+
+                                                  <div class="form-group col-md-6">
+                                                      <label for="WebAuth_Pass">기존 비밀번호</label>
+                                                      <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                          {{#each WebAuth_Pass}}
+                                                          <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                          {{/each}}
+                                                      </input>
+                                                  </div>
+                                                </div>
+                                                <div class="form-row">
+                                                  <div class="form-group col-md-6">
+                                                      <label for="WebAuth_Pass">변경할 비밀번호</label>
+                                                      <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                          {{#each WebAuth_Pass}}
+                                                          <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                          {{/each}}
+                                                      </input>
+                                                  </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                      <button type="submit" class="btn btn-dark " data-toggle="" data-target="">변경</button>
+                                                      <button type="submit" class="btn btn-dark " data-toggle="" data-target="">취소</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--End Login Model-->
                 </div>
+                <!--End /.main-navbar-->
+
                 <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
                     <span class="copyright ml-auto my-auto mr-2">Copyright © 2019
                         <a rel="nofollow">InTheForest</a>
