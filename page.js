@@ -232,7 +232,10 @@ app.post('/Adduser', (req, res) => {
     var sql3 = 'insert into Rule(Rule_Folder, Rule_User) VALUES(?, ?)';
     conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy], function(err, tmp, result){
         conn.query(sql2, [User_SMB], function(err, tmp2, result){
-            if (Array.isArray(foldercheck) == true) {
+            if (!foldercheck) {
+                
+            }
+            else if (Array.isArray(foldercheck) == true) {
                 foldercheck.forEach(function (items) {
                     console.log(items + "[FolderPolicy]");
                     conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {});
@@ -244,7 +247,8 @@ app.post('/Adduser', (req, res) => {
     })
     exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
     exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
-    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -U " + User_SMB, function (error, stdout, stderr) {});
+    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+    SettingSamba();
     res.redirect('/Users');
 });
 
