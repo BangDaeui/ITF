@@ -238,11 +238,11 @@ app.post('/Adduser', (req, res) => {
                     conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {});
                 });
             } else {
-                console.log(id + "[FolderPolicychanged]");
                 conn.query(sql3, [foldercheck, tmp2[0].User_No], function (err, result) {});
             }
         })
     })
+    exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
     exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
     exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -U " + User_SMB, function (error, stdout, stderr) {});
     res.redirect('/Users');
