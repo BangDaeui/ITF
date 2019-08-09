@@ -18,14 +18,16 @@ INSERT INTO Positions(Positions_Name) VALUES('Positions2');
 INSERT INTO Positions(Positions_Name) VALUES('Positions3');
 
 ALTER TABLE User CONVERT TO CHARACTER SET UTF8;
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1);
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) VALUES('허상민', 'Sangmin', '192.168.0.22', 2, 2, 2);
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) VALUES('강산해', 'SanHae', '192.168.0.23', 3, 3, 3);
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'CuNfSW7y1RPwCmt7Tjq66gmOxJ1m8ru9');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('허상민', 'Sangmin', '192.168.0.22', 2, 2, 2, 'T0TJ2iav7TFpHmfxarCkHWstTneor8mJ');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('강산해', 'SanHae', '192.168.0.23', 3, 3, 3, 'WAZ9WtcirCdmO2yNIrKoHfWvk45FZ15a');
 
 ALTER TABLE Folder CONVERT TO CHARACTER SET UTF8;
-INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask) VALUES('폴더 정책 1', '폴더 기본 정책입니다.', '/path1', 5, 0, 1, 0, 0, '0777', '0777');
-INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask) VALUES('폴더 정책 3', '폴더 기본 정책입니다.', '/path2', 5, 0, 1, 0, 0, '0777', '0777');
-INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask) VALUES('폴더 정책 3', '폴더 기본 정책입니다.', '/path3', 5, 0, 1, 0, 0, '0777', '0777');
+INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('폴더 정책 1', '폴더 기본 정책입니다.', '/path1', 5, 0, 1, 0, 0, '0777', '0777', 'MtOT7RSC4Wu81C2JdX3MFctvpMHSazVZ');
+INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('폴더 정책 3', '폴더 기본 정책입니다.', '/path2', 5, 0, 1, 0, 0, '0777', '0777',
+'He11x22yJJex8ujRqK7UWHsv68izNmVJ');
+INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('폴더 정책 3', '폴더 기본 정책입니다.', '/path3', 5, 0, 1, 0, 0, '0777', '0777',
+'Na6r9tg6KNtTk8pXyEDGqLHO15wu9UM2');
 
 ALTER TABLE Auth CONVERT TO CHARACTER SET UTF8;
 INSERT INTO Auth VALUES(1, 'Kyujin', 'kit2019!');

@@ -15,7 +15,7 @@ CREATE TABLE Policy
     `Policy_Usbwrite`       INT             NOT NULL    COMMENT 'USB 읽기', 
     `Policy_Usbaccess`      INT             NOT NULL    COMMENT 'USB 활성화', 
     `Policy_Disk`           INT             NOT NULL    COMMENT '디스크 차단', 
-    `Policy_Clipboard`      INT             NOT NULL    COMMENT '클립보드 차단', 
+    `Policy_Clipboard`      INT             NULL    COMMENT '클립보드 차단', 
     PRIMARY KEY (Policy_No)
 );
 
@@ -54,6 +54,7 @@ CREATE TABLE User
     `User_Department`  INT            NULL        COMMENT '부서 번호', 
     `User_Positions`   INT            NULL        COMMENT '직책 번호', 
     `User_Policy`      INT            NULL        COMMENT '시스템 정책 번호', 
+    `User_Key`      VARCHAR(32)    NULL    COMMENT '개인 폴더 키 값', 
     PRIMARY KEY (User_No)
 );
 
@@ -85,7 +86,8 @@ CREATE TABLE Folder
     `Folder_Guest`          INT             NOT NULL    COMMENT '게스트 허용', 
     `Folder_Browsable`      INT             NOT NULL    COMMENT '보임 유무', 
     `Folder_Createmask`     VARCHAR(45)     NOT NULL    COMMENT '생성되는 파일권한', 
-    `Folder_Directorymask`  VARCHAR(45)     NOT NULL    COMMENT '생성되는 폴더권한', 
+    `Folder_Directorymask`  VARCHAR(45)     NOT NULL    COMMENT '생성되는 폴더권한',
+    `Folder_Key`  VARCHAR(32)     NOT NULL    COMMENT '개인 폴더 키 값',
     PRIMARY KEY (Folder_No)
 );
 
@@ -136,5 +138,27 @@ ALTER TABLE Rule
 ALTER TABLE Rule
     ADD CONSTRAINT FK_Rule_Rule_Folder_Folder_Folder_No FOREIGN KEY (Rule_Folder)
         REFERENCES Folder (Folder_No) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+-- Policy Table Create SQL
+CREATE TABLE UserLog
+(
+    `Userlog_No`     INT            NOT NULL    AUTO_INCREMENT COMMENT '로그 번호', 
+    `Userlog_Name`   VARCHAR(45)    NULL        COMMENT '유저 아이디', 
+    `Userlog_MAC`    VARCHAR(45)    NULL        COMMENT '사용자 MAC 주소', 
+    `Userlog_State`  INT            NULL        COMMENT '상태', 
+    `Userlog_IP`     VARCHAR(45)    NULL        COMMENT '사용자 IP 주소', 
+    PRIMARY KEY (Userlog_No)
+);
+
+-- Policy Table Create SQL
+CREATE TABLE FileLog
+(
+    `Filelog_No`     INT             NOT NULL    AUTO_INCREMENT COMMENT '로그 번호', 
+    `Filelog_Name`   VARCHAR(45)     NULL        COMMENT '유저 아이디', 
+    `Filelog_Path`   VARCHAR(100)    NULL        COMMENT '파일 경로', 
+    `Filelog_State`  INT             NULL        COMMENT '상태', 
+    `Filelog_IP`     VARCHAR(45)     NULL        COMMENT '사용자 IP 주소', 
+    PRIMARY KEY (Filelog_No)
+);
 
 
