@@ -243,6 +243,8 @@ app.post('/Adduser', (req, res) => {
             }
         })
     })
+    exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
+    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -U " + User_SMB, function (error, stdout, stderr) {});
     res.redirect('/Users');
 });
 
