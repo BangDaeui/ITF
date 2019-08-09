@@ -233,22 +233,32 @@ app.post('/Adduser', (req, res) => {
     conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy], function(err, tmp, result){
         conn.query(sql2, [User_SMB], function(err, tmp2, result){
             if (!foldercheck) {
-                
+                exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
+                exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
+                exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
             }
             else if (Array.isArray(foldercheck) == true) {
                 foldercheck.forEach(function (items) {
                     console.log(items + "[FolderPolicy]");
-                    conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {});
+                    conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {
+                        exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
+                        exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
+                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                        SettingSamba();
+                    });
                 });
             } else {
-                conn.query(sql3, [foldercheck, tmp2[0].User_No], function (err, result) {});
+                conn.query(sql3, [foldercheck, tmp2[0].User_No], function (err, result) {
+                    exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
+                    exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
+                    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                    SettingSamba();
+                });
             }
         })
     })
-    exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
-    exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
-    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
-    SettingSamba();
+
+    
     res.redirect('/Users');
 });
 
