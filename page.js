@@ -630,6 +630,9 @@ app.post('/Addfolderpolicy', (req, res) => {
     conn.query(sql1, [Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, rs], function (err, tmp, fields) {
         console.log(tmp);
     });
+    if (os.type() == 'Linux') {
+        exec("sudo mkdir " + Folder_Path, function (error, stdout, stderr) {});
+    }
     res.redirect('/Folderpolicy');
 });
 
