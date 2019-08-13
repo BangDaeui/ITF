@@ -133,7 +133,7 @@
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item p-4">
                                                 <strong class="text d-block mb-1">경로</strong>
-                                                <span>{{this.Folder_Path}}</span>
+                                                <span><input type="text" class="form-control" id="Folder_Name" name="Folder_Name" placeholder="Folder_Name" value="{{this.Folder_Path}}"></span>
                                                 <p></p>
                                                 <strong class="text d-block mb-1">설명</strong>
                                                 <textarea class="form-control" name="Folder_Comment" rows="5">{{this.Folder_Comment}}</textarea>
@@ -164,11 +164,23 @@
                                                         <div class="form-row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="Folder_Createmask">생성 파일권한</label>
-                                                                <input type="text" class="form-control" id="Folder_Createmask" name="Folder_Createmask" placeholder="Folder_Createmask" value="{{this.Folder_Createmask}}">
+                                                                <select name="Folder_Createmask" id="feInputState" class="form-control">
+                                                                    <option value="0777" name="Folder_Createmask">0777 (모든 사용자 모든 권한 허용)</option>
+                                                                    <option value="0755" name="Folder_Createmask">0755 (소유자 모든 권한 다른 모든 사용자 읽기 실행권한 허용)</option>
+                                                                    <option value="0750" name="Folder_Createmask">0750 (소유자 모든 권한 같은 그룹 사용자 읽기 실행권한 허용</option>
+                                                                    <option value="0700" name="Folder_Createmask">0700 (소유자 모든 권한 허용)</option>
+                                                                    <option value="0000" name="Folder_Createmask">0000 (모든 사용자 권한 없음</option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="Folder_Directorymask">생성 폴더권한</label>
-                                                                <input type="text" class="form-control" id="Folder_Directorymask" name="Folder_Directorymask" placeholder="Folder_Directorymask" value="{{this.Folder_Directorymask}}">
+                                                                <select name="Folder_Directorymask" id="feInputState" class="form-control">
+                                                                    <option value="0777" name="Folder_Directorymask">0777 (모든 사용자 모든 권한 허용)</option>
+                                                                    <option value="0755" name="Folder_Directorymask">0755 (소유자 모든 권한 다른 모든 사용자 읽기 실행권한 허용)</option>
+                                                                    <option value="0750" name="Folder_Directorymask">0750 (소유자 모든 권한 같은 그룹 사용자 읽기 실행권한 허용</option>
+                                                                    <option value="0700" name="Folder_Directorymask">0700 (소유자 모든 권한 허용)</option>
+                                                                    <option value="0000" name="Folder_Directorymask">0000 (모든 사용자 권한 없음</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="form-row">
