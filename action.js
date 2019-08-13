@@ -71,7 +71,7 @@ var tls_server = tls.createServer(options, function(cleartextStream) {
         console.log(strData[0],strPass[0]);
         var sql1 = 'select * from Auth where Auth_ID=?';
         var sql2 = 'select * from Policy, User, Auth where Auth_ID=? and User_No=Auth_No and User_Policy=Policy_No;'
-        var sql3 = 'select count(*) from Rule,Auth,User where Auth_ID=? and User_No=Auth_No and Rule_User=User_No;'
+        var sql3 = 'select count(*) as "Count" from Rule,Auth,User where Auth_ID=? and User_No=Auth_No and Rule_User=User_No;'
         var sql4 = 'select * from Folder, User, Rule, Auth where Auth_ID=? and User_No=Auth_No and Rule_User=User_No and Rule_Folder=Folder_No;'
         conn.query(sql1, [strData[0]], function(err, tmp, fields){
             //console.log(tmp[0].Auth_Pass);
@@ -79,31 +79,33 @@ var tls_server = tls.createServer(options, function(cleartextStream) {
                 cleartextStream.write("b$");
                 return;
             }else{
+                cleartextStream.write("a$");
                 if(strPass[0] == tmp[0].Auth_Pass){
                     conn.query(sql2, [strData[0]],function(err, tmp, fields){
-                        cleartextStream.write("a$");
+                        console.log(tmp[0].User_Key);
                         console.log(tmp[0].Policy_Mask);
-                        cleartextStream.write(tmp[0].User_Key.toString()+"%%");
-                        cleartextStream.write(tmp[0].Policy_Mask.toString()+"%%");
+                        cleartextStream.write(tmp[0].User_Key.toString()+"%");
+                        cleartextStream.write(tmp[0].Policy_Mask.toString()+"%");
                         conn.query(sql3, [strData[0]], function(err, tmp, fields){
-                            console.log(tmp[0].count);
-                            cleartextStream.write(tmp[0].count.toString()+"%%");
+                            console.log(tmp[0].Count);
+                            cleartextStream.write(tmp[0].Count.toString()+"%");
                             conn.query(sql4, [strData[0]], function(err, tmp, fields){
                                 if(Array.isArray(tmp[0]) == true){
                                     tmp[0].forEach(function(items) {
-                                        cleartextStream.write(tmp[0].Folder_Name.toString()+"%%");
-                                        cleartextStream.write(tmp[0].Folder_Key.toString()+"%%");
+                                        cleartextStream.write(tmp[0].Folder_Name.toString()+"%");
+                                        cleartextStream.write(tmp[0].Folder_Key.toString()+"%");
                                     })
+                                    cleartextStream.write("$");
                                 } else{
-                                    cleartextStream.write(tmp[0].Folder_Name.toString()+"%%");
-                                    cleartextStream.write(tmp[0].Folder_Key.toString()+"%%");
+                                    cleartextStream.write(tmp[0].Folder_Name.toString()+"%");
+                                    cleartextStream.write(tmp[0].Folder_Key.toString()+"%");
+                                    cleartextStream.write("$");
                                 }
                                 
                             })
                         })
                     })
                     console.log("성공");
-                    cleartextStream.write("$");
                 }else{
                     console.log("실패");
                     cleartextStream.write("b$");

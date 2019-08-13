@@ -656,7 +656,7 @@ app.post('/Deletefolderpolicy', (req, res) => {
 app.get('/Folderpolicydetail/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     // [select] 폴더 정책 데이터
-    var sql1 = 'select * from Folder where Folder_No=?';
+    var sql1 = 'select case (Folder_Createmask) when "0777" then "모든 사용자 모든 권한 허용" when "0755" then "소유자 모든 권한 다른 모든 사용자 읽기 실행권한 허용" when "0750" then "소유자 모든 권한 같은 그룹 사용자 읽기 실행권한 허용" when "0700" then "소유자 모든 권한 허용" when "0000" then "모든 사용자 권한 없음" end AS "Create", case (Folder_Directorymask) when "0777" then "모든 사용자 모든 권한 허용" when "0755" then "소유자 모든 권한 다른 모든 사용자 읽기 실행권한 허용" when "0750" then "소유자 모든 권한 같은 그룹 사용자 읽기 실행권한 허용" when "0700" then "소유자 모든 권한 허용" when "0000" then "모든 사용자 권한 없음" end AS "Directory", Folder_No, Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key from Folder where Folder_No=?';
     // [select] 해당 폴더 정책을 적용한 사용자 검색
     var sql2 = 'select * from User, Rule, Department, Positions where User_No = Rule_User and User_Positions = Positions_No and User_Department = Department_No and Rule_Folder = ?';
     conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
@@ -736,7 +736,7 @@ app.get('/Folderpolicyedit/:folderno', (req, res) => {
     // policyno = Folder_No
     var folderno = req.params.folderno;
     // [select] 폴더 정책 데이터
-    var sql1 = 'select * from Folder where Folder_No=?';
+    var sql1 = 'select case (Folder_Createmask) when "0777" then "모든 사용자 모든 권한 허용" when "0755" then "소유자 모든 권한 다른 모든 사용자 읽기 실행권한 허용" when "0750" then "소유자 모든 권한 같은 그룹 사용자 읽기 실행권한 허용" when "0700" then "소유자 모든 권한 허용" when "0000" then "모든 사용자 권한 없음" end AS "Create", case (Folder_Directorymask) when "0777" then "모든 사용자 모든 권한 허용" when "0755" then "소유자 모든 권한 다른 모든 사용자 읽기 실행권한 허용" when "0750" then "소유자 모든 권한 같은 그룹 사용자 읽기 실행권한 허용" when "0700" then "소유자 모든 권한 허용" when "0000" then "모든 사용자 권한 없음" end AS "Directory", Folder_No, Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key from Folder where Folder_No=?';
     conn.query(sql1, [folderno], function (err, dirpolicy, fields) {
         res.render('Folderpolicyedit', {
             dirpolicy: dirpolicy
@@ -748,6 +748,7 @@ app.get('/Folderpolicyedit/:folderno', (req, res) => {
 app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var folderno = req.params.folderno;
     var Folder_Name = req.body.Folder_Name;
+    var Folder_Path = req.body.Folder_Path;
     var Folder_Comment = req.body.Folder_Comment;
     var Folder_Update = req.body.Folder_Update;
     var Folder_Readonly = req.body.Folder_Readonly;
@@ -758,8 +759,8 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var Folder_Directorymask = req.body.Folder_Directorymask;
 
     // [update] 폴더 정책 수정
-    var sql1 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
-    conn.query(sql1, [Folder_Name, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
+    var sql1 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Path=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
+    conn.query(sql1, [Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
         console.log(tmp);
     });
     SettingSamba();
