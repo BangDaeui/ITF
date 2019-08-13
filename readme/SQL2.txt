@@ -30,9 +30,9 @@ INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Fold
 'Na6r9tg6KNtTk8pXyEDGqLHO15wu9UM2');
 
 ALTER TABLE Auth CONVERT TO CHARACTER SET UTF8;
-INSERT INTO Auth VALUES(1, 'Kyujin', 'kit2019!');
-INSERT INTO Auth VALUES(2, 'Sangmin', 'kit2019!');
-INSERT INTO Auth VALUES(3, 'SanHae', 'kit2019!');
+INSERT INTO Auth VALUES(1, 'Kyujin', 'kit2019');
+INSERT INTO Auth VALUES(2, 'Sangmin', 'kit2019');
+INSERT INTO Auth VALUES(3, 'SanHae', 'kit2019');
 
 ALTER TABLE WebAuth CONVERT TO CHARACTER SET UTF8;
 INSERT INTO WebAuth(WebAuth_ID, WebAuth_Pass) VALUES('ITF', 'kit2019!');

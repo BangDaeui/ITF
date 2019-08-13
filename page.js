@@ -10,21 +10,25 @@ const exphbs = require('express-handlebars');
 // path
 const path = require('path');
 // exec
-var exec = require('child_process').execSync;
+const exec = require('child_process').execSync;
 // async
 const async = require('async');
 // cookie-parser
-var cookie = require('cookie-parser');
+const cookie = require('cookie-parser');
 // fast-csv
-var csv = require('fast-csv');
+const csv = require('fast-csv');
 // fs
-var fs = require('fs');
+const fs = require('fs');
+// os
+const os = require('os');
 // multer
-var multer  = require('multer');
+const multer  = require('multer');
 // upload
-var upload = multer({ dest: 'uploads/' })     
+const upload = multer({ dest: 'uploads/' })  
+// random string
+const randomstring = require("randomstring");
 // sql connection
-var conn = mysql.createConnection({
+const conn = mysql.createConnection({
     host: 'itf2019.cohnbkqepvge.ap-northeast-2.rds.amazonaws.com',
     user: 'itf2019',
     password: 'kit2019!',
@@ -55,6 +59,9 @@ app.use(bodyParser.text());
 app.use(cookie('!@$!@#!@#'));
 
 function SettingSamba() {
+    if (os.type() == 'Windows_NT')
+        return;
+    
     exec("cat smb.txt > /etc/samba/smb.conf", function (error, stdout, stderr) {
         console.log('stdout: ' + stdout);
         console.log('stderr: ' + stderr);
@@ -225,13 +232,20 @@ app.post('/Adduser', (req, res) => {
     var User_Policy = req.body.User_Policy;
     var foldercheck = req.body.foldercheck;
     // [insert] 사용자 추가
-    var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values (?, ?, ?, ?, ?, ?)';
+    var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) values (?, ?, ?, ?, ?, ?, ?)';
     // [select] 위에서 생성된 사용자 확인
     var sql2 = 'select * from User where User_SMB = ?'
     // [insert] 폴더정책 추가
     var sql3 = 'insert into Rule(Rule_Folder, Rule_User) VALUES(?, ?)';
-    conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy], function(err, tmp, result){
+    // [insert] 인증 추가
+    var sql4 = 'insert into Auth(Auth_No, Auth_ID, Auth_Pass) VALUES(?, ?, ?)';
+    var rs = randomstring.generate(32);
+    conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, rs], function(err, tmp, result){
         conn.query(sql2, [User_SMB], function(err, tmp2, result){
+            conn.query(sql4, [tmp2[0].User_No, User_Name, 'kit2019'], function(error, result){});
+            // Windows에서 실행하면 오류남
+            if (os.type() == 'Windows_NT')
+                return;
             if (!foldercheck) {
                 exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
                 exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
@@ -609,10 +623,11 @@ app.post('/Addfolderpolicy', (req, res) => {
     var Folder_Browsable = req.body.Folder_Browsable;
     var Folder_Createmask = req.body.Folder_Createmask;
     var Folder_Directorymask = req.body.Folder_Directorymask;
+    var rs = randomstring.generate(32);
 
     // [insert] 폴더 정책 추가
-    var sql1 = 'insert into Folder (Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-    conn.query(sql1, [Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask], function (err, tmp, fields) {
+    var sql1 = 'insert into Folder (Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+    conn.query(sql1, [Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, rs], function (err, tmp, fields) {
         console.log(tmp);
     });
     res.redirect('/Folderpolicy');
