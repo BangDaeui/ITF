@@ -82,8 +82,6 @@
                     <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-2">
                         <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
 
-
-
                         </form>
                         <ul class="navbar-nav border-left flex-row ">
                             <li class="nav-item dropdown">
@@ -140,7 +138,7 @@
                         </div>
                     </div>
                     <!-- End Password -->
-                    <!--Lgoin Model-->
+                    <!--Login Model-->
                     <form method=post action="/UserSetting">
                         <div class="modal fade" id="Usersettingmodal" tabindex="-1" role="dialog" aria-labelledby="UsersettingmodalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -154,36 +152,28 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col">
-                                                <h2>비밀번호 변경</h2>
+                                                <h2>관리자 설정</h2>
                                                 <div class="form-row">
                                                   <div class="form-group col-md-6">
-                                                      <label for="WebAuth_Pass">기존 비밀번호</label>
-                                                      <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
-                                                          {{#each WebAuth_Pass}}
-                                                          <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
-                                                          {{/each}}
-                                                      </input>
+
                                                   </div>
                                                 </div>
                                                 <div class="form-row">
                                                   <div class="form-group col-md-6">
-                                                      <label for="WebAuth_Pass">변경할 비밀번호</label>
-                                                      <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
-                                                          {{#each WebAuth_Pass}}
-                                                          <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
-                                                          {{/each}}
-                                                      </input>
+
                                                   </div>
                                                 </div>
                                                 <div class="form-row">
                                                   <div class="form-group col-md-6">
-                                                    
+
                                                   </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                      <button type="submit" class="btn btn-dark " data-toggle="" data-target="">변경</button>
-                                                      <button type="submit" class="btn btn-dark " data-toggle="" data-target="">취소</button>
+                                                      <button type="submit" class="btn btn-dark " data-dismiss="modal" data-toggle="modal" data-target="#CPSettingmodal">비밀번호 변경</button>
+                                                      <button type="submit" class="btn btn-dark " data-dismiss="modal" data-toggle="modal" data-target="#CDSettingmodal">부서 추가/제거</button>
+                                                      <button type="submit" class="btn btn-dark " data-dismiss="modal" data-toggle="modal" data-target="#CPOsSettingmodal">직급 추가/제거</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -192,8 +182,150 @@
                                 </div>
                             </div>
                         </div>
+                        <!--End Login Model-->
+                        <!--Change Password Model-->
+                            <div class="modal fade" id="CPSettingmodal" tabindex="-1" role="dialog" aria-labelledby="CPSettingmodalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="CPSettingmodalLabel">Setting</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h2>비밀번호 변경</h2>
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="WebAuth_Pass">기존 비밀번호</label>
+                                                          <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                              {{#each WebAuth_Pass}}
+                                                              <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                              {{/each}}
+                                                          </input>
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="WebAuth_Pass">변경할 비밀번호</label>
+                                                          <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                              {{#each WebAuth_Pass}}
+                                                              <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                              {{/each}}
+                                                          </input>
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                          <button type="submit" class="btn btn-dark " data-toggle="" data-target="">변경</button>
+                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--End Change Password Model-->
+                        <!--Change Department Model-->
+                            <div class="modal fade" id="CDSettingmodal" tabindex="-1" role="dialog" aria-labelledby="CDSettingmodalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="CDSettingmodalLabel">Setting</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h2>부서 추가 및 제거</h2>
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="WebAuth_Pass">기존 비밀번호</label>
+                                                          <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                              {{#each WebAuth_Pass}}
+                                                              <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                              {{/each}}
+                                                          </input>
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="WebAuth_Pass">변경할 비밀번호</label>
+                                                          <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                              {{#each WebAuth_Pass}}
+                                                              <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                              {{/each}}
+                                                          </input>
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                          <button type="submit" class="btn btn-dark " data-toggle="" data-target="">변경</button>
+                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--End Change Department Model-->
+                        <!--Change Position Model-->
+                            <div class="modal fade" id="CPOsSettingmodal" tabindex="-1" role="dialog" aria-labelledby="CPOsSettingmodalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="CPOsSettingmodalLabel">Setting</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h2>직급 추가 및 제거</h2>
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="WebAuth_Pass">기존 비밀번호</label>
+                                                          <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                              {{#each WebAuth_Pass}}
+                                                              <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                              {{/each}}
+                                                          </input>
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="WebAuth_Pass">변경할 비밀번호</label>
+                                                          <input name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                              {{#each WebAuth_Pass}}
+                                                              <option  value="{{this.WebAuth_Pass}}" name="WebAuth_Pass">{{this.WebAuth_Pass}}</option>
+                                                              {{/each}}
+                                                          </input>
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                          <button type="submit" class="btn btn-dark " data-toggle="" data-target="">변경</button>
+                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--End Change Position Model-->
                     </form>
-                    <!--End Login Model-->
+
                 </div>
                 <!--End /.main-navbar-->
 
