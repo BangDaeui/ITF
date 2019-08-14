@@ -27,6 +27,8 @@ const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' })  
 // random string
 const randomstring = require("randomstring");
+// check disk space
+const checkDiskSpace = require('check-disk-space')
 // sql connection
 const conn = mysql.createConnection({
     host: 'itf2019.cohnbkqepvge.ap-northeast-2.rds.amazonaws.com',
@@ -58,6 +60,35 @@ app.use(bodyParser.text());
 // use cookie-parser
 app.use(cookie('!@$!@#!@#'));
 
+// disk free
+var free = 0;
+// disk size
+var size = 0;
+
+// checking disk usage interval 300 seconds
+DiskCheck();
+setInterval(function () { 
+    DiskCheck(); 
+}, 300000);
+
+function DiskCheck() {
+    console.log("Disk Checking");
+    if (os.type() == 'Windows_NT')
+    {
+        checkDiskSpace('C:/').then((diskSpace) => {
+            free = Math.round((diskSpace.free / 1024 / 1024 / 1024 * 100)) / 100;
+            size = Math.round((diskSpace.size / 1024 / 1024 / 1024 * 100)) / 100;
+            console.log(diskSpace);
+        });
+    } else {
+        checkDiskSpace('/').then((diskSpace) => {
+            free = Math.round((diskSpace.free / 1024 / 1024 / 1024 * 100)) / 100;
+            size = Math.round((diskSpace.size / 1024 / 1024 / 1024 * 100)) / 100;
+            console.log(diskSpace);
+        });
+    }
+}
+
 function SettingSamba() {
     if (os.type() == 'Windows_NT')
         return;
@@ -67,6 +98,8 @@ function SettingSamba() {
         console.log('stderr: ' + stderr);
         if (error !== null) {
             console.log('exec error: ' + error);
+            
+            
         }
     });
 
@@ -173,13 +206,17 @@ app.get('/Dashboard', (req, res) => {
     var sql2 = 'select Policy_No, Policy_Name, Policy_Comment, (SELECT COUNT(*) FROM User where User_Policy = Policy_No) AS Policyn from Policy;';
     // [select] 폴더 정책
     var sql3 = 'select Folder_No, Folder_Name, Folder_Path, (SELECT COUNT(*) FROM Rule where Rule_Folder = Folder_No) AS Foldern from Folder;';
+    console.log(free);
+    console.log(size);
     conn.query(sql1, function (err, num, fields) {
         conn.query(sql2, function (err, policy, fields) {
             conn.query(sql3, function (err, folder, fields) {
                 res.render('Dashboard', {
                     num: num,
-                    policy, policy,
-                    folder: folder
+                    policy: policy,
+                    folder: folder,
+                    free: free,
+                    size: size
                 });
             });
         })
