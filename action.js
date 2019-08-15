@@ -82,13 +82,13 @@ var tls_server = tls.createServer(options, function(cleartextStream) {
                 cleartextStream.write("a$");
                 if(strPass[0] == tmp[0].Auth_Pass){
                     conn.query(sql2, [strData[0]],function(err, tmp, fields){
-                        console.log(tmp[0].User_Key);
                         console.log(tmp[0].Policy_Mask);
-                        cleartextStream.write(tmp[0].User_Key.toString()+"%");
+                        console.log(tmp[0].User_Key);
                         cleartextStream.write(tmp[0].Policy_Mask.toString()+"%");
+                        cleartextStream.write(tmp[0].User_Key.toString()+"%");
                         conn.query(sql3, [strData[0]], function(err, tmp, fields){
                             console.log(tmp[0].Count);
-                            cleartextStream.write(tmp[0].Count.toString()+"%");
+                            cleartextStream.write("@"+tmp[0].Count.toString()+"#%");
                             conn.query(sql4, [strData[0]], function(err, tmp, fields){
                                 if(Array.isArray(tmp[0]) == true){
                                     tmp[0].forEach(function(items) {
