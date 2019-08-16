@@ -29,6 +29,8 @@ const upload = multer({ dest: 'uploads/' })
 const randomstring = require("randomstring");
 // check disk space
 const checkDiskSpace = require('check-disk-space')
+// get folder size
+const getSize = require('get-folder-size');
 // sql connection
 const conn = mysql.createConnection({
     host: 'itf2019.cohnbkqepvge.ap-northeast-2.rds.amazonaws.com',
@@ -364,9 +366,19 @@ app.get('/Userdetail/:userno', (req, res) => {
     var sql2 = 'select * from User, Rule, Folder where User_No = Rule_User and Folder_No = Rule_Folder and User_No = ?';
     conn.query(sql1, [userno], function (err, userdetail, fields) {
         conn.query(sql2, [userno], function (err, userfolder, fields) {
+            var foldersize = '0 MB';
+            if (os.type() == 'Linux') {
+                getSize('/home/' + userdetail[0].User_SMB, (err, size) => {
+                    if (err) { throw err; }
+                    console.log((size / 1024 / 1024).toFixed(2) + ' MB');
+                    foldersize = ((size / 1024 / 1024).toFixed(2) + ' MB');
+                });
+            }
+
             res.render('Userdetail', {
                 userdetail: userdetail,
-                userfolder: userfolder
+                userfolder: userfolder,
+                foldersize: foldersize
             })
         })
     })
