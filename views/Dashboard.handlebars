@@ -157,11 +157,20 @@
                                 </div>
                             </div>
                             <div class="col-lg col-md-6 col-sm-6 mb-6">
-                                            <div id="pieChart"></div>
+                                <div class="stats-small stats-small--1 card card-small">
+                                    <div class="card-body p-0 d-flex">
+                                        <div class="d-flex flex-column m-auto">
+                                            <div class="stats-small__data text-center">
+                                                <div id="pieChart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                            
                             </div>
                         </div>
                     {{/each}}
-                    
+                    <br>
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom">
                             <h6 class="m-0">System Policy</h6>
@@ -268,6 +277,7 @@
         },
         "size": {
             "canvasWidth": 600,
+            "canvasHeight": 462,
             "pieInnerRadius": "40%",
             "pieOuterRadius": "85%"
         },
