@@ -147,8 +147,10 @@ CREATE TABLE UserLog
     `Userlog_MAC`    VARCHAR(45)    NULL        COMMENT '사용자 MAC 주소', 
     `Userlog_State`  INT            NULL        COMMENT '상태', 
     `Userlog_IP`     VARCHAR(45)    NULL        COMMENT '사용자 IP 주소', 
+    `Userlog_Time`   DATETIME       DEFAULT NOW()        COMMENT '시간', 
     PRIMARY KEY (Userlog_No)
 );
+
 
 -- Policy Table Create SQL
 CREATE TABLE FileLog
@@ -158,7 +160,7 @@ CREATE TABLE FileLog
     `Filelog_Path`   VARCHAR(100)    NULL        COMMENT '파일 경로', 
     `Filelog_State`  INT             NULL        COMMENT '상태', 
     `Filelog_IP`     VARCHAR(45)     NULL        COMMENT '사용자 IP 주소', 
+    `Filelog_Time`   DATETIME        DEFAULT NOW()        COMMENT '시간', 
     PRIMARY KEY (Filelog_No)
 );
-
 
