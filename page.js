@@ -379,15 +379,23 @@ app.get('/Userdetail/:userno', (req, res) => {
                     console.log((size).toFixed(2) + ' Byte');
                     foldersize = ((size).toFixed(2) + ' Byte');
                 }
+                conn.query(sql2, [userno], function (err, userfolder, fields) {
+                    res.render('Userdetail', {
+                        userdetail: userdetail,
+                        userfolder: userfolder,
+                        foldersize: foldersize
+                    })
+                })
             });
-        }
-        conn.query(sql2, [userno], function (err, userfolder, fields) {
-            res.render('Userdetail', {
-                userdetail: userdetail,
-                userfolder: userfolder,
-                foldersize: foldersize
+        } else {
+            conn.query(sql2, [userno], function (err, userfolder, fields) {
+                res.render('Userdetail', {
+                    userdetail: userdetail,
+                    userfolder: userfolder,
+                    foldersize: foldersize
+                })
             })
-        })
+        }
     })
 })
 
