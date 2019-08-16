@@ -365,16 +365,23 @@ app.get('/Userdetail/:userno', (req, res) => {
     // [select] 사용자가 소속된 폴더 정책
     var sql2 = 'select * from User, Rule, Folder where User_No = Rule_User and Folder_No = Rule_Folder and User_No = ?';
     conn.query(sql1, [userno], function (err, userdetail, fields) {
+        var foldersize = '0 Byte';
+        if (os.type() == 'Linux') {
+            getSize('/home/' + userdetail[0].User_SMB, (err, size) => {
+                if (err) { throw err; }
+                if (size > 1000000) {
+                    console.log((size / 1000 / 1000).toFixed(2) + ' MB');
+                    foldersize = ((size / 1000 / 1000).toFixed(2) + ' MB');
+                } else if (size > 1000) {
+                    console.log((size / 1000).toFixed(2) + ' KB');
+                    foldersize = ((size / 1000).toFixed(2) + ' KB');
+                } else {                 
+                    console.log((size).toFixed(2) + ' Byte');
+                    foldersize = ((size).toFixed(2) + ' Byte');
+                }
+            });
+        }
         conn.query(sql2, [userno], function (err, userfolder, fields) {
-            var foldersize = '0 MB';
-            if (os.type() == 'Linux') {
-                getSize('/home/' + userdetail[0].User_SMB, (err, size) => {
-                    if (err) { throw err; }
-                    console.log((size / 1024 / 1024).toFixed(2) + ' MB');
-                    foldersize = ((size / 1024 / 1024).toFixed(2) + ' MB');
-                });
-            }
-
             res.render('Userdetail', {
                 userdetail: userdetail,
                 userfolder: userfolder,
