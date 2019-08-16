@@ -90,10 +90,13 @@ var tls_server = tls.createServer(options, function(cleartextStream) {
                             console.log(tmp[0].Count);
                             cleartextStream.write("@"+tmp[0].Count.toString()+"#%");
                             conn.query(sql4, [strData[0]], function(err, tmp, fields){
-                                if(Array.isArray(tmp[0]) == true){
-                                    tmp[0].forEach(function(items) {
-                                        cleartextStream.write(tmp[0].Folder_Name.toString()+"%");
-                                        cleartextStream.write(tmp[0].Folder_Key.toString()+"%");
+                                console.log(tmp);
+                                if(Array.isArray(tmp) == true){
+                                    tmp.forEach(function(items, index) {
+                                        console.log(index);
+                                        console.log(tmp[index]);
+                                        cleartextStream.write(tmp[index].Folder_Name.toString()+"%");
+                                        cleartextStream.write(tmp[index].Folder_Key.toString()+"%");
                                     })
                                     cleartextStream.write("$");
                                 } else{
@@ -101,8 +104,8 @@ var tls_server = tls.createServer(options, function(cleartextStream) {
                                     cleartextStream.write(tmp[0].Folder_Key.toString()+"%");
                                     cleartextStream.write("$");
                                 }
-                                
                             })
+                            
                         })
                     })
                     console.log("성공");

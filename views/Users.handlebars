@@ -27,7 +27,7 @@
             }
         }
         // Folder Policy 체크박스 전체 선택
-        function totalcheck() {
+        function Foldertotalcheck() {
             if ($("#foldercheckall").is(':checked')) {
                 $("input[name=foldercheck").prop("checked", true);
                 document.getElementById("folderremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
@@ -320,7 +320,7 @@
                                                                             <tr>
                                                                                 <th>
                                                                                     <div class="custom-control custom-checkbox mb-0">
-                                                                                        <input type="checkbox" class="custom-control-input" name="foldercheckall" id="foldercheckall" onClick="totalcheck();">
+                                                                                        <input type="checkbox" class="custom-control-input" name="foldercheckall" id="foldercheckall" onClick="Foldertotalcheck();">
                                                                                         <label class="custom-control-label" for=foldercheckall></label>
                                                                                     </div>
                                                                                 </th>
