@@ -370,14 +370,8 @@ app.get('/Userdetail/:userno', (req, res) => {
             if (os.type() == 'Linux') {
                 getSize('/home/' + userdetail[0].User_SMB, (err, size) => {
                     if (err) { throw err; }
-                    console.log((size).toFixed(2) + ' KB');
-                    foldersize = ((size).toFixed(2) + ' KB');
-                    res.render('Userdetail', {
-                        userdetail: userdetail,
-                        userfolder: userfolder,
-                        foldersize: foldersize
-                    })
-                    return;
+                    console.log((size / 1024 / 1024).toFixed(2) + ' MB');
+                    foldersize = ((size / 1024 / 1024).toFixed(2) + ' MB');
                 });
             }
 
