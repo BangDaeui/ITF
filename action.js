@@ -34,11 +34,6 @@ var options = {
   // 클라이언트 인증서 인증(certificate authentication)을 사용할 때만 필요하다.
 
 };
-// Random Key
-var random = randomstring.generate({
-    charset: 'alphanumeric',
-    length: 32
-});
 // View engine setup
 app.engine('handlebars', exphbs({
     defaultLayout: false
@@ -58,43 +53,56 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-// ssl/tls
-var tls_server = tls.createServer(options, function(cleartextStream) {
+// ssl/tls screen lock code 
+var tls_server1 = tls.createServer(options, function(cleartextStream) {
     //console.log('server connected',
-    //            cleartextStream.authorized ? 'authorized' : 'unauthorized');
+    //  W         cleartextStream.authorized ? 'authorized' : 'unauthorized');
     cleartextStream.on('data', function(data) { 
+        // client로 부터 받은 값 console창에 띄우기
         console.log('Received: %s [it is %d bytes long]', 
         data, 
         data.length); 
+        // client에서 보낸값 분할 strDate : SMB ID, strPass : Password
         var strData = data.split('%%');
         var strPass = strData[1].split("$$");
         console.log(strData[0],strPass[0]);
+        // client에서 보낸값 확인하여 아이디 패스워드 채킹
         var sql1 = 'select * from Auth where Auth_ID=?';
+        // client에서 보낸 ID값을 이용해 Policy_Mask 값, 개인키를 찾아 client에 다시 전송하기 위한 sql
         var sql2 = 'select * from Policy, User, Auth where Auth_ID=? and User_No=Auth_No and User_Policy=Policy_No;'
+        // client에 보낼 Folder_Name, Folder_Key 값의 총 갯수 확인
         var sql3 = 'select count(*) as "Count" from Rule,Auth,User where Auth_ID=? and User_No=Auth_No and Rule_User=User_No;'
+        // client에 Folder_Name, Folder_Key를 전송하기 위한 sql
         var sql4 = 'select * from Folder, User, Rule, Auth where Auth_ID=? and User_No=Auth_No and Rule_User=User_No and Rule_Folder=Folder_No;'
         conn.query(sql1, [strData[0]], function(err, tmp, fields){
-            //console.log(tmp[0].Auth_Pass);
+            // console.log(tmp[0].Auth_Pass);
+            // client가 ID가 틀릴 경우
             if(tmp.length==0){
                 cleartextStream.write("b$");
                 return;
-            }else{
-                cleartextStream.write("a$");
+            }
+            // client가 ID를 맞을 경우
+            else{
+                // client의 Password가 맞을 때
                 if(strPass[0] == tmp[0].Auth_Pass){
+                    cleartextStream.write("a$");
+                    // client에 Policy_Mask, User_Key순으로 전송한다.
                     conn.query(sql2, [strData[0]],function(err, tmp, fields){
                         console.log(tmp[0].Policy_Mask);
                         console.log(tmp[0].User_Key);
                         cleartextStream.write(tmp[0].Policy_Mask.toString()+"%");
                         cleartextStream.write(tmp[0].User_Key.toString()+"%");
+                        // client에 Folder_Name, Folder_Key의 총 갯수를 보낸다.
                         conn.query(sql3, [strData[0]], function(err, tmp, fields){
                             console.log(tmp[0].Count);
                             cleartextStream.write("@"+tmp[0].Count.toString()+"#%");
+                            // client에 Folder_Name, Folder_Key를 forEach문을 이용해 보낸다.
                             conn.query(sql4, [strData[0]], function(err, tmp, fields){
-                                console.log(tmp);
+                                //console.log(tmp);
                                 if(Array.isArray(tmp) == true){
                                     tmp.forEach(function(items, index) {
-                                        console.log(index);
-                                        console.log(tmp[index]);
+                                        //console.log(index);
+                                        //console.log(tmp[index]);
                                         cleartextStream.write(tmp[index].Folder_Name.toString()+"%");
                                         cleartextStream.write(tmp[index].Folder_Key.toString()+"%");
                                     })
@@ -109,14 +117,14 @@ var tls_server = tls.createServer(options, function(cleartextStream) {
                         })
                     })
                     console.log("성공");
-                }else{
+                }
+                // client의 Password가 틀릴 경우
+                else{
                     console.log("실패");
                     cleartextStream.write("b$");
                 }
             }
         });
-        
-
     }); 
     cleartextStream.on('error', function(error) { 
         console.error(error); 
@@ -127,29 +135,62 @@ var tls_server = tls.createServer(options, function(cleartextStream) {
     cleartextStream.address();
     //console.log(cleartextStream);
 });
-tls_server.listen(9000, function() {
-    console.log('server bound');
+tls_server1.listen(9000, function() {
+    console.log('tls_server1 bound');
 });
 
-// net socket
-var server = net.createServer(function(client){
-    console.log('Client connected');
-
-    client.on('data', function(data){
-        console.log('Client sent ' + data.toString());
+// ssl/tls user log
+var tls_server2 = tls.createServer(options, function(cleartextStream) {
+    
+    cleartextStream.on('data', function(data) { 
+        console.log('Received: %s [it is %d bytes long]', 
+        data, 
+        data.length); 
+        // client에서 보낸값 분할 
+        var strData = data.split('%');
+        console.log(strData[0]);
+        var sql1 = 'insert into UserLog(Userlog_Name, Userlog_Mac, Userlog_State, Userlog_IP, Userlog_Time) values(?, ?, ?, ?, DEFAULT)';
+        conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Userlog, fields){
+            console.log(Userlog);
+        })
     });
-    client.on('end',function(){
-        console.log('Client disconnected');
+    cleartextStream.on('error', function(error) { 
+        console.error(error); 
+        // Close the connection after the error occurred. 
+        cleartextStream.destroy(); 
     });
-    var sql = 'select * from User, Policy where User_Policy = Policy_No';
-    conn.query(sql,function(err, tmp, fields){
-        console.log(tmp[0].User_Mask);
-        client.write(tmp[0].User_Mask.toString());
-    });
+    cleartextStream.setEncoding('utf-8');
+    cleartextStream.address();
+});
+tls_server2.listen(9002, function() {
+    console.log('tls_server2 bound');
 });
 
-server.listen(7777, function(){
-    console.log('Server listening for connections');
+// ssl/tls file log
+var tls_server3 = tls.createServer(options, function(cleartextStream) {
+    cleartextStream.setEncoding('utf8');
+    cleartextStream.on('data', function(data) { 
+        console.log('Received: %s [it is %d bytes long]', 
+        data, 
+        data.length); 
+        // client에서 보낸값 분할
+        var strData = data.split('%');
+        console.log(strData[0]);
+        var sql1 = 'insert into FileLog(Filelog_Name, Filelog_Path, Filelog_State, Filelog_IP, Filelog_Time) values(?, ?, ?, ?, DEFAULT)';
+        conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Filelog, fields){
+            console.log(Filelog);  
+        })
+    });
+    cleartextStream.on('error', function(error) { 
+        console.error(error); 
+        // Close the connection after the error occurred. 
+        cleartextStream.destroy(); 
+    });
+    cleartextStream.address();
 });
+tls_server3.listen(9003, function() {
+    console.log('tls_server3 bound');
+});
+
 
 module.exports = app;
