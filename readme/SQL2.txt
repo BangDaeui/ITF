@@ -3,19 +3,19 @@ alter table Policy auto_increment=1;
 
 
 ALTER TABLE Policy CONVERT TO CHARACTER SET UTF8;
-INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('시스템 정책 1','기본 시스템 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
-INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('시스템 정책 2','기본 시스템 정책입니다.', 5, 5, 1, 0, 1, 0, 0, 0, 0, 0); 
-INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('시스템 정책 3','기본 시스템 정책입니다.', 5, 1, 1, 0, 0, 0, 0, 0, 0, 0); 
+INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('품질관리','품질관리 시스템 정책', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
+INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('연구개발','연구개발 시스템 정책', 5, 5, 1, 0, 1, 0, 0, 0, 0, 0); 
+INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('마케팅','마케팅 시스템 정책', 5, 1, 1, 0, 0, 0, 0, 0, 0, 0); 
 
 ALTER TABLE Department CONVERT TO CHARACTER SET UTF8;
-INSERT INTO Department(Department_Name) VALUES('Department1');
-INSERT INTO Department(Department_Name) VALUES('Department2');
-INSERT INTO Department(Department_Name) VALUES('Department3');
+INSERT INTO Department(Department_Name) VALUES('품질관리');
+INSERT INTO Department(Department_Name) VALUES('연구개발');
+INSERT INTO Department(Department_Name) VALUES('마케팅');
 
 ALTER TABLE Positions CONVERT TO CHARACTER SET UTF8;
-INSERT INTO Positions(Positions_Name) VALUES('Positions1');
-INSERT INTO Positions(Positions_Name) VALUES('Positions2');
-INSERT INTO Positions(Positions_Name) VALUES('Positions3');
+INSERT INTO Positions(Positions_Name) VALUES('부장');
+INSERT INTO Positions(Positions_Name) VALUES('대리');
+INSERT INTO Positions(Positions_Name) VALUES('사원');
 
 ALTER TABLE User CONVERT TO CHARACTER SET UTF8;
 INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'CuNfSW7y1RPwCmt7Tjq66gmOxJ1m8ru9');
@@ -23,10 +23,10 @@ INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, 
 INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('강산해', 'SanHae', '192.168.0.23', 3, 3, 3, 'WAZ9WtcirCdmO2yNIrKoHfWvk45FZ15a');
 
 ALTER TABLE Folder CONVERT TO CHARACTER SET UTF8;
-INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('폴더 정책 1', '폴더 기본 정책입니다.', '/path1', 5, 0, 1, 0, 0, '0777', '0777', 'MtOT7RSC4Wu81C2JdX3MFctvpMHSazVZ');
-INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('폴더 정책 3', '폴더 기본 정책입니다.', '/path2', 5, 0, 1, 0, 0, '0777', '0777',
+INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('Samba', '연구개발 폴더 기본 정책입니다.', '/home/samba', 5, 0, 1, 0, 0, '0777', '0777', 'MtOT7RSC4Wu81C2JdX3MFctvpMHSazVZ');
+INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('Samba2', '마케팅 폴더 기본 정책입니다.', '/home/samba2', 5, 0, 1, 0, 0, '0777', '0777',
 'He11x22yJJex8ujRqK7UWHsv68izNmVJ');
-INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('폴더 정책 3', '폴더 기본 정책입니다.', '/path3', 5, 0, 1, 0, 0, '0777', '0777',
+INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('All', '사내 폴더 정책입니다.', '/home/all', 5, 0, 1, 0, 0, '0777', '0777',
 'Na6r9tg6KNtTk8pXyEDGqLHO15wu9UM2');
 
 ALTER TABLE Auth CONVERT TO CHARACTER SET UTF8;
@@ -41,3 +41,7 @@ ALTER TABLE Rule CONVERT TO CHARACTER SET UTF8;
 INSERT INTO Rule(Rule_Folder, Rule_User) VALUES(1, 1);
 INSERT INTO Rule(Rule_Folder, Rule_User) VALUES(2, 2);
 INSERT INTO Rule(Rule_Folder, Rule_User) VALUES(3, 3);
+
+ALTER TABLE FileLog CONVERT TO CHARACTER SET UTF8;
+
+ALTER TABLE UserLog CONVERT TO CHARACTER SET UTF8;

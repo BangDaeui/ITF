@@ -1,0 +1,17 @@
+sudo useradd Kyujin
+sudo useradd Sangmin
+sudo useradd SanHae
+echo 'kit2019' | sudo passwd --stdin Kyujin
+echo 'kit2019' | sudo passwd --stdin Sangmin
+echo 'kit2019' | sudo passwd --stdin SanHae
+echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a Kyujin
+echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a Sangmin
+echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a SanHae
+
+sudo chmod 755 /home/Kyujin
+sudo chmod 755 /home/Sangmin
+sudo chmod 755 /home/SanHae
+
+sudo mkdir /home/samba
+sudo mkdir /home/samba2
+sudo mkdir /home/All

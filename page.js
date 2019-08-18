@@ -281,7 +281,7 @@ app.post('/Adduser', (req, res) => {
     var rs = randomstring.generate(32);
     conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, rs], function(err, tmp, result){
         conn.query(sql2, [User_SMB], function(err, tmp2, result){
-            conn.query(sql4, [tmp2[0].User_No, User_Name, 'kit2019'], function(error, result){});
+            conn.query(sql4, [tmp2[0].User_No, User_SMB, 'kit2019'], function(error, result){});
             // Windows에서 실행하면 오류남
             if (os.type() == 'Windows_NT')
                 return;
@@ -792,7 +792,7 @@ app.post('/Folderpolicyuserout/:folderno', (req, res) => {
         });
     } else {
         console.log(id + "[FolderPolicychanged]");
-        conn.query(sql1, [id], function (err, result) {});
+        conn.query(sql1, [folderno, id], function (err, result) {});
     }
     SettingSamba();
     res.redirect('/Folderpolicydetail/' + folderno);
