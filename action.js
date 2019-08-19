@@ -63,8 +63,8 @@ var tls_server1 = tls.createServer(options, function(cleartextStream) {
         data, 
         data.length); 
         // client에서 보낸값 분할 strDate : SMB ID, strPass : Password
-        var strData = data.split('%%');
-        var strPass = strData[1].split("$$");
+        var strData = data.split('αα');
+        var strPass = strData[1].split("ΩΩ");
         console.log(strData[0],strPass[0]);
         // client에서 보낸값 확인하여 아이디 패스워드 채킹
         var sql1 = 'select * from Auth where Auth_ID=?';
@@ -78,24 +78,24 @@ var tls_server1 = tls.createServer(options, function(cleartextStream) {
             // console.log(tmp[0].Auth_Pass);
             // client가 ID가 틀릴 경우
             if(tmp.length==0){
-                cleartextStream.write("b$");
+                cleartextStream.write("bΩ");
                 return;
             }
             // client가 ID를 맞을 경우
             else{
                 // client의 Password가 맞을 때
                 if(strPass[0] == tmp[0].Auth_Pass){
-                    cleartextStream.write("a$");
+                    cleartextStream.write("aΩ");
                     // client에 Policy_Mask, User_Key순으로 전송한다.
                     conn.query(sql2, [strData[0]],function(err, tmp, fields){
                         console.log(tmp[0].Policy_Mask);
                         console.log(tmp[0].User_Key);
-                        cleartextStream.write(tmp[0].Policy_Mask.toString()+"%");
-                        cleartextStream.write(tmp[0].User_Key.toString()+"%");
+                        cleartextStream.write(tmp[0].Policy_Mask.toString()+"α");
+                        cleartextStream.write(tmp[0].User_Key.toString()+"α");
                         // client에 Folder_Name, Folder_Key의 총 갯수를 보낸다.
                         conn.query(sql3, [strData[0]], function(err, tmp, fields){
                             console.log(tmp[0].Count);
-                            cleartextStream.write("@"+tmp[0].Count.toString()+"#%");
+                            cleartextStream.write("β"+tmp[0].Count.toString()+"γα");
                             // client에 Folder_Name, Folder_Key를 forEach문을 이용해 보낸다.
                             conn.query(sql4, [strData[0]], function(err, tmp, fields){
                                 //console.log(tmp);
@@ -103,14 +103,14 @@ var tls_server1 = tls.createServer(options, function(cleartextStream) {
                                     tmp.forEach(function(items, index) {
                                         //console.log(index);
                                         //console.log(tmp[index]);
-                                        cleartextStream.write(tmp[index].Folder_Name.toString()+"%");
-                                        cleartextStream.write(tmp[index].Folder_Key.toString()+"%");
+                                        cleartextStream.write(tmp[index].Folder_Name.toString()+"α");
+                                        cleartextStream.write(tmp[index].Folder_Key.toString()+"α");
                                     })
-                                    cleartextStream.write("$");
+                                    cleartextStream.write("Ω");
                                 } else{
-                                    cleartextStream.write(tmp[0].Folder_Name.toString()+"%");
-                                    cleartextStream.write(tmp[0].Folder_Key.toString()+"%");
-                                    cleartextStream.write("$");
+                                    cleartextStream.write(tmp[0].Folder_Name.toString()+"α");
+                                    cleartextStream.write(tmp[0].Folder_Key.toString()+"α");
+                                    cleartextStream.write("Ω");
                                 }
                             })
                             
@@ -121,7 +121,7 @@ var tls_server1 = tls.createServer(options, function(cleartextStream) {
                 // client의 Password가 틀릴 경우
                 else{
                     console.log("실패");
-                    cleartextStream.write("b$");
+                    cleartextStream.write("bΩ");
                 }
             }
         });
@@ -147,7 +147,7 @@ var tls_server2 = tls.createServer(options, function(cleartextStream) {
         data, 
         data.length); 
         // client에서 보낸값 분할 
-        var strData = data.split('%');
+        var strData = data.split('α');
         console.log(strData[0]);
         var sql1 = 'insert into UserLog(Userlog_Name, Userlog_Mac, Userlog_State, Userlog_IP, Userlog_Time) values(?, ?, ?, ?, DEFAULT)';
         conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Userlog, fields){
@@ -159,7 +159,7 @@ var tls_server2 = tls.createServer(options, function(cleartextStream) {
         // Close the connection after the error occurred. 
         cleartextStream.destroy(); 
     });
-    cleartextStream.setEncoding('utf-8');
+    cleartextStream.setEncoding('utf8');
     cleartextStream.address();
 });
 tls_server2.listen(9002, function() {
@@ -174,7 +174,7 @@ var tls_server3 = tls.createServer(options, function(cleartextStream) {
         data, 
         data.length); 
         // client에서 보낸값 분할
-        var strData = data.split('%');
+        var strData = data.split('α');
         console.log(strData[0]);
         var sql1 = 'insert into FileLog(Filelog_Name, Filelog_Path, Filelog_State, Filelog_IP, Filelog_Time) values(?, ?, ?, ?, DEFAULT)';
         conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Filelog, fields){
@@ -186,6 +186,7 @@ var tls_server3 = tls.createServer(options, function(cleartextStream) {
         // Close the connection after the error occurred. 
         cleartextStream.destroy(); 
     });
+    cleartextStream.setEncoding('utf8');
     cleartextStream.address();
 });
 tls_server3.listen(9003, function() {
