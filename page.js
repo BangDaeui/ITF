@@ -227,7 +227,18 @@ app.get('/Dashboard', (req, res) => {
 
 // [Get] /EventLog (이벤트 로그 페이지)
 app.get('/Eventlog', (req, res) => {
-    res.render('Eventlog');
+    // [select] Filelog
+    var sql1 = 'select Filelog_No, Filelog_Name, Filelog_Path, Filelog_IP, DATE_FORMAT(Filelog_Time, "%a %b %d %Y %H:%i:%s") AS "Filelog_Time", case Filelog_State when 1 then "파일 실행" when 2 then "파일 생성" when 3 then "파일 수정" when 4 then "파일 삭제" when 5 then "파일 이름 변경" END AS "Filelog_State" from FileLog;'
+    // [select] Userlog
+    var sql2 = 'select Userlog_No, Userlog_Name, Userlog_MAC, Userlog_IP, DATE_FORMAT(Userlog_Time, "%a %b %d %Y %H:%i:%s") AS "Userlog_Time", case Userlog_State when 1 then "로그인" when 2 then "로그아웃" when 3 then "비밀번호 변경" END AS "Userlog_State" from UserLog;'
+    conn.query(sql1, function (err, Filelog, fields) {
+        conn.query(sql2, function (err, Userlog, fields) {
+            res.render('Eventlog', {
+                Filelog: Filelog,
+                Userlog: Userlog
+            });
+        });
+    });
 })
 
 // [Get] /Users (유저 페이지)
@@ -281,7 +292,7 @@ app.post('/Adduser', (req, res) => {
     var rs = randomstring.generate(32);
     conn.query(sql1, [User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, rs], function(err, tmp, result){
         conn.query(sql2, [User_SMB], function(err, tmp2, result){
-            conn.query(sql4, [tmp2[0].User_No, User_Name, 'kit2019'], function(error, result){});
+            conn.query(sql4, [tmp2[0].User_No, User_SMB, 'kit2019'], function(error, result){});
             // Windows에서 실행하면 오류남
             if (os.type() == 'Windows_NT')
                 return;
@@ -792,7 +803,7 @@ app.post('/Folderpolicyuserout/:folderno', (req, res) => {
         });
     } else {
         console.log(id + "[FolderPolicychanged]");
-        conn.query(sql1, [id], function (err, result) {});
+        conn.query(sql1, [folderno, id], function (err, result) {});
     }
     SettingSamba();
     res.redirect('/Folderpolicydetail/' + folderno);
