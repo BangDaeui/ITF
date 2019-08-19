@@ -125,7 +125,10 @@ var tls_server1 = tls.createServer(options, function(cleartextStream) {
                 }
             }
         });
-    }); 
+    });
+    cleartextStream.on('end', function(){
+        console.log("Server end connetion"); 
+    });
     cleartextStream.on('error', function(error) { 
         console.error(error); 
         // Close the connection after the error occurred. 
@@ -154,6 +157,9 @@ var tls_server2 = tls.createServer(options, function(cleartextStream) {
             console.log(Userlog);
         })
     });
+    cleartextStream.on('end', function(){
+        console.log("Server end connetion"); 
+    });
     cleartextStream.on('error', function(error) { 
         console.error(error); 
         // Close the connection after the error occurred. 
@@ -161,6 +167,7 @@ var tls_server2 = tls.createServer(options, function(cleartextStream) {
     });
     cleartextStream.setEncoding('utf8');
     cleartextStream.address();
+    
 });
 tls_server2.listen(9002, function() {
     console.log('tls_server2 bound');
@@ -168,7 +175,6 @@ tls_server2.listen(9002, function() {
 
 // ssl/tls file log
 var tls_server3 = tls.createServer(options, function(cleartextStream) {
-    cleartextStream.setEncoding('utf8');
     cleartextStream.on('data', function(data) { 
         console.log('Received: %s [it is %d bytes long]', 
         data, 
@@ -180,6 +186,9 @@ var tls_server3 = tls.createServer(options, function(cleartextStream) {
         conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Filelog, fields){
             console.log(Filelog);  
         })
+    });
+    cleartextStream.on('end', function(){
+        console.log("Server end connetion"); 
     });
     cleartextStream.on('error', function(error) { 
         console.error(error); 
