@@ -694,7 +694,7 @@ app.post('/CPSettingmodal', (req, res) => {
     });
 })
 
-//[Post] /AddDeporment_name (부서추가)
+//[Post] /AddDeporment_name (부서 추가)
 app.post('/AddDSettingmodal', (req, res) => {
     var Department_Name = req.body.Department_Name;
     // [insert] 부서 추가
@@ -705,7 +705,25 @@ app.post('/AddDSettingmodal', (req, res) => {
   res.redirect('Setting');
 })
 
-//[Post] /Addpositions_name (직책 관리)
+// [Post] /DdeleteSettingmodal (부서 삭제)
+app.post('/ViewCDSettingmodal', (req, res) => {
+    var id = req.body.departmentcheck;
+    console.log(id);
+    // [delete] 부서 삭제
+    var sql1 = 'delete from Department where Department_No = ?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[Departmentdeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[Departmentdeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Setting');
+});
+
+//[Post] /Addpositions_name (직책 추가)
 app.post('/CPOsSettingmodal', (req, res) => {
     var Positions_Name = req.body.Positions_Name;
     // [insert] 직책 추가
@@ -718,6 +736,23 @@ app.post('/CPOsSettingmodal', (req, res) => {
   res.redirect('Setting');
 });
 
+// [Post] /PdeleteSettingmodal (부서 삭제)
+app.post('/ViewCPSettingmodal', (req, res) => {
+    var id = req.body.positionscheck;
+    console.log(id);
+    // [delete] 부서 삭제
+    var sql1 = 'delete from Positions where Positions_No = ?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[Positionsdeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[Positionsdeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Setting');
+});
 
 
 // [Get] / (로그인 페이지)

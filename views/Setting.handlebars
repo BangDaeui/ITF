@@ -279,6 +279,29 @@
                                                               <td>{{this.Department_Name}}</td>
                                                           </tr>
                                                       {{/each}}
+                                                      <!--Delete Department Model-->
+
+                                                      <div class="modal fade" id="DdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="DdeleteSettingmodalLabel" aria-hidden="true">
+                                                          <div class="modal-dialog" role="document">
+                                                              <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                      <h5 class="modal-title" id="DdeleteSettingmodal">부서 삭제</h5>
+                                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                          <span aria-hidden="true">&times;</span>
+                                                                      </button>
+                                                                  </div>
+                                                                  <div class="modal-body">
+                                                                      부서를 삭제 하시겠습니까?
+                                                                  </div>
+                                                                  <div class="modal-footer">
+                                                                      <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                                      <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+
+                                                      <!--End Delete Department Model-->
                                                   </tbody>
                                               </table>
                                           </div>
@@ -338,28 +361,6 @@
                           </form>
                             <!--End Change Department Model-->
 
-                            <!--Delete Department Model-->
-                            <div class="modal fade" id="DdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="DdeleteSettingmodalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="DdeleteSettingmodal">부서 삭제</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            부서를 삭제 하시겠습니까?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--End Delete Department Model-->
-
                             <!--View Position Model-->
                             <form method=post action="/ViewCPSettingmodal" >
                             <div class="modal fade" id="ViewCPSettingmodal" tabindex="-1" role="dialog" aria-labelledby="ViewCPSettingmodal" aria-hidden="true">
@@ -404,6 +405,27 @@
                                                               <td>{{this.Positions_Name}}</td>
                                                           </tr>
                                                           {{/each}}
+                                                          <!--Delete Positions Model-->
+                                                            <div class="modal fade" id="PdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="PdeleteSettingmodal" aria-hidden="true">
+                                                              <div class="modal-dialog" role="document">
+                                                                  <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                          <h5 class="modal-title" id="PdeleteSettingmodal">직책 삭제</h5>
+                                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                              <span aria-hidden="true">&times;</span>
+                                                                          </button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                          직책을 삭제 하시겠습니까?
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                          <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                          <!--End Delete Positions Model-->
                                                       </tbody>
                                                   </table>
                                               </div>
@@ -458,27 +480,7 @@
                           </form>
                           <!--End Add Position Model-->
 
-                          <!--Delete Positions Model-->
-                          <div class="modal fade" id="PdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="PdeleteSettingmodal" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="PdeleteSettingmodal">직책 삭제</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                          </button>
-                                      </div>
-                                      <div class="modal-body">
-                                          직책을 삭제 하시겠습니까?
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <!--End Delete Positions Model-->
+
 
                 </div>
                 <!--End /.main-navbar-->
