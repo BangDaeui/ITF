@@ -10,6 +10,8 @@
 	SET SQL_SAFE_UPDATES = 0;
 auto increment 1로 만들기
 	alter table Policy auto_increment=1;
+시간
+	set time_zone = 'Asia/Seoul';
 
 UI
 
