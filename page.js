@@ -253,6 +253,7 @@ app.get('/Users', (req, res) => {
     var sql4 = 'select * from Positions';
     // [select] 폴더 정책
     var sql5 = 'select * from Folder';
+
     conn.query(sql1, function (err, userslist, fields) {
         conn.query(sql2, function (err, policy, fields) {
             conn.query(sql3, function (err, department, fields) {
@@ -375,6 +376,15 @@ app.get('/Userdetail/:userno', (req, res) => {
     var sql1 = 'select * from Department, Positions, User left outer join Policy on User_Policy=Policy_No where User_Positions = Positions_No and User_Department = Department_No and User_No = ?';
     // [select] 사용자가 소속된 폴더 정책
     var sql2 = 'select * from User, Rule, Folder where User_No = Rule_User and Folder_No = Rule_Folder and User_No = ?';
+    // [select] 유저 로그 수
+    var sql3 = 'select count(case when Userlog_State = 1 Then 1 END) AS "Userlog_Login", count(case when Userlog_State = 2 Then 2 END) AS "Userlog_Logout", count(case when Userlog_State = 3 Then 3 END) AS "Userlog_Change" from UserLog where UserLog_Name = ?';
+    // [select] 파일 로그 수
+    var sql4 = 'select count(case when Filelog_State = 1 Then 1 END) AS "Filelog_Execute", count(case when Filelog_State = 2 Then 1 END) AS "Filelog_Create", count(case when Filelog_State = 3 Then 1 END) AS "Filelog_Modify", count(case when Filelog_State = 4 Then 1 END) AS "Filelog_Delete", count(case when Filelog_State = 5 Then 1 END) AS "Filelog_Rename" from FileLog where Filelog_Name = ?';
+    // [select] 유저 로그
+    var sql5 = 'select Userlog_No, Userlog_Name, Userlog_MAC, Userlog_IP, DATE_FORMAT(Userlog_Time, "%a %b %d %Y %H:%i:%s") AS "Userlog_Time", case Userlog_State when 1 then "로그인" when 2 then "로그아웃" when 3 then "비밀번호 변경" END AS "Userlog_State" from UserLog where Userlog_Name = ?';
+    // [select] 파일 로그
+    var sql6 = 'select Filelog_No, Filelog_Name, Filelog_Path, Filelog_IP, DATE_FORMAT(Filelog_Time, "%a %b %d %Y %H:%i:%s") AS "Filelog_Time", case Filelog_State when 1 then "파일 실행" when 2 then "파일 생성" when 3 then "파일 수정" when 4 then "파일 삭제" when 5 then "파일 이름 변경" END AS "Filelog_State" from FileLog where Filelog_Name = ?';
+    
     conn.query(sql1, [userno], function (err, userdetail, fields) {
         var foldersize = '0 Byte';
         if (os.type() == 'Linux') {
@@ -391,19 +401,43 @@ app.get('/Userdetail/:userno', (req, res) => {
                     foldersize = ((size).toFixed(2) + ' Byte');
                 }
                 conn.query(sql2, [userno], function (err, userfolder, fields) {
-                    res.render('Userdetail', {
-                        userdetail: userdetail,
-                        userfolder: userfolder,
-                        foldersize: foldersize
+                    conn.query(sql3, [userdetail[0].User_SMB], function (err, userlogc, fields) {
+                        conn.query(sql4, [userdetail[0].User_SMB], function (err, filelogc, fields) {
+                            conn.query(sql5, [userdetail[0].User_SMB], function (err, userlog, fields) {
+                                conn.query(sql6, [userdetail[0].User_SMB], function (err, filelog, fields) {
+                                    res.render('Userdetail', {
+                                        userdetail: userdetail,
+                                        userfolder: userfolder,
+                                        foldersize: foldersize,
+                                        userlogc: userlogc,
+                                        filelogc: filelogc,
+                                        userlog: userlog,
+                                        filelog: filelog
+                                    })
+                                })
+                            })
+                        })
                     })
                 })
             });
         } else {
             conn.query(sql2, [userno], function (err, userfolder, fields) {
-                res.render('Userdetail', {
-                    userdetail: userdetail,
-                    userfolder: userfolder,
-                    foldersize: foldersize
+                conn.query(sql3, [userdetail[0].User_SMB], function (err, userlogc, fields) {
+                    conn.query(sql4, [userdetail[0].User_SMB], function (err, filelogc, fields) {
+                        conn.query(sql5, [userdetail[0].User_SMB], function (err, userlog, fields) {
+                            conn.query(sql6, [userdetail[0].User_SMB], function (err, filelog, fields) {
+                                res.render('Userdetail', {
+                                    userdetail: userdetail,
+                                    userfolder: userfolder,
+                                    foldersize: foldersize,
+                                    userlogc: userlogc,
+                                    filelogc: filelogc,
+                                    userlog: userlog,
+                                    filelog: filelog
+                                })
+                            })
+                        })
+                    })
                 })
             })
         }
