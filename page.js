@@ -301,6 +301,7 @@ app.post('/Adduser', (req, res) => {
                 exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
                 exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
                 exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
             }
             else if (Array.isArray(foldercheck) == true) {
                 foldercheck.forEach(function (items) {
@@ -309,6 +310,7 @@ app.post('/Adduser', (req, res) => {
                         exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
                         exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
                         exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                        exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
                         SettingSamba();
                     });
                 });
@@ -317,6 +319,7 @@ app.post('/Adduser', (req, res) => {
                     exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
                     exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
                     exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                    exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
                     SettingSamba();
                 });
             }
