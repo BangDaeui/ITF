@@ -171,6 +171,57 @@
                         </div>
                     {{/each}}
                     <br>
+                    <div class="row">
+                        <div class="col-lg col-md-4 col-sm-4 mb-4">
+                            <div class="stats-small stats-small--1 card card-small">
+                                <div class="card-body p-0 d-flex">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <div id="pieChart1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-4 col-sm-4 mb-4">
+                            <div class="stats-small stats-small--1 card card-small">
+                                <div class="card-body p-0 d-flex">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <div id="pieChart2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-4 col-sm-4 mb-4">
+                            <div class="stats-small stats-small--1 card card-small">
+                                <div class="card-body p-3 d-flex">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <br><br><br>
+                                            <span class="stats-small__label text-uppercase">Userlog counts</span>
+                                            <h6 class="stats-small__value count my-3">{{#each userlogc}}{{this.Userlog_All}}{{/each}}</h6>
+                                            <br><br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="stats-small stats-small--1 card card-small">
+                                <div class="card-body p-3 d-flex">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <br><br><br>
+                                            <span class="stats-small__label text-uppercase">Filelog counts</span>
+                                            <h6 class="stats-small__value count my-3">{{#each filelogc}}{{this.Filelog_All}}{{/each}}</h6>
+                                            <br><br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom">
                             <h6 class="m-0">System Policy</h6>
@@ -336,6 +387,192 @@
             }
         }
     });
+    </script>
+        <script>
+        var pie = new d3pie("pieChart1", {
+            "header": {
+                "title": {
+                    "text": "Userlog",
+                    "fontSize": 24,
+                    "font": "open sans"
+                },
+                "subtitle": {
+                    "text": "Userlog 통계",
+                    "color": "#999999",
+                    "fontSize": 12,
+                    "font": "open sans"
+                },
+                "titleSubtitlePadding": 9
+            },
+            "footer": {
+                "color": "#999999",
+                "fontSize": 10,
+                "font": "open sans",
+                "location": "bottom-left"
+            },
+            "size": {
+                "canvasWidth": 440,
+                "pieOuterRadius": "65%"
+            },
+            "data": {
+                {{#each userlogc}} "sortOrder": "random",
+                "content": [{
+                        "label": "로그인",
+                        "value": {{this.Userlog_Login}},
+                        "color": "#2383c1"
+                    },
+                    {
+                        "label": "로그아웃",
+                        "value": {{this.Userlog_Logout}},
+                        "color": "#64a61f"
+                    },
+                    {
+                        "label": "비밀번호변경",
+                        "value": {{this.Userlog_Change}},
+                        "color": "#7b6788"
+                    }
+                ]
+                {{/each}}
+            },
+            "labels": {
+                "outer": {
+                    "format": "label-value2",
+                    "pieDistance": 32
+                },
+                "inner": {
+                    "hideWhenLessThanPercentage": 3
+                },
+                "mainLabel": {
+                    "fontSize": 11
+                },
+                "percentage": {
+                    "color": "#ffffff",
+                    "decimalPlaces": 0
+                },
+                "value": {
+                    "color": "#adadad",
+                    "fontSize": 11
+                },
+                "lines": {
+                    "enabled": true
+                },
+                "truncation": {
+                    "enabled": true
+                }
+            },
+            "effects": {
+                "pullOutSegmentOnClick": {
+                    "effect": "linear",
+                    "speed": 400,
+                    "size": 8
+                }
+            },
+            "misc": {
+                "gradient": {
+                    "enabled": true,
+                    "percentage": 100
+                }
+            }
+        });
+
+    </script>
+    <script>
+        var pie = new d3pie("pieChart2", {
+            "header": {
+                "title": {
+                    "text": "Filelog",
+                    "fontSize": 24,
+                    "font": "open sans"
+                },
+                "subtitle": {
+                    "text": "Filelog 통계",
+                    "color": "#999999",
+                    "fontSize": 12,
+                    "font": "open sans"
+                },
+                "titleSubtitlePadding": 9
+            },
+            "footer": {
+                "color": "#999999",
+                "fontSize": 10,
+                "font": "open sans",
+                "location": "bottom-left"
+            },
+            "size": {
+                "canvasWidth": 440,
+                "pieOuterRadius": "65%"
+            },
+            "data": {
+                {{#each filelogc}} "sortOrder": "random",
+                "content": [{
+                        "label": "파일 실행",
+                        "value": {{this.Filelog_Execute}},
+                        "color": "#2383c1"
+                    },
+                    {
+                        "label": "파일 생성",
+                        "value": {{this.Filelog_Create}},
+                        "color": "#64a61f"
+                    },
+                    {
+                        "label": "파일 수정",
+                        "value": {{this.Filelog_Modify}},
+                        "color": "#7b6788"
+                    },
+                    {
+                        "label": "파일 삭제",
+                        "value": {{this.Filelog_Delete}},
+                        "color": "#a05c56"
+                    },
+                    {
+                        "label": "파일 이름 변경",
+                        "value": {{this.Filelog_Rename}},
+                        "color": "#961919"
+                    }
+                ]
+                {{/each}}
+            },
+            "labels": {
+                "outer": {
+                    "format": "label-value2",
+                    "pieDistance": 32
+                },
+                "inner": {
+                    "hideWhenLessThanPercentage": 3
+                },
+                "mainLabel": {
+                    "fontSize": 11
+                },
+                "percentage": {
+                    "color": "#ffffff",
+                    "decimalPlaces": 0
+                },
+                "value": {
+                    "color": "#adadad",
+                    "fontSize": 11
+                },
+                "lines": {
+                    "enabled": true
+                },
+                "truncation": {
+                    "enabled": true
+                }
+            },
+            "effects": {
+                "pullOutSegmentOnClick": {
+                    "effect": "linear",
+                    "speed": 400,
+                    "size": 8
+                }
+            },
+            "misc": {
+                "gradient": {
+                    "enabled": true,
+                    "percentage": 100
+                }
+            }
+        });
+
     </script>
 </body>
 

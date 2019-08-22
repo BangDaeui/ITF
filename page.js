@@ -208,18 +208,28 @@ app.get('/Dashboard', (req, res) => {
     var sql2 = 'select Policy_No, Policy_Name, Policy_Comment, (SELECT COUNT(*) FROM User where User_Policy = Policy_No) AS Policyn from Policy;';
     // [select] 폴더 정책
     var sql3 = 'select Folder_No, Folder_Name, Folder_Path, (SELECT COUNT(*) FROM Rule where Rule_Folder = Folder_No) AS Foldern from Folder;';
+    // [select] 유저 로그
+    var sql4 = 'select count(*) AS "Userlog_All" ,count(case when Userlog_State = 1 Then 1 END) AS "Userlog_Login", count(case when Userlog_State = 2 Then 2 END) AS "Userlog_Logout", count(case when Userlog_State = 3 Then 3 END) AS "Userlog_Change" from UserLog';
+    // [select] 파일 로그
+    var sql5 = 'select count(*) AS "Filelog_All" ,count(case when Filelog_State = 1 Then 1 END) AS "Filelog_Execute", count(case when Filelog_State = 2 Then 1 END) AS "Filelog_Create", count(case when Filelog_State = 3 Then 1 END) AS "Filelog_Modify", count(case when Filelog_State = 4 Then 1 END) AS "Filelog_Delete", count(case when Filelog_State = 5 Then 1 END) AS "Filelog_Rename" from FileLog';
     console.log(free);
     console.log(size);
     conn.query(sql1, function (err, num, fields) {
         conn.query(sql2, function (err, policy, fields) {
             conn.query(sql3, function (err, folder, fields) {
-                res.render('Dashboard', {
-                    num: num,
-                    policy: policy,
-                    folder: folder,
-                    free: free,
-                    size: size
-                });
+                conn.query(sql4, function (err, userlogc, fields) {
+                    conn.query(sql5, function (err, filelogc, fiedls) {
+                        res.render('Dashboard', {
+                            num: num,
+                            policy: policy,
+                            folder: folder,
+                            free: free,
+                            size: size,
+                            userlogc: userlogc,
+                            filelogc: filelogc
+                        });
+                    })
+                })
             });
         })
     });
