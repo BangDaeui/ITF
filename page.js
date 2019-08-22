@@ -870,11 +870,17 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var Folder_Createmask = req.body.Folder_Createmask;
     var Folder_Directorymask = req.body.Folder_Directorymask;
 
+    // [select] 폴더 검색
+    var sql1 = 'select * from Folder where Folder_No = ?';
     // [update] 폴더 정책 수정
-    var sql1 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Path=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
-    conn.query(sql1, [Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
-        console.log(tmp);
-    });
+    var sql2 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Path=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
+    conn.query(sql1, [folderno], function (err, folder, fields) {
+        if (os.type() == 'Linux')
+            exec("sudo mv " + folder[0].Folder_Path + " " + Folder_Path + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+        conn.query(sql2, [Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
+            console.log(tmp);
+        });
+    })
     SettingSamba();
     res.redirect('/Folderpolicydetail/' + folderno);
 })
