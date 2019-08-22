@@ -64,6 +64,7 @@ var tls_server1 = tls.createServer(options, function(cleartextStream) {
         data.length); 
         // client에서 보낸값 분할 strDate : SMB ID, strPass : Password
         var strData = data.split('αα');
+        console.log(strData[1]);
         var strPass = strData[1].split("ΩΩ");
         console.log(strData[0],strPass[0]);
         // client에서 보낸값 확인하여 아이디 패스워드 채킹
@@ -180,7 +181,7 @@ var tls_server3 = tls.createServer(options, function(cleartextStream) {
         data, 
         data.length); 
         // client에서 보낸값 분할
-        var strData = data.split('%');
+        var strData = data.split('α');
         console.log(strData[0]);
         var sql1 = 'insert into FileLog(Filelog_Name, Filelog_Path, Filelog_State, Filelog_IP, Filelog_Time) values(?, ?, ?, ?, DEFAULT)';
         conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Filelog, fields){
