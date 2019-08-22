@@ -95,7 +95,7 @@ var tls_server1 = tls.createServer(options, function(cleartextStream) {
                         // client에 Folder_Name, Folder_Key의 총 갯수를 보낸다.
                         conn.query(sql3, [strData[0]], function(err, tmp, fields){
                             console.log(tmp[0].Count);
-                            cleartextStream.write("β"+tmp[0].Count.toString()+"γα");
+                            cleartextStream.write(tmp[0].Count.toString()+"α");
                             // client에 Folder_Name, Folder_Key를 forEach문을 이용해 보낸다.
                             conn.query(sql4, [strData[0]], function(err, tmp, fields){
                                 //console.log(tmp);
@@ -180,7 +180,7 @@ var tls_server3 = tls.createServer(options, function(cleartextStream) {
         data, 
         data.length); 
         // client에서 보낸값 분할
-        var strData = data.split('α');
+        var strData = data.split('%');
         console.log(strData[0]);
         var sql1 = 'insert into FileLog(Filelog_Name, Filelog_Path, Filelog_State, Filelog_IP, Filelog_Time) values(?, ?, ?, ?, DEFAULT)';
         conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Filelog, fields){

@@ -331,12 +331,10 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
     console.log(req.file.filename);
     var csvData = [];
     var filename = req.file.filename;
-  
-    var read = fs.createReadStream('C:/Users/LAIDA9/Desktop/GIT프로젝트/ITF/uploads/' + filename)
+    var read = fs.createReadStream('uploads/' + filename)
         .pipe(csv.parse())
         .on('data', function(data) {
             csvData.push(data);
-            //console.log(csvData.shift()[0]);
         })
         .on('end', function(data){
             console.log('Read finished');
@@ -344,6 +342,21 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
             console.log(csvData);
             var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values ?';
             conn.query(sql1, [csvData], function (err, tmp, result){
+                if (os.type() == 'Windows_NT')
+                return;
+                if(Array.isArray(csvData) == true) {
+                    csvData.forEach(function(items){
+                        console.log(items[1] + "[csvData]");
+                        exec("sudo useradd " + items[1], function (error, stdout, stderr) {});
+                        exec("echo 'kit2019' | sudo passwd --stdin " + items[1], function (error, stdout, stderr) {});
+                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + items[1], function (error, stdout, stderr) {});
+                    })
+                } else {
+                    console.log(csvData[1]);
+                    exec("sudo useradd " + csvData[1], function (error, stdout, stderr) {});
+                    exec("echo 'kit2019' | sudo passwd --stdin " + csvData[1], function (error, stdout, stderr) {});
+                    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + csvData[1], function (error, stdout, stderr) {});
+                }
                 console.log(tmp);
             })
         });
