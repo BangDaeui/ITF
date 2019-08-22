@@ -153,6 +153,7 @@ var tls_server2 = tls.createServer(options, function(cleartextStream) {
         // client에서 보낸값 분할 
         var strData = data.split('α');
         console.log(strData[0]);
+        strData[1] = strData[1].substring(0,2) + "-" + strData[1].substring(2,4) + "-" + strData[1].substring(4,6) + "-" + strData[1].substring(6,8) + "-" + strData[1].substring(8,10) + "-" + strData[1].substring(10,12);
         var sql1 = 'insert into UserLog(Userlog_Name, Userlog_Mac, Userlog_State, Userlog_IP, Userlog_Time) values(?, ?, ?, ?, DEFAULT)';
         conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Userlog, fields){
             console.log(Userlog);
