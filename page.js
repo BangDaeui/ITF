@@ -882,9 +882,9 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
             exec("sudo mv " + folder[0].Folder_Path + " " + Folder_Path + " > /dev/null 2>&1", function (error, stdout, stderr) {});
         conn.query(sql2, [Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
             console.log(tmp);
+            SettingSamba();
         });
     })
-    SettingSamba();
     res.redirect('/Folderpolicydetail/' + folderno);
 })
 
