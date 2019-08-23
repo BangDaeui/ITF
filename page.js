@@ -794,6 +794,18 @@ app.post('/Addfolderpolicy', (req, res) => {
     var Folder_Directorymask = req.body.Folder_Directorymask;
     var rs = randomstring.generate(32);
 
+    if(typeof Folder_Readonly == "undefined"){
+        Folder_Readonly = 0;
+    }
+    if(typeof Folder_Writeable == "undefined"){
+        Folder_Writeable = 0;
+    }
+    if(typeof Folder_Guest == "undefined"){
+        Folder_Guest = 0;
+    }
+    if(typeof Folder_Browsable == "undefined"){
+        Folder_Browsable = 0;
+    }
     // [insert] 폴더 정책 추가
     var sql1 = 'insert into Folder (Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
     conn.query(sql1, [Folder_Name, Folder_Path, Folder_Comment, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, rs], function (err, tmp, fields) {
