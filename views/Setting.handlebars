@@ -65,6 +65,7 @@
         }
     }
     </script>
+
 </head>
 
 <body class="h-100">
@@ -170,13 +171,13 @@
                     </div>
                     <!-- End Page Header -->
                     <!-- 각 버튼 클릭 -->
-                    <div class="row mb-5">
-                        <div class="col-2">
+                    <div class="row mb-10">
+                        <div class="col-10">
                             <div class="row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                 <button type="submit" class="btn btn-outline-danger btn-block" data-dismiss="modal" data-toggle="modal" data-target="#CPSettingmodal" >비밀번호 변경</button>
                                 <button type="submit" class="btn btn-outline-primary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCDSettingmodal">부서 관리</button>
-                                <button type="submit" class="btn btn-dark btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCPSettingmodal">직책 관리</button>
+                                <button type="submit" class="btn btn-outline-secondary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCPSettingmodal">직책 관리</button>
                               </div>
                             </div>
                         </div>
@@ -233,30 +234,7 @@
 
                           </form>
                         <!-- End Change Password Model -->
-
-                        <!-- ErrCPSettingmodal Mode-->
-                        <form method=post action="/ErrCPmodal">
-                          <div class="modal fade" id="ErrCPmodal" tabindex="-1" role="dialog" aria-labelledby="ErrCPmodalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="ErrCPmodalLabel">Setting</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                          </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <h2>비밀 번호를 확인해 주세요</h2>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal" data-target="#CPSettingmodal">확인</button>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          </form>
-                            <!--End ErrCPSettingmodal Mode-->
-
+                        
                         <!-- View Department Model -->
                         <form method=post action="/ViewCDSettingmodal" >
                         <div class="modal fade" id="ViewCDSettingmodal" tabindex="-1" role="dialog" aria-labelledby="ViewCDSettingmodal" aria-hidden="true">

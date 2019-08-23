@@ -692,15 +692,12 @@ app.post('/CPSettingmodal', (req, res) => {
           });
           res.redirect('/Setting');
       } else {
-          res.redirect('/ErrCPmodal');
           console.log("Error");
+          res.send('<script type="text/javascript">alert("비밀번호 를 입력해주세요");document.location="Setting";</script> ');
       }
   });
 })
 
-app.post('/ErrCPmodal', (req, res) => {
-
-})
 
 //[Post] /AddDeporment_name (부서 추가)
 app.post('/AddDSettingmodal', (req, res) => {
