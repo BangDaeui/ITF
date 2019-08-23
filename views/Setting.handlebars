@@ -14,56 +14,58 @@
     <link rel="stylesheet" href="/public/styles/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
-    // 체크박스 전체 선택
-    function Depttotalcheck() {
-        if ($("#departmentcheckall").is(':checked')) {
-            $("input[name=departmentcheck").prop("checked", true);
-            document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
-            document.getElementById("departmentremove").disabled = false;
-        } else {
-            $("input[name=departmentcheck").prop("checked", false);
-            document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
-            document.getElementById("departmentremove").disabled = true;
+        // 체크박스 전체 선택
+        function Depttotalcheck() {
+            if ($("#departmentcheckall").is(':checked')) {
+                $("input[name=departmentcheck").prop("checked", true);
+                document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("departmentremove").disabled = false;
+            } else {
+                $("input[name=departmentcheck").prop("checked", false);
+                document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("departmentremove").disabled = true;
+            }
         }
-    }
 
-    // button 색 변경
-    function Deptbuttoncheck() {
-        var tmp = $("input:checkbox[name=departmentcheck]:checked").length;
-        if (tmp >= 1) {
-            document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
-            document.getElementById("departmentremove").disabled = false;
-        } else {
-            document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
-            document.getElementById("departmentremove").disabled = true;
+        // button 색 변경
+        function Deptbuttoncheck() {
+            var tmp = $("input:checkbox[name=departmentcheck]:checked").length;
+            if (tmp >= 1) {
+                document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("departmentremove").disabled = false;
+            } else {
+                document.getElementById("departmentremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("departmentremove").disabled = true;
+            }
         }
-    }
+
     </script>
     <script>
-    // 체크박스 전체 선택
-    function Positotalcheck() {
-        if ($("#positionscheckall").is(':checked')) {
-            $("input[name=positionscheck").prop("checked", true);
-            document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
-            document.getElementById("positionsremove").disabled = false;
-        } else {
-            $("input[name=positionscheck").prop("checked", false);
-            document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
-            document.getElementById("positionsremove").disabled = true;
+        // 체크박스 전체 선택
+        function Positotalcheck() {
+            if ($("#positionscheckall").is(':checked')) {
+                $("input[name=positionscheck").prop("checked", true);
+                document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("positionsremove").disabled = false;
+            } else {
+                $("input[name=positionscheck").prop("checked", false);
+                document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("positionsremove").disabled = true;
+            }
         }
-    }
 
-    // button 색 변경
-    function Posibuttoncheck() {
-        var tmp = $("input:checkbox[name=positionscheck]:checked").length;
-        if (tmp >= 1) {
-            document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
-            document.getElementById("positionsremove").disabled = false;
-        } else {
-            document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
-            document.getElementById("positionsremove").disabled = true;
+        // button 색 변경
+        function Posibuttoncheck() {
+            var tmp = $("input:checkbox[name=positionscheck]:checked").length;
+            if (tmp >= 1) {
+                document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-danger mr-0";
+                document.getElementById("positionsremove").disabled = false;
+            } else {
+                document.getElementById("positionsremove").className = "mb-0 btn btn-sm btn-outline-secondary mr-0";
+                document.getElementById("positionsremove").disabled = true;
+            }
         }
-    }
+
     </script>
 
 </head>
@@ -170,141 +172,143 @@
                         </div>
                     </div>
                     <!-- End Page Header -->
+
                     <!-- 각 버튼 클릭 -->
-                    <div class="row mb-10">
-                        <div class="col-10">
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                <button type="submit" class="btn btn-outline-danger btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ChangePassmodal" >비밀번호 변경</button>
-                                <button type="submit" class="btn btn-outline-primary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewDepartmentmodal">부서 관리</button>
-                                <button type="submit" class="btn btn-outline-secondary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewPositionSettingModal">직책 관리</button>
-                              </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-small mb-4">
+                                <div class="card-header border-bottom">
+                                    <h6 class="m-0">System Settings</h6>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-0 px-3 pt-3">
+                                        <button type="submit" class="btn btn-outline-danger" data-dismiss="modal" data-toggle="modal" data-target="#ChangePassmodal">비밀번호 변경</button>
+                                        <button type="submit" class="btn btn-outline-primary" data-dismiss="modal" data-toggle="modal" data-target="#ViewDepartmentmodal">부서 관리</button>
+                                        <button type="submit" class="btn btn-outline-secondary" data-dismiss="modal" data-toggle="modal" data-target="#ViewPositionmodal">직책 관리</button>
+                                        <br><br>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- End 각 버튼 클릭 -->
+                </div>
+                <!-- End 각 버튼 클릭 -->
 
-                        <!-- Change Password Modal -->
-                        <form method=post action="/ChangePassmodal">
-                            <div class="modal fade" id="ChangePassmodal" tabindex="-1" role="dialog" aria-labelledby="ChangePassmodalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ChangePassmodalLabel">Setting</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h2>비밀번호 변경</h2>
-                                                    <div class="form-row input-group">
-                                                      <div class="form-group col-md-6">
-                                                          <label for="WebAuth_Pass">기존 비밀번호</label>
-                                                          <div class="input-group">
-                                                          <input type="password" name="WebAuth_Pass" id="WebAuth_Pass" class="form-control"  >
-
-                                                          </input>
-                                                          </div>
-                                                      </div>
+                <!-- Change Password Modal -->
+                <form method=post action="/ChangePassmodal">
+                    <div class="modal fade" id="ChangePassmodal" tabindex="-1" role="dialog" aria-labelledby="ChangePassmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ChangePassmodalLabel">Setting</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h2>비밀번호 변경</h2>
+                                            <div class="form-row input-group">
+                                                <div class="form-group col-md-6">
+                                                    <label for="WebAuth_Pass">기존 비밀번호</label>
+                                                    <div class="input-group">
+                                                        <input type="password" name="WebAuth_Pass" id="WebAuth_Pass" class="form-control">
                                                     </div>
-                                                    <div class="form-row ">
-                                                      <div class="form-group col-md-6 ">
-                                                          <label for="WebAuth_Passchange">변경할 비밀번호</label>
-                                                          <div class="input-group">
-                                                          <input type="password" name="WebAuth_Passchange" id="WebAuth_Passchange" class="form-control" >
-                                                          </input>
-                                                        </div>
-                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row ">
+                                                <div class="form-group col-md-6 ">
+                                                    <label for="WebAuth_Passchange">변경할 비밀번호</label>
+                                                    <div class="input-group">
+                                                        <input type="password" name="WebAuth_Passchange" id="WebAuth_Passchange" class="form-control">
                                                     </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                          <button type="submit" class="btn btn-outline-success" >변경</button>
-                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal" >취소</button>
-                                                        </div>
-                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <button type="submit" class="btn btn-outline-success">변경</button>
+                                                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- End Change Password Modal -->
 
-                          </form>
-                        <!-- End Change Password Modal -->
-
-                        <!-- View Department Modal -->
-                        <form method=post action="/ViewDepartmodal" >
-                        <div class="modal fade" id="ViewDepartmentmodal" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentmodal" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                          <div class="card card-small mb-4">
-                                              <div class="card-header border-bottom">
-                                                  <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#AddDSettingmodal">Add Department</button>
-                                                  &nbsp;
-                                                  <button type="button" disabled id="departmentremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#DdeleteSettingmodal">Delete Department</button>
-                                              </div>
-                                          <div class="card-body p-0 pb-3 text-center">
-                                              <table class="table mb-0">
-                                                  <thead class="bg-light">
-                                                      <tr>
-                                                          <td>
-                                                              <div class="custom-control custom-checkbox mb-0">
-                                                                  <input type="checkbox" class="custom-control-input" name="departmentcheckall" id="departmentcheckall" onClick="Depttotalcheck();">
-                                                                  <label class="custom-control-label" for=departmentcheckall></label>
-                                                              </div>
-                                                          </td>
-                                                          <th scope="col" class="border-0">Department No</th>
-                                                          <th scope="col" class="border-0">Department Name</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                      {{# each departmentlist}}
+                <!-- View Department Modal -->
+                <form method=post action="/ViewDepartmentmodal">
+                    <div class="modal fade" id="ViewDepartmentmodal" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentmodal" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card card-small mb-4">
+                                        <div class="card-header border-bottom">
+                                            <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#AddDepartmentmodal">Add Department</button>
+                                            &nbsp;
+                                            <button type="button" disabled id="departmentremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#DeleteDepartmentmodal">Delete Department</button>
+                                        </div>
+                                        <div class="card-body p-0 pb-3 text-center">
+                                            <table class="table mb-0">
+                                                <thead class="bg-light">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox mb-0">
+                                                                <input type="checkbox" class="custom-control-input" name="departmentcheckall" id="departmentcheckall" onClick="Depttotalcheck();">
+                                                                <label class="custom-control-label" for=departmentcheckall></label>
+                                                            </div>
+                                                        </td>
+                                                        <th scope="col" class="border-0">Department No</th>
+                                                        <th scope="col" class="border-0">Department Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each departmentlist}}
                                                         <tr>
                                                             <td>
-                                                              <div class="custom-control custom-checkbox mb-0">
-                                                                  <input type="checkbox" class="custom-control-input" name="departmentcheck" id="departmentcheck{{this.Department_No}}" onClick="Deptbuttoncheck()" value="{{this.Department_No}}">
-                                                                  <label class="custom-control-label" for="departmentcheck{{this.Department_No}}"></label>
+                                                                <div class="custom-control custom-checkbox mb-0">
+                                                                    <input type="checkbox" class="custom-control-input" name="departmentcheck" id="departmentcheck{{this.Department_No}}" onClick="Deptbuttoncheck()" value="{{this.Department_No}}">
+                                                                    <label class="custom-control-label" for="departmentcheck{{this.Department_No}}"></label>
                                                                 </div>
-                                                              </td>
-                                                              <td>{{this.Department_No}}</td>
-                                                              <td>{{this.Department_Name}}</td>
-                                                          </tr>
-                                                      {{/each}}
+                                                            </td>
+                                                            <td>{{this.Department_No}}</td>
+                                                            <td>{{this.Department_Name}}</td>
+                                                        </tr>
+                                                        {{/each}}
 
-                                                      <!--Delete Department Modal-->
-                                                      <div class="modal fade" id="DdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="DdeleteSettingmodalLabel" aria-hidden="true">
-                                                          <div class="modal-dialog" role="document">
-                                                              <div class="modal-content">
-                                                                  <div class="modal-header">
-                                                                      <h5 class="modal-title" id="DdeleteSettingmodal">부서 삭제</h5>
-                                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                          <span aria-hidden="true">&times;</span>
-                                                                      </button>
-                                                                  </div>
-                                                                  <div class="modal-body">
-                                                                      부서를 삭제 하시겠습니까?
-                                                                  </div>
-                                                                  <div class="modal-footer">
-                                                                      <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                                                      <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-
-                                                      <!--End Delete Department Modal-->
-                                                  </tbody>
-                                              </table>
-                                          </div>
+                                                        <!--Delete Department Modal-->
+                                                        <div class="modal fade" id="DeleteDepartmentmodal" tabindex="-1" role="dialog" aria-labelledby="DeleteDepartmentmodalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="DeleteDepartmentmodal">부서 삭제</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        부서를 삭제 하시겠습니까?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--End Delete Department Modal-->
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
@@ -312,184 +316,181 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
-                      </form>
-                        <!--End View Department Modal-->
+                    </div>
+                </form>
+                <!--End View Department Modal-->
 
-                        <!--Add Department Modal-->
-                        <form method=post action="/AddDSettingmodal">
-                            <div class="modal fade" id="AddDSettingmodal" tabindex="-1" role="dialog" aria-labelledby="AddDSettingmodalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="AddDSettingmodalLabel">Setting</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h2>부서 관리</h2>
-                                                    <div class="form-row">
-                                                      <div class="form-group col-md-6">
-                                                        <label>추가할 부서</label>
-                                                        <input name="Department_Name" id="Department_Name" class="form-control" >
-                                                            {{#each Department_Name}}
-                                                            <option  value="{{this.Department_Name}}" name="Department_Name">{{this.Department_Name}}</option>
-                                                            {{/each}}
-                                                        </input>
-                                                      </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                      <div class="form-group col-md-6">
-
-                                                      </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                          <button type="submit" class="btn btn-outline-success" >추가</button>
-                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
-                                                        </div>
-                                                    </div>
+                <!--Add Department Modal-->
+                <form method=post action="/AddDepartmentmodal">
+                    <div class="modal fade" id="AddDepartmentmodal" tabindex="-1" role="dialog" aria-labelledby="AddDepartmentmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="AddDepartmentmodalLabel">Setting</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h2>부서 관리</h2>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label>추가할 부서</label>
+                                                    <input name="Department_Name" id="Department_Name" class="form-control">
+                                                    {{#each Department_Name}}
+                                                        <option value="{{this.Department_Name}}" name="Department_Name">{{this.Department_Name}}</option>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <button type="submit" class="btn btn-outline-success">추가</button>
+                                                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                          </form>
-                            <!--End Change Department Modal-->
+                        </div>
+                    </div>
+                </form>
+                <!--End Change Department Modal-->
 
-                            <!--View Position Setting Modal-->
-                            <form method=post action="/ViewPositionSettingModal" >
-                            <div class="modal fade" id="ViewPositionSettingModal" tabindex="-1" role="dialog" aria-labelledby="ViewPositionSettingModal" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                <!--View Position Modal-->
+                <form method=post action="/ViewPositionmodal">
+                    <div class="modal fade" id="ViewPositionmodal" tabindex="-1" role="dialog" aria-labelledby="ViewPositionmodal" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card card-small mb-4">
+                                        <div class="card-header border-bottom">
+                                            <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#AddPositionmodal">Add Position</button>
+                                            &nbsp;
+                                            <button type="button" disabled id="positionsremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#DeletePositionmodal">Delete Position</button>
                                         </div>
-                                        <div class="modal-body">
-                                              <div class="card card-small mb-4">
-                                                  <div class="card-header border-bottom">
-                                                      <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#AddPositinmodal">Add Position</button>
-                                                      &nbsp;
-                                                      <button type="button" disabled id="positionsremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#PdeleteSettingmodal">Delete Position</button>
-                                                  </div>
-                                              <div class="card-body p-0 pb-3 text-center">
-                                                  <table class="table mb-1">
-                                                      <thead class="bg-light">
-                                                          <tr>
-                                                              <td>
-                                                                  <div class="custom-control custom-checkbox mb-0">
-                                                                      <input type="checkbox" class="custom-control-input" name="positionscheckall" id="positionscheckall" onClick="Positotalcheck();">
-                                                                      <label class="custom-control-label" for=positionscheckall></label>
-                                                                  </div>
-                                                              </td>
-                                                              <th scope="col" class="border-0">Positions No</th>
-                                                              <th scope="col" class="border-0">Positions Name</th>
-                                                          </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                          {{#each positionslist}}
-                                                          <tr>
-                                                              <td>
+                                        <div class="card-body p-0 pb-3 text-center">
+                                            <table class="table mb-1">
+                                                <thead class="bg-light">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox mb-0">
+                                                                <input type="checkbox" class="custom-control-input" name="positionscheckall" id="positionscheckall" onClick="Positotalcheck();">
+                                                                <label class="custom-control-label" for=positionscheckall></label>
+                                                            </div>
+                                                        </td>
+                                                        <th scope="col" class="border-0">Positions No</th>
+                                                        <th scope="col" class="border-0">Positions Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each positionslist}}
+                                                        <tr>
+                                                            <td>
                                                                 <div class="custom-control custom-checkbox mb-0">
                                                                     <input type="checkbox" class="custom-control-input" name="positionscheck" id="positionscheck{{this.Positions_No}}" onClick="Posibuttoncheck()" value="{{this.Positions_No}}">
                                                                     <label class="custom-control-label" for="positionscheck{{this.Positions_No}}"></label>
                                                                 </div>
-                                                              </td>
-                                                              <td>{{this.Positions_No}}</td>
-                                                              <td>{{this.Positions_Name}}</td>
-                                                          </tr>
-                                                          {{/each}}
-                                                          <!--Delete Positions Modal-->
-                                                            <div class="modal fade" id="PdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="PdeleteSettingmodal" aria-hidden="true">
-                                                              <div class="modal-dialog" role="document">
-                                                                  <div class="modal-content">
-                                                                      <div class="modal-header">
-                                                                          <h5 class="modal-title" id="PdeleteSettingmodal">직책 삭제</h5>
-                                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                              <span aria-hidden="true">&times;</span>
-                                                                          </button>
-                                                                      </div>
-                                                                      <div class="modal-body">
-                                                                          직책을 삭제 하시겠습니까?
-                                                                      </div>
-                                                                      <div class="modal-footer">
-                                                                          <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
-                                                                      </div>
-                                                                  </div>
-                                                              </div>
+                                                            </td>
+                                                            <td>{{this.Positions_No}}</td>
+                                                            <td>{{this.Positions_Name}}</td>
+                                                        </tr>
+                                                    {{/each}}
+                                                    <!--Delete Positions Modal-->
+                                                    <div class="modal fade" id="DeletePositionmodal" tabindex="-1" role="dialog" aria-labelledby="DeletePositionmodal" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="DeletePositionmodal">직책 삭제</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    직책을 삭제 하시겠습니까?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                                                </div>
                                                             </div>
-                                                          <!--End Delete Positions Modal-->
-                                                      </tbody>
-                                                  </table>
-                                              </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
-                                        </div>
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                            </form>
-                            <!--End View Position Modal-->
-
-                        <!--Add Position Modal-->
-                        <form method=post action="/AddPositinmodal">
-                            <div class="modal fade" id="AddPositinmodal" tabindex="-1" role="dialog" aria-labelledby="AddPositinmodalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="AddPositinmodalLabel">Setting</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h2>직책 관리</h2>
-                                                    <div class="form-row">
-                                                      <div class="form-group col-md-6">
-                                                          <label for="Positions_Name">직책 추가</label>
-                                                          <input name="Positions_Name" id="Positions_Name" class="form-control" >
-                                                              {{#each Positions_Name}}
-                                                              <option  value="{{this.Positions_Name}}" name="Positions_Name">{{this.Positions_Name}}</option>
-                                                              {{/each}}
-                                                          </input>
-                                                      </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                          <button type="submit" class="btn btn-outline-success ">추가</button>
-                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
                                                         </div>
                                                     </div>
+                                                    <!--End Delete Positions Modal-->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Exit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--End View Position Modal-->
+
+                <!--Add Position Modal-->
+                <form method=post action="/AddPositionmodal">
+                    <div class="modal fade" id="AddPositionmodal" tabindex="-1" role="dialog" aria-labelledby="AddPositionmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="AddPositionmodalLabel">Setting</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h2>직책 관리</h2>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="Positions_Name">
+                                                      직책 추가
+                                                    </label>
+                                                    <input name="Positions_Name" id="Positions_Name" class="form-control">
+                                                    {{#each Positions_Name}}
+                                                        <option value="{{this.Positions_Name}}" name="Positions_Name">{{this.Positions_Name}}</option>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <button type="submit" class="btn btn-outline-success ">추가</button>
+                                                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                          </form>
-                          <!--End Add Position Modal-->
-
-                </div>
-                <!--End /.main-navbar-->
-
-                <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
-                    <span class="copyright ml-auto my-auto mr-2">Copyright © 2019
-                        <a rel="nofollow">InTheForest</a>
-                    </span>
-                </footer>
-            </main>
-        </div>
+                        </div>
+                    </div>
+                </form>
+                <!--End Add Position Modal-->
+            </div>
+        <!--End /.main-navbar-->
+        <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
+            <span class="copyright ml-auto my-auto mr-2">Copyright © 2019
+                <a rel="nofollow">InTheForest</a>
+            </span>
+        </footer>
+        </main>
+    </div>
 
     </div>
 
@@ -503,7 +504,6 @@
     <script src="/public/scripts/shards-dashboards.1.1.0.min.js"></script>
     <script src="/public/scripts/app/app-blog-overview.1.1.0.js"></script>
 
+</body>
 
-</body></html>
-AddPositinmodal
-ChangePassmodal
+</html>
