@@ -675,8 +675,8 @@ app.post('/Setting',(req, res) => {
   res.render('Setting');
 })
 
-//[Post] /CPSettingmodal (비밀번호 변경)
-app.post('/CPSettingmodal', (req, res) => {
+//[Post] /ChangePassmodal (비밀번호 변경)
+app.post('/ChangePassmodal', (req, res) => {
   var password = req.body.WebAuth_Pass;
   var passwordchange = req.body.WebAuth_Passchange;
   var Auth = parseInt(req.signedCookies.ITF)
@@ -710,7 +710,7 @@ app.post('/AddDSettingmodal', (req, res) => {
 })
 
 // [Post] /DdeleteSettingmodal (부서 삭제)
-app.post('/ViewCDSettingmodal', (req, res) => {
+app.post('/ViewDepartmentmodal', (req, res) => {
     var id = req.body.departmentcheck;
     console.log(id);
     // [delete] 부서 삭제
@@ -728,7 +728,7 @@ app.post('/ViewCDSettingmodal', (req, res) => {
 });
 
 //[Post] /Addpositions_name (직책 추가)
-app.post('/CPOsSettingmodal', (req, res) => {
+app.post('/AddPositinmodal', (req, res) => {
     var Positions_Name = req.body.Positions_Name;
     // [insert] 직책 추가
     var Positions_Name = req.body.Positions_Name;
@@ -741,7 +741,7 @@ app.post('/CPOsSettingmodal', (req, res) => {
 });
 
 // [Post] /PdeleteSettingmodal (부서 삭제)
-app.post('/ViewCPSettingmodal', (req, res) => {
+app.post('/ViewPositionSettingModal', (req, res) => {
     var id = req.body.positionscheck;
     console.log(id);
     // [delete] 부서 삭제

@@ -175,22 +175,22 @@
                         <div class="col-10">
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                <button type="submit" class="btn btn-outline-danger btn-block" data-dismiss="modal" data-toggle="modal" data-target="#CPSettingmodal" >비밀번호 변경</button>
-                                <button type="submit" class="btn btn-outline-primary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCDSettingmodal">부서 관리</button>
-                                <button type="submit" class="btn btn-outline-secondary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCPSettingmodal">직책 관리</button>
+                                <button type="submit" class="btn btn-outline-danger btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ChangePassmodal" >비밀번호 변경</button>
+                                <button type="submit" class="btn btn-outline-primary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewDepartmentmodal">부서 관리</button>
+                                <button type="submit" class="btn btn-outline-secondary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewPositionSettingModal">직책 관리</button>
                               </div>
                             </div>
                         </div>
                     </div>
                     <!-- End 각 버튼 클릭 -->
 
-                        <!-- Change Password Model -->
-                        <form method=post action="/CPSettingmodal">
-                            <div class="modal fade" id="CPSettingmodal" tabindex="-1" role="dialog" aria-labelledby="CPSettingmodalLabel" aria-hidden="true">
+                        <!-- Change Password Modal -->
+                        <form method=post action="/ChangePassmodal">
+                            <div class="modal fade" id="ChangePassmodal" tabindex="-1" role="dialog" aria-labelledby="ChangePassmodalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="CPSettingmodalLabel">Setting</h5>
+                                            <h5 class="modal-title" id="ChangePassmodalLabel">Setting</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -233,11 +233,11 @@
                             </div>
 
                           </form>
-                        <!-- End Change Password Model -->
-                        
-                        <!-- View Department Model -->
-                        <form method=post action="/ViewCDSettingmodal" >
-                        <div class="modal fade" id="ViewCDSettingmodal" tabindex="-1" role="dialog" aria-labelledby="ViewCDSettingmodal" aria-hidden="true">
+                        <!-- End Change Password Modal -->
+
+                        <!-- View Department Modal -->
+                        <form method=post action="/ViewDepartmodal" >
+                        <div class="modal fade" id="ViewDepartmentmodal" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentmodal" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -280,7 +280,7 @@
                                                           </tr>
                                                       {{/each}}
 
-                                                      <!--Delete Department Model-->
+                                                      <!--Delete Department Modal-->
                                                       <div class="modal fade" id="DdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="DdeleteSettingmodalLabel" aria-hidden="true">
                                                           <div class="modal-dialog" role="document">
                                                               <div class="modal-content">
@@ -301,7 +301,7 @@
                                                           </div>
                                                       </div>
 
-                                                      <!--End Delete Department Model-->
+                                                      <!--End Delete Department Modal-->
                                                   </tbody>
                                               </table>
                                           </div>
@@ -314,9 +314,9 @@
                         </div>
                         </div>
                       </form>
-                        <!--End View Department Model-->
+                        <!--End View Department Modal-->
 
-                        <!--Add Department Model-->
+                        <!--Add Department Modal-->
                         <form method=post action="/AddDSettingmodal">
                             <div class="modal fade" id="AddDSettingmodal" tabindex="-1" role="dialog" aria-labelledby="AddDSettingmodalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
@@ -359,11 +359,11 @@
                                 </div>
                             </div>
                           </form>
-                            <!--End Change Department Model-->
+                            <!--End Change Department Modal-->
 
-                            <!--View Position Model-->
-                            <form method=post action="/ViewCPSettingmodal" >
-                            <div class="modal fade" id="ViewCPSettingmodal" tabindex="-1" role="dialog" aria-labelledby="ViewCPSettingmodal" aria-hidden="true">
+                            <!--View Position Setting Modal-->
+                            <form method=post action="/ViewPositionSettingModal" >
+                            <div class="modal fade" id="ViewPositionSettingModal" tabindex="-1" role="dialog" aria-labelledby="ViewPositionSettingModal" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -374,7 +374,7 @@
                                         <div class="modal-body">
                                               <div class="card card-small mb-4">
                                                   <div class="card-header border-bottom">
-                                                      <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#CPOsSettingmodal">Add Position</button>
+                                                      <button type="button" class="mb-0 btn btn-sm btn-outline-primary mr-0" data-toggle="modal" data-target="#AddPositinmodal">Add Position</button>
                                                       &nbsp;
                                                       <button type="button" disabled id="positionsremove" class="mb-0 btn btn-sm btn-outline-secondary mr-0" data-toggle="modal" data-target="#PdeleteSettingmodal">Delete Position</button>
                                                   </div>
@@ -405,7 +405,7 @@
                                                               <td>{{this.Positions_Name}}</td>
                                                           </tr>
                                                           {{/each}}
-                                                          <!--Delete Positions Model-->
+                                                          <!--Delete Positions Modal-->
                                                             <div class="modal fade" id="PdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="PdeleteSettingmodal" aria-hidden="true">
                                                               <div class="modal-dialog" role="document">
                                                                   <div class="modal-content">
@@ -425,7 +425,7 @@
                                                                   </div>
                                                               </div>
                                                             </div>
-                                                          <!--End Delete Positions Model-->
+                                                          <!--End Delete Positions Modal-->
                                                       </tbody>
                                                   </table>
                                               </div>
@@ -438,15 +438,15 @@
                               </div>
                             </div>
                             </form>
-                            <!--End View Position Model-->
+                            <!--End View Position Modal-->
 
-                        <!--Add Position Model-->
-                        <form method=post action="/CPOsSettingmodal">
-                            <div class="modal fade" id="CPOsSettingmodal" tabindex="-1" role="dialog" aria-labelledby="CPOsSettingmodalLabel" aria-hidden="true">
+                        <!--Add Position Modal-->
+                        <form method=post action="/AddPositinmodal">
+                            <div class="modal fade" id="AddPositinmodal" tabindex="-1" role="dialog" aria-labelledby="AddPositinmodalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="CPOsSettingmodalLabel">Setting</h5>
+                                            <h5 class="modal-title" id="AddPositinmodalLabel">Setting</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -478,7 +478,7 @@
                                 </div>
                             </div>
                           </form>
-                          <!--End Add Position Model-->
+                          <!--End Add Position Modal-->
 
                 </div>
                 <!--End /.main-navbar-->
@@ -505,3 +505,5 @@
 
 
 </body></html>
+AddPositinmodal
+ChangePassmodal
