@@ -293,7 +293,7 @@ app.get('/Users', (req, res) => {
                         });
                     });
                 });
-            }); 
+            });
         });
     });
 });
@@ -508,7 +508,7 @@ app.get('/Useredit/:userno', (req, res) => {
                         positions: positions
                     });
                 });
-            }); 
+            });
         });
     });
 });
@@ -739,7 +739,7 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
     if (Policy_Clipboard == 1) {
         Policy_Mask += 128;
     }
-    
+
     // [update] 시스템 정책 수정
     var sql1 = 'update Policy set Policy_Name=?, Policy_Update=?, Policy_Comment=?, Policy_Mask=?, Policy_Taskmgr=?, Policy_Regedit=?, Policy_Cmd=?, Policy_Snippingtools=?, Policy_Usbwrite=?, Policy_Usbaccess=?, Policy_Disk=?, Policy_Clipboard=? where Policy_No=?';
 
@@ -928,13 +928,113 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
 
 // [Get] /Setting (설정)
 app.get('/Setting', (req, res) => {
-    res.render('Setting');
+  var sql1 = 'select * from Department';
+  var sql2 = 'select * from Positions';
+  conn.query(sql1, function (err,departmentlist,fields) {
+    conn.query(sql2, function (err,positionslist,fields) {
+      res.render('Setting', {
+          departmentlist: departmentlist,
+          positionslist: positionslist
+        });
+      });
+    });
+
 })
+
+//[Post] /Setting (설정)
+app.post('/Setting',(req, res) => {
+  res.render('Setting');
+})
+
+//[Post] /CPSettingmodal (비밀번호 변경)
+app.post('/CPSettingmodal', (req, res) => {
+  var password = req.body.WebAuth_Pass;
+  var passwordchange = req.body.WebAuth_Passchange;
+  var Auth = parseInt(req.signedCookies.ITF)
+  // [select] 인증 데이터
+  var sql1 = 'select WebAuth_Pass from WebAuth where WebAuth_No = ?';
+  //[update] password 변경 데이터
+  var sql2 = 'update WebAuth set WebAuth_Pass = ? ';
+  conn.query(sql1, [Auth], function (err, WebAuth, fields) {
+      if (password == WebAuth[0].WebAuth_Pass){
+          console.log("pass");
+          conn.query(sql2,[passwordchange], function (err, WebAuthChange,fields){
+            console.log(WebAuthChange);
+          });
+          res.redirect('/Setting');
+      } else {
+          console.log("Error");
+          res.send('<script type="text/javascript">alert("비밀번호 다시 확인해주세요");document.location="Setting";</script> ');
+      }
+  });
+})
+
+
+//[Post] /AddDeporment_name (부서 추가)
+app.post('/AddDSettingmodal', (req, res) => {
+    var Department_Name = req.body.Department_Name;
+    // [insert] 부서 추가
+    var sql1 = 'insert into Department(Department_Name) values (?);';
+    conn.query(sql1,[Department_Name],function(err,tmp,fields){
+      console.log(tmp);
+  });
+  res.redirect('Setting');
+})
+
+// [Post] /DdeleteSettingmodal (부서 삭제)
+app.post('/ViewCDSettingmodal', (req, res) => {
+    var id = req.body.departmentcheck;
+    console.log(id);
+    // [delete] 부서 삭제
+    var sql1 = 'delete from Department where Department_No = ?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[Departmentdeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[Departmentdeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Setting');
+});
+
+//[Post] /Addpositions_name (직책 추가)
+app.post('/CPOsSettingmodal', (req, res) => {
+    var Positions_Name = req.body.Positions_Name;
+    // [insert] 직책 추가
+    var Positions_Name = req.body.Positions_Name;
+    // [insert] 부서 추가
+    var sql1 = 'insert into Positions(Positions_Name) values (?);';
+    conn.query(sql1,[Positions_Name],function(err,tmp,fields){
+      console.log(tmp);
+  });
+  res.redirect('Setting');
+});
+
+// [Post] /PdeleteSettingmodal (부서 삭제)
+app.post('/ViewCPSettingmodal', (req, res) => {
+    var id = req.body.positionscheck;
+    console.log(id);
+    // [delete] 부서 삭제
+    var sql1 = 'delete from Positions where Positions_No = ?';
+    if (Array.isArray(id) == true) {
+        id.forEach(function (items) {
+            console.log(items + "[Positionsdeleted]");
+            conn.query(sql1, [items], function (err, result) {});
+        });
+    } else {
+        console.log(id + "[Positionsdeleted]");
+        conn.query(sql1, [id], function (err, result) {});
+    }
+    res.redirect('/Setting');
+});
+
 
 // [Get] / (로그인 페이지)
 app.get('/', (req, res) => {
     res.render('Login');
-})
+});
 
 // [Get] Error (에러)
 app.get('*', function (req, res, next) {

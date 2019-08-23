@@ -130,14 +130,14 @@
                                         <div class="card-header border-bottom text-center">
                                             <h4 class="mb-0">{{this.Policy_Name}}</h4>
                                         </div>
-                                        <ul class="list-group list-group-flush">
+                                        <!-- <ul class="list-group list-group-flush">
                                             <li class="list-group-item p-4">
                                                 <strong class="text-muted d-block mb-2">설명</strong>
                                                 <span>{{this.Policy_Comment}}</span>
                                             </li>
-                                        </ul>
-                                    </div>
-                                    <div class="card card-small mb-4 pt-3">
+                                        </ul> -->
+                                    <!-- </div>
+                                    <div class="card card-small mb-4 pt-3"> -->
                                         <div class="form-group col-md-12">
                                             <label for="Policy_Name">정책명</label>
                                             <input type="text" class="form-control" name="Policy_Name" id="Policy_Name" placeholder="정책명" value="{{this.Policy_Name}}"> </div>
@@ -159,112 +159,112 @@
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-4 mb-3">
                                                         <!-- Radios -->
-                                                        <strong class="text-muted d-block mb-2">작업관리자 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">작업관리자 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Taskmgr1" value=1 name="Policy_Taskmgr" class="custom-control-input" {{#if this.Policy_Taskmgr}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Taskmgr1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Taskmgr1" value=1 name="Policy_Taskmgr" class="custom-control-input" {{#if this.Policy_Taskmgr}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Taskmgr1">작업관리자 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
+                                                            <!-- <div class="custom-control custom-radio mb-1">
                                                                 <input type="radio" id="Policy_Taskmgr2" value=0 name="Policy_Taskmgr" class="custom-control-input" {{#if this.Policy_Taskmgr}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Taskmgr2">Off</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio mb-1"></div>
+                                                            </div> -->
+                                                            <div class="custom-control custom-checkbox mb-1"></div>
                                                         </fieldset>
 
-                                                        <strong class="text-muted d-block mb-2">캡처 도구 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">캡처 도구 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Snippingtools1" value=1 name="Policy_Snippingtools" class="custom-control-input" {{#if this.Policy_Snipping}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Snippingtools1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Snippingtools1" value=1 name="Policy_Snippingtools" class="custom-control-input" {{#if this.Policy_Snipping}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Snippingtools1">캡처 도구 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
+                                                            <!-- <div class="custom-control custom-radio mb-1">
                                                                 <input type="radio" id="Policy_Snippingtools2" value=0 name="Policy_Snippingtools" class="custom-control-input" {{#if this.Policy_Snipping}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Snippingtools2">Off</label>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="custom-control custom-radio mb-1"></div>
                                                         </fieldset>
 
-                                                        <strong class="text-muted d-block mb-2">디스크 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">디스크 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Disk1" value=1 name="Policy_Disk" class="custom-control-input" {{#if this.Policy_Disk}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Disk1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Disk1" value=1 name="Policy_Disk" class="custom-control-input" {{#if this.Policy_Disk}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Disk1">디스크 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
+                                                            <!-- <div class="custom-control custom-radio mb-1">
                                                                 <input type="radio" id="Policy_Disk2" value=0 name="Policy_Disk" class="custom-control-input" {{#if this.Policy_Diskj}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Disk2">Off</label>
-                                                            </div>
+                                                            </div> -->
                                                         </fieldset>
                                                         <!-- / Radios -->
                                                     </div>
                                                     <div class="col-sm-12 col-md-4 mb-3">
                                                         <!-- Radios -->
-                                                        <strong class="text-muted d-block mb-2">레지스트리 편집기 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">레지스트리 편집기 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Regedit1" value=1 name="Policy_Regedit" class="custom-control-input" {{#if this.Policy_Regedit}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Regedit1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Regedit1" value=1 name="Policy_Regedit" class="custom-control-input" {{#if this.Policy_Regedit}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Regedit1">레지스트리 편집기 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
+                                                            <!-- <div class="custom-control custom-radio mb-1">
                                                                 <input type="radio" id="Policy_Regedit2" value=0 name="Policy_Regedit" class="custom-control-input" {{#if this.Policy_Regedit}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Regedit2">Off</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio mb-1"></div>
+                                                            </div> -->
+                                                            <div class="custom-control custom-checkbox mb-1"></div>
                                                         </fieldset>
 
-                                                        <strong class="text-muted d-block mb-2">클립보드 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">클립보드 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Clipboard1" value=1 name="Policy_Clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Clipboard1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Clipboard1" value=1 name="Policy_Clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Clipboard1">클립보드 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Clipboard2" value=0 name="Policy_Clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}{{else}}checked{{/if}}>
+                                                            <!-- <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Clipboard2" value=0 name="Policy_Clipboard" class="custom-control-input" {{#if this.Policy_Clipboard}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Clipboard2">Off</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio mb-1"></div>
+                                                            </div> -->
+                                                            <div class="custom-control custom-checkbox mb-1"></div>
                                                         </fieldset>
 
-                                                        <strong class="text-muted d-block mb-2">USB 접근 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">USB 접근 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Usbaccess1" value=1 name="Policy_Usbaccess" class="custom-control-input" {{#if this.Policy_Usbaccess}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Usbaccess1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Usbaccess1" value=1 name="Policy_Usbaccess" class="custom-control-input" {{#if this.Policy_Usbaccess}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Usbaccess1">USB 접근 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
+                                                            <!-- <div class="custom-control custom-radio mb-1">
                                                                 <input type="radio" id="Policy_Usbaccess2" value=0 name="Policy_Usbaccess" class="custom-control-input" {{#if this.Policy_Usbaccess}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Usbaccess2">Off</label>
-                                                            </div>
+                                                            </div> -->
                                                         </fieldset>
                                                         <!-- / Radios -->
                                                     </div>
                                                     <div class="col-sm-12 col-md-4 mb-3">
                                                         <!-- Radios -->
-                                                        <strong class="text-muted d-block mb-2">cmd 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">cmd 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Cmd1" value=1 name="Policy_Cmd" class="custom-control-input" {{#if this.Policy_Cmd}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Cmd1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Cmd1" value=1 name="Policy_Cmd" class="custom-control-input" {{#if this.Policy_Cmd}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Cmd1">CMD 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
+                                                            <!-- <div class="custom-control custom-radio mb-1">
                                                                 <input type="radio" id="Policy_Cmd2" value=0 name="Policy_Cmd" class="custom-control-input" {{#if this.Policy_Cmd}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Cmd2">Off</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio mb-1"></div>
+                                                            </div> -->
+                                                            <div class="custom-control custom-checkbox mb-1"></div>
                                                         </fieldset>
 
-                                                        <strong class="text-muted d-block mb-2">USB 쓰기 비활성화</strong>
+                                                        <!-- <strong class="text-muted d-block mb-2">USB 쓰기 비활성화</strong> -->
                                                         <fieldset>
-                                                            <div class="custom-control custom-radio mb-1">
-                                                                <input type="radio" id="Policy_Usbwrite1" value=1 name="Policy_Usbwrite" class="custom-control-input" {{#if this.Policy_Usbwrite}}checked{{/if}}>
-                                                                <label class="custom-control-label" for="Policy_Usbwrite1">On</label>
+                                                            <div class="custom-control custom-checkbox mb-1">
+                                                                <input type="checkbox" id="Policy_Usbwrite1" value=1 name="Policy_Usbwrite" class="custom-control-input" {{#if this.Policy_Usbwrite}}checked{{/if}}>
+                                                                <label class="custom-control-label" for="Policy_Usbwrite1">USB 쓰기 비활성화</label>
                                                             </div>
-                                                            <div class="custom-control custom-radio mb-1">
+                                                            <!-- <div class="custom-control custom-radio mb-1">
                                                                 <input type="radio" id="Policy_Usbwrite2" value=0 name="Policy_Usbwrite" class="custom-control-input" {{#if this.Policy_Usbwrite}}{{else}}checked{{/if}}>
                                                                 <label class="custom-control-label" for="Policy_Usbwrite2">Off</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio mb-1"></div>
+                                                            </div> -->
+                                                            <div class="custom-control custom-checkbox mb-1"></div>
                                                         </fieldset>
                                                         <!-- / Radios -->
                                                     </div>
