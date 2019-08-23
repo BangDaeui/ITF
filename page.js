@@ -560,39 +560,53 @@ app.post('/Addsystempolicy', (req, res) => {
     var Policy_Usbaccess = req.body.Policy_Usbaccess;
     var Policy_Disk = req.body.Policy_Disk;
     var Policy_Clipboard = req.body.Policy_Clipboard;
-
+    console.log(Policy_Taskmgr);
     // System Policy Mask Calculation
     if (Policy_Taskmgr == 1) {
         Policy_Mask += 1;
+    } else{
+        Policy_Taskmgr = 0;
     }
     if (Policy_Regedit == 1) {
         Policy_Mask += 2;
+    } else{
+        Policy_Regedit = 0;
     }
     if (Policy_Cmd == 1) {
         Policy_Mask += 4;
+    } else{
+        Policy_Cmd = 0;
     }
     if (Policy_Snippingtools == 1) {
         Policy_Mask += 8;
+    } else{
+        Policy_Snippingtools = 0;
     }
     if (Policy_Usbwrite == 1) {
         Policy_Mask += 16;
+    } else{
+        Policy_Usbwrite = 0;
     }
     if (Policy_Usbaccess == 1) {
         Policy_Mask += 32;
+    } else{
+        Policy_Usbaccess = 0;
     }
     if (Policy_Disk == 1) {
         Policy_Mask += 64;
+    } else{
+        Policy_Disk = 0;
     }
     if (Policy_Clipboard == 1) {
         Policy_Mask += 128;
+    } else{
+        Policy_Clipboard = 0;
     }
     // [insert] 시스템 정책 추가
     var sql1 = 'insert into Policy (Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-
     conn.query(sql1, [Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard], function (err, tmp, fields) {
         console.log(tmp);
     });
-
     res.redirect('/Systempolicy');
 })
 
@@ -752,7 +766,7 @@ app.post('/Updatesystempolicy/:policyno', (req, res) => {
         console.log(tmp);
     });
 
-    res.redirect('/Systempolicy');
+    res.redirect('/Systempolicydetail/' + policyno);
 })
 
 // [Get] /Folderpolicy (폴더 정책 페이지)
