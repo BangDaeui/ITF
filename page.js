@@ -693,7 +693,7 @@ app.post('/CPSettingmodal', (req, res) => {
           res.redirect('/Setting');
       } else {
           console.log("Error");
-          res.send('<script type="text/javascript">alert("비밀번호 를 입력해주세요");document.location="Setting";</script> ');
+          res.send('<script type="text/javascript">alert("비밀번호 다시 확인해주세요");document.location="Setting";</script> ');
       }
   });
 })
