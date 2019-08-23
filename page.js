@@ -677,21 +677,29 @@ app.post('/Setting',(req, res) => {
 
 //[Post] /CPSettingmodal (비밀번호 변경)
 app.post('/CPSettingmodal', (req, res) => {
-    var password = req.body.WebAuth_Pass;
-    var passwordchange = req.body.WebAuth_Passchange;
-    // [select] 인증 데이터
-    var sql1 = 'select WebAuth_Pass from WebAuth';
-    var sql2 = 'update WebAuth set WebAuth_Pass = ? ';
-    conn.query(sql1, function (err, WebAuth, fields) {
-        if (password == WebAuth[0].WebAuth_Pass) {
-            conn.query(sql2,[passwordchange], function (err, WebAuth,fields){
-              console.log(WebAuth);
-            });
-            res.redirect('/Setting');
-        } else {
-            res.redirect('/ErrCPSettingmodal');
-        }
-    });
+  var password = req.body.WebAuth_Pass;
+  var passwordchange = req.body.WebAuth_Passchange;
+  var Auth = parseInt(req.signedCookies.ITF)
+  // [select] 인증 데이터
+  var sql1 = 'select WebAuth_Pass from WebAuth where WebAuth_No = ?';
+  //[update] password 변경 데이터
+  var sql2 = 'update WebAuth set WebAuth_Pass = ? ';
+  conn.query(sql1, [Auth], function (err, WebAuth, fields) {
+      if (password == WebAuth[0].WebAuth_Pass){
+          console.log("pass");
+          conn.query(sql2,[passwordchange], function (err, WebAuthChange,fields){
+            console.log(WebAuthChange);
+          });
+          res.redirect('/Setting');
+      } else {
+          res.redirect('/ErrCPmodal');
+          console.log("Error");
+      }
+  });
+})
+
+app.post('/ErrCPmodal', (req, res) => {
+
 })
 
 //[Post] /AddDeporment_name (부서 추가)

@@ -170,13 +170,12 @@
                     </div>
                     <!-- End Page Header -->
                     <!-- 각 버튼 클릭 -->
-                    <div class="row mb-0">
-                        <div class="col-10">
+                    <div class="row mb-5">
+                        <div class="col-2">
                             <div class="row">
-
-                                <div class="form-group col-md-7">
-                                <button type="submit" class="btn btn-dark btn-block" data-dismiss="modal" data-toggle="modal" data-target="#CPSettingmodal">비밀번호 변경</button>
-                                <button type="submit" class="btn btn-dark btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCDSettingmodal">부서 관리</button>
+                                <div class="form-group col-md-3">
+                                <button type="submit" class="btn btn-outline-danger btn-block" data-dismiss="modal" data-toggle="modal" data-target="#CPSettingmodal" >비밀번호 변경</button>
+                                <button type="submit" class="btn btn-outline-primary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCDSettingmodal">부서 관리</button>
                                 <button type="submit" class="btn btn-dark btn-block" data-dismiss="modal" data-toggle="modal" data-target="#ViewCPSettingmodal">직책 관리</button>
                               </div>
                             </div>
@@ -184,8 +183,7 @@
                     </div>
                     <!-- End 각 버튼 클릭 -->
 
-
-                        <!--Change Password Model-->
+                        <!-- Change Password Model -->
                         <form method=post action="/CPSettingmodal">
                             <div class="modal fade" id="CPSettingmodal" tabindex="-1" role="dialog" aria-labelledby="CPSettingmodalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
@@ -196,7 +194,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        
+
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col">
@@ -205,7 +203,7 @@
                                                       <div class="form-group col-md-6">
                                                           <label for="WebAuth_Pass">기존 비밀번호</label>
                                                           <div class="input-group">
-                                                          <input type="password" name="WebAuth_Pass" id="WebAuth_Pass" class="form-control" >
+                                                          <input type="password" name="WebAuth_Pass" id="WebAuth_Pass" class="form-control"  >
 
                                                           </input>
                                                           </div>
@@ -223,7 +221,7 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                           <button type="submit" class="btn btn-outline-success" >변경</button>
-                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
+                                                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal" >취소</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -232,10 +230,34 @@
                                     </div>
                                 </div>
                             </div>
-                          </form>
-                        <!--End Change Password Model-->
 
-                        <!--View Department Model-->
+                          </form>
+                        <!-- End Change Password Model -->
+
+                        <!-- ErrCPSettingmodal Mode-->
+                        <form method=post action="/ErrCPmodal">
+                          <div class="modal fade" id="ErrCPmodal" tabindex="-1" role="dialog" aria-labelledby="ErrCPmodalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="ErrCPmodalLabel">Setting</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <h2>비밀 번호를 확인해 주세요</h2>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal" data-target="#CPSettingmodal">확인</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          </form>
+                            <!--End ErrCPSettingmodal Mode-->
+
+                        <!-- View Department Model -->
                         <form method=post action="/ViewCDSettingmodal" >
                         <div class="modal fade" id="ViewCDSettingmodal" tabindex="-1" role="dialog" aria-labelledby="ViewCDSettingmodal" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -279,8 +301,8 @@
                                                               <td>{{this.Department_Name}}</td>
                                                           </tr>
                                                       {{/each}}
-                                                      <!--Delete Department Model-->
 
+                                                      <!--Delete Department Model-->
                                                       <div class="modal fade" id="DdeleteSettingmodal" tabindex="-1" role="dialog" aria-labelledby="DdeleteSettingmodalLabel" aria-hidden="true">
                                                           <div class="modal-dialog" role="document">
                                                               <div class="modal-content">
