@@ -120,56 +120,60 @@
                     </div>
                     <!-- End Page Header -->
                     <!-- Nothing -->
-                    {{#each num}}
-                        <div class="row">
-                            <div class="col-lg col-md-6 col-sm-6 mb-6">
-                                <div class="stats-small stats-small--1 card card-small">
-                                    <div class="card-body p-0 d-flex">
-                                        <div class="d-flex flex-column m-auto">
-                                            <div class="stats-small__data text-center">
-                                                <span class="stats-small__label text-uppercase">Users</span>
-                                                <h6 class="stats-small__value count my-3">{{this.Usern}}</h6>
+                    <div class="row">
+                        <div class="col-lg col-md-6 col-sm-6 mb-6">
+                            <div class="card card-small mb-4">
+                                <div class="card-header border-bottom">
+                                    <h6 class="m-0">System Detail</h6>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-8 mb-4">
+                                        <div class="row">
+                                            <div class="col-md-11">
+                                                <p></p>
+                                                <span class="d-flex mb-4">
+                                                    <strong class="mr-1">Hostname:</strong>
+                                                    {{hostname}}
+                                                </span>
+                                                <br>
+                                                <span class="d-flex mb-4">
+                                                    <strong class="mr-1">CPU:</strong>
+                                                    {{cpu}}
+                                                </span>
+                                                <br>
+                                                <span class="d-flex mb-4">
+                                                    <strong class="mr-1">Memory:</strong>
+                                                    {{memory}}
+                                                </span>
+                                                <br>
+                                                <span class="d-flex mb-4">
+                                                    <strong class="mr-1">OS:</strong>
+                                                    {{osname}}
+                                                </span>
+                                                <br>
+                                                <span class="d-flex mb-4">
+                                                    <strong class="mr-1">IP:</strong>
+                                                    {{ips}}
+                                                </span>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="stats-small stats-small--1 card card-small">
-                                    <div class="card-body p-0 d-flex">
-                                        <div class="d-flex flex-column m-auto">
-                                            <div class="stats-small__data text-center">
-                                                <span class="stats-small__label text-uppercase">System Policys</span>
-                                                <h6 class="stats-small__value count my-3">{{this.Policyn}}</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="stats-small stats-small--1 card card-small">
-                                    <div class="card-body p-0 d-flex">
-                                        <div class="d-flex flex-column m-auto">
-                                            <div class="stats-small__data text-center">
-                                                <span class="stats-small__label text-uppercase">Folder Policys</span>
-                                                <h6 class="stats-small__value count my-3">{{this.Foldern}}</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg col-md-6 col-sm-6 mb-6">
-                                <div class="stats-small stats-small--1 card card-small">
-                                    <div class="card-body p-0 d-flex">
-                                        <div class="d-flex flex-column m-auto">
-                                            <div class="stats-small__data text-center">
-                                                <div id="pieChart"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                            
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    {{/each}}
+                        <div class="col-lg col-md-6 col-sm-6 mb-6">
+                            <div class="stats-small stats-small--1 card card-small">
+                                <div class="card-body p-0 d-flex">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <div id="pieChart"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     <br>
                     <div class="row">
                         <div class="col-lg col-md-4 col-sm-4 mb-4">
@@ -222,6 +226,50 @@
                             </div>
                         </div>
                     </div>
+                    {{#each num}}
+                        <div class="row">
+                            <div class="col-lg col-md-6 col-sm-6 mb-6">
+                                <div class="stats-small stats-small--1 card card-small">
+                                    <div class="card-body p-0 d-flex">
+                                        <div class="d-flex flex-column m-auto">
+                                            <div class="stats-small__data text-center">
+                                                <span class="stats-small__label text-uppercase">Users</span>
+                                                <h6 class="stats-small__value count my-3">{{this.Usern}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-lg col-md-6 col-sm-6 mb-6">
+                                <div class="stats-small stats-small--1 card card-small">
+                                    <div class="card-body p-0 d-flex">
+                                        <div class="d-flex flex-column m-auto">
+                                            <div class="stats-small__data text-center">
+                                                <span class="stats-small__label text-uppercase">System Policys</span>
+                                                <h6 class="stats-small__value count my-3">{{this.Policyn}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-lg col-md-6 col-sm-6 mb-6">
+                                <div class="stats-small stats-small--1 card card-small">
+                                    <div class="card-body p-0 d-flex">
+                                        <div class="d-flex flex-column m-auto">
+                                            <div class="stats-small__data text-center">
+                                                <span class="stats-small__label text-uppercase">Folder Policys</span>
+                                                <h6 class="stats-small__value count my-3">{{this.Foldern}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+
+                        </div>
+                    {{/each}}
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom">
                             <h6 class="m-0">System Policy</h6>
@@ -305,90 +353,90 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
     <script src="/public/d3pie.js"></script>
     <script>
-    var pie = new d3pie("pieChart", {
-        "header": {
-            "title": {
-                "text": "Disk Usage",
-                "fontSize": 24,
-                "font": "open sans"
-            },
-            "subtitle": {
-                "text": "문서중앙화 디스크 사용량 (GB)",
-                "color": "#999999",
-                "fontSize": 12,
-                "font": "open sans"
-            },
-            "titleSubtitlePadding": 9
-        },
-        "footer": {
-            "color": "#999999",
-            "fontSize": 10,
-            "font": "open sans",
-            "location": "bottom-left"
-        },
-        "size": {
-            "canvasWidth": 600,
-            "canvasHeight": 462,
-            "pieInnerRadius": "40%",
-            "pieOuterRadius": "85%"
-        },
-        "data": {
-            "sortOrder": "value-desc",
-            "content": [
-                {
-                    "label": "사용 중",
-                    "value": {{size}},
-                    "color": "#2081c1"
+        var pie = new d3pie("pieChart", {
+            "header": {
+                "title": {
+                    "text": "Disk Usage",
+                    "fontSize": 24,
+                    "font": "open sans"
                 },
-                {
-                    "label": "사용 가능",
-                    "value": {{free}},
-                    "color": "#64a61f"
+                "subtitle": {
+                    "text": "문서중앙화 디스크 사용량 (GB)",
+                    "color": "#999999",
+                    "fontSize": 12,
+                    "font": "open sans"
+                },
+                "titleSubtitlePadding": 9
+            },
+            "footer": {
+                "color": "#999999",
+                "fontSize": 10,
+                "font": "open sans",
+                "location": "bottom-left"
+            },
+            "size": {
+                "canvasWidth": 600,
+                "canvasHeight": 462,
+                "pieInnerRadius": "40%",
+                "pieOuterRadius": "85%"
+            },
+            "data": {
+                "sortOrder": "value-desc",
+                "content": [{
+                        "label": "사용 중",
+                        "value": {{size}},
+                        "color": "#2081c1"
+                    },
+                    {
+                        "label": "사용 가능",
+                        "value": {{free}},
+                        "color": "#64a61f"
+                    }
+                ]
+            },
+            "labels": {
+                "outer": {
+                    "format": "label-value2",
+                    "pieDistance": 32
+                },
+                "inner": {
+                    "hideWhenLessThanPercentage": 3
+                },
+                "mainLabel": {
+                    "fontSize": 11
+                },
+                "percentage": {
+                    "color": "#ffffff",
+                    "decimalPlaces": 0
+                },
+                "value": {
+                    "color": "#adadad",
+                    "fontSize": 11
+                },
+                "lines": {
+                    "enabled": true
+                },
+                "truncation": {
+                    "enabled": true
                 }
-            ]
-        },
-        "labels": {
-            "outer": {
-                "format": "label-value2",
-                "pieDistance": 32
             },
-            "inner": {
-                "hideWhenLessThanPercentage": 3
+            "effects": {
+                "pullOutSegmentOnClick": {
+                    "effect": "linear",
+                    "speed": 400,
+                    "size": 8
+                }
             },
-            "mainLabel": {
-                "fontSize": 11
-            },
-            "percentage": {
-                "color": "#ffffff",
-                "decimalPlaces": 0
-            },
-            "value": {
-                "color": "#adadad",
-                "fontSize": 11
-            },
-            "lines": {
-                "enabled": true
-            },
-            "truncation": {
-                "enabled": true
+            "misc": {
+                "gradient": {
+                    "enabled": true,
+                    "percentage": 100
+                }
             }
-        },
-        "effects": {
-            "pullOutSegmentOnClick": {
-                "effect": "linear",
-                "speed": 400,
-                "size": 8
-            }
-        },
-        "misc": {
-            "gradient": {
-                "enabled": true,
-                "percentage": 100
-            }
-        }
-    });
+        });
+
     </script>
-        <script>
+    <script>
         var pie = new d3pie("pieChart1", {
             "header": {
                 "title": {

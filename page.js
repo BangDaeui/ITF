@@ -214,6 +214,16 @@ app.get('/Dashboard', (req, res) => {
     var sql5 = 'select count(*) AS "Filelog_All" ,count(case when Filelog_State = 1 Then 1 END) AS "Filelog_Execute", count(case when Filelog_State = 2 Then 1 END) AS "Filelog_Create", count(case when Filelog_State = 3 Then 1 END) AS "Filelog_Modify", count(case when Filelog_State = 4 Then 1 END) AS "Filelog_Delete", count(case when Filelog_State = 5 Then 1 END) AS "Filelog_Rename" from FileLog';
     console.log(free);
     console.log(size);
+    var hostname = os.hostname();
+    var cpu = os.cpus()[0].model;
+    var memory = (os.totalmem() / 1000 / 1000 / 1000).toFixed(2) + "GB";
+    var osname = os.type();
+    var ips = "";
+    if (os.type() == 'Linux')
+        ips = os.networkInterfaces()['eth0'][0].address;
+    else
+        ips = "127.0.0.1";
+    
     conn.query(sql1, function (err, num, fields) {
         conn.query(sql2, function (err, policy, fields) {
             conn.query(sql3, function (err, folder, fields) {
@@ -226,7 +236,12 @@ app.get('/Dashboard', (req, res) => {
                             free: free,
                             size: size,
                             userlogc: userlogc,
-                            filelogc: filelogc
+                            filelogc: filelogc,
+                            hostname: hostname,
+                            cpu: cpu,
+                            memory: memory,
+                            osname: osname,
+                            ips: ips
                         });
                     })
                 })
