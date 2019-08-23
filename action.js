@@ -155,7 +155,7 @@ var tls_server2 = tls.createServer(options, function(cleartextStream) {
         console.log(strData[0]);
         strData[1] = strData[1].substring(0,2) + "-" + strData[1].substring(2,4) + "-" + strData[1].substring(4,6) + "-" + strData[1].substring(6,8) + "-" + strData[1].substring(8,10) + "-" + strData[1].substring(10,12);
         var sql1 = 'insert into UserLog(Userlog_Name, Userlog_Mac, Userlog_State, Userlog_IP, Userlog_Time) values(?, ?, ?, ?, DEFAULT)';
-        conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Userlog, fields){
+        conn.query(sql1, [strData[0], strData[1], strData[2], strData[3]], function(err, Userlog, fields){
             console.log(Userlog);
         })
     });
@@ -184,10 +184,21 @@ var tls_server3 = tls.createServer(options, function(cleartextStream) {
         // client에서 보낸값 분할
         var strData = data.split('α');
         console.log(strData[0]);
-        var sql1 = 'insert into FileLog(Filelog_Name, Filelog_Path, Filelog_State, Filelog_IP, Filelog_Time) values(?, ?, ?, ?, DEFAULT)';
-        conn.query(sql1, [strData[0], strData[1], strData[2], strData[3], strData[4]], function(err, Filelog, fields){
-            console.log(Filelog);  
-        })
+        var Path = strData[1].split(':');
+        var sql1 = 'select * from Folder, User, Rule, Auth where Auth_ID=? and User_No=Auth_No and Rule_User=User_No and Rule_Folder=Folder_No';
+        var sql2 = 'insert into FileLog(Filelog_Name, Filelog_Path, Filelog_State, Filelog_IP, Filelog_Time) values(?, ?, ?, ?, DEFAULT)';
+        var PathCount = 90 - Path[0].charCodeAt(0);
+        conn.query(sql1, [strData[0]], function(err, Folder, fields){  
+            console.log(Folder);
+            if(!PathCount) {
+                strData[1] = "/home/" + strData[0] + Path[1].replace("\\", "/");
+            } else {
+                strData[1] = Folder[PathCount - 1].Folder_Path + Path[1].replace("\\", "/"); 
+            }
+            conn.query(sql2, [strData[0], strData[1], strData[2], strData[3]], function(err, Filelog, fields){
+                console.log(Filelog);
+            });
+        });
     });
     cleartextStream.on('end', function(){
         console.log("Server end connetion"); 
