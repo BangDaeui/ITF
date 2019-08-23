@@ -174,14 +174,19 @@ app.post('/Login', (req, res) => {
     // [select] 인증 데이터
     var sql1 = 'select * from WebAuth where WebAuth_ID = ?';
     conn.query(sql1, [id], function (err, WebAuth, fields) {
-        if (password == WebAuth[0].WebAuth_Pass) {
-            res.cookie('ITF', WebAuth[0].WebAuth_No, {
-                signed: true
-            });
-            res.redirect('/Dashboard');
-        } else {
-            res.redirect('/');
+        if(!WebAuth[0]){
+            res.send('<script type="text/javascript">alert("아이디 비밀번호를 틀렸습니다.");document.location.href="/";</script>');
+        } else{
+            if (password == WebAuth[0].WebAuth_Pass) {
+                res.cookie('ITF', WebAuth[0].WebAuth_No, {
+                    signed: true
+                });
+                res.redirect('/Dashboard');
+            } else {
+                res.send('<script type="text/javascript">alert("아이디 비밀번호를 틀렸습니다.");document.location.href="/";</script>');
+            }
         }
+
     });
 })
 
