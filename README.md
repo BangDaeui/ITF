@@ -57,9 +57,9 @@ Use SQL1.txt and SQL2.txt in RDS
 ```bash
 $ cd ..
 $ vi page.js
-	host: 'itf2019.cohnbkqepvge.ap-northeast-2.rds.amazonaws.com',
-	user: 'itf2019',
-	password: 'kit2019!',
+	host: 'rdshost',
+	user: 'username',
+	password: 'password',
 	database: 'itf',
 ```
 
