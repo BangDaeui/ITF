@@ -114,26 +114,26 @@ function SettingSamba() {
                 function(callback){
                     console.log('2' + i);
                     renum = result[i].Folder_No;
-                    exec("echo -e \"\n[" + result[i].Folder_Name + "]\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\n[" + result[i].Folder_Name + "]\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     exec("echo -e \"\tcomment = " + result[i].Folder_Comment + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
-                    exec("echo -e \"\tpath = " + result[i].Folder_Path + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
-                    exec("echo -e \"\tpublic = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tpath = " + result[i].Folder_Path + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tpublic = yes\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     if (result[i].Folder_Writeable) {
-                        exec("echo -e \"\twritable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                        exec("echo -e \"\twritable = yes\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     }
                     else {
-                        exec("echo -e \"\twritable = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                        exec("echo -e \"\twritable = no\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     }
                     if (result[i].Folder_Browsable) {
-                        exec("echo -e \"\tbrowseable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                        exec("echo -e \"\tbrowseable = yes\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     }
                     else {
-                        exec("echo -e \"\tbrowseable = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                        exec("echo -e \"\tbrowseable = no\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     }
 
-                    exec("echo -e \"\tcreate mask = " + result[i].Folder_Createmask + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
-                    exec("echo -e \"\tdirectory mask = " + result[i].Folder_Directorymask + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
-                    exec("printf \"\tvalid users = \" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tcreate mask = " + result[i].Folder_Createmask + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tdirectory mask = " + result[i].Folder_Directorymask + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("printf \"\tvalid users = \" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     callback(null);
                 }, 
 
@@ -142,11 +142,11 @@ function SettingSamba() {
                         for (var j = 0; j < user.length; j++) {
                             console.log(j);
                             if (j == user.length - 1){
-                                exec("printf \"" + user[j].User_SMB + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                                exec("printf \"" + user[j].User_SMB + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                                 callback(null);
                             }
                             else {
-                                exec("printf \"" + user[j].User_SMB + ",\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                                exec("printf \"" + user[j].User_SMB + ",\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                             }
                         }
                     })                   
@@ -154,13 +154,13 @@ function SettingSamba() {
 
                 function(callback){
                     console.log('done');
-                    exec("printf \"\n\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("printf \"\n\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
                     callback(null);
                 }
             ])
 
         }
-        exec("sudo service smb restart", function (error, stdout, stderr) {});
+        exec("sudo service smb restart > /dev/null 2>&1", function (error, stdout, stderr) {});
     });
 }
 
