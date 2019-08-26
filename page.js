@@ -334,10 +334,10 @@ app.post('/Adduser', (req, res) => {
                 exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
             }
             else if (Array.isArray(foldercheck) == true) {
+                exec("sudo useradd " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
                 foldercheck.forEach(function (items) {
                     console.log(items + "[FolderPolicy]");
                     conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {
-                        exec("sudo useradd " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
                         exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
                         exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
                         exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
