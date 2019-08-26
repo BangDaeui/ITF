@@ -373,11 +373,14 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
         .on('end', function(data){
             console.log('Read finished');
             //csvData.shift();
-            console.log(csvData);
-            var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values ?';
+            console.log(csvData.length);
+            for (var i = 0; i < csvData.length; i++) {
+                csvData[i].push(randomstring.generate(32));
+            }
+            var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) values ?';
             conn.query(sql1, [csvData], function (err, tmp, result){
                 if (os.type() == 'Windows_NT')
-                return;
+                    return;
                 if(Array.isArray(csvData) == true) {
                     csvData.forEach(function(items){
                         console.log(items[1] + "[csvData]");
