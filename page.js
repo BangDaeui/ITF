@@ -984,23 +984,18 @@ app.get('/Setting', (req, res) => {
     });
 })
 
-//[Post] /Setting (설정)
-app.post('/Setting',(req, res) => {
-  res.render('Setting');
-})
-
-//[Post] /ChangePassmodal (비밀번호 변경)
-app.post('/ChangePassmodal', (req, res) => {
-  var password = req.body.WebAuth_Pass;
-  var passwordchange = req.body.WebAuth_Passchange;
+//[Post] /Passwordedit (비밀번호 변경)
+app.post('/Passwordedit', (req, res) => {
+  var WebAuth_Pass = req.body.WebAuth_Pass;
+  var WebAuth_Passchange = req.body.WebAuth_Passchange;
   var Auth = parseInt(req.signedCookies.ITF)
   // [select] 인증 데이터
   var sql1 = 'select WebAuth_Pass from WebAuth where WebAuth_No = ?';
   //[update] password 변경 데이터
   var sql2 = 'update WebAuth set WebAuth_Pass = ? ';
   conn.query(sql1, [Auth], function (err, WebAuth, fields) {
-      if (password == WebAuth[0].WebAuth_Pass){
-          conn.query(sql2,[passwordchange], function (err, WebAuthChange,fields){
+      if (WebAuth_Pass == WebAuth[0].WebAuth_Pass){
+          conn.query(sql2,[WebAuth_Passchange], function (err, WebAuthChange,fields){
           });
             res.redirect('/Setting');
         } else {
@@ -1010,8 +1005,8 @@ app.post('/ChangePassmodal', (req, res) => {
 })
 
 
-//[Post] /AddDepartmentmodal (부서 추가)
-app.post('/AddDepartmentmodal', (req, res) => {
+//[Post] /AddDepartment (부서 추가)
+app.post('/AddDepartment', (req, res) => {
     var Department_Name = req.body.Department_Name;
     // [insert] 부서 추가
     var sql1 = 'insert into Department(Department_Name) values (?);';
@@ -1020,8 +1015,8 @@ app.post('/AddDepartmentmodal', (req, res) => {
     res.redirect('Setting');
 })
 
-// [Post] /DeleteDepartmentmodal (부서 삭제)
-app.post('/ViewDepartmentmodal', (req, res) => {
+// [Post] /DeleteDepartment (부서 삭제)
+app.post('/DeleteDepartment', (req, res) => {
     var id = req.body.departmentcheck;
     console.log(id);
     // [delete] 부서 삭제
@@ -1038,8 +1033,8 @@ app.post('/ViewDepartmentmodal', (req, res) => {
     res.redirect('/Setting');
 });
 
-//[Post] /Addpositions_name (직책 추가)
-app.post('/AddPositionmodal', (req, res) => {
+//[Post] /AddPositionmodal (직책 추가)
+app.post('/AddPosition', (req, res) => {
     var Positions_Name = req.body.Positions_Name;
     // [insert] 직책 추가
     var Positions_Name = req.body.Positions_Name;
@@ -1051,8 +1046,8 @@ app.post('/AddPositionmodal', (req, res) => {
   res.redirect('Setting');
 });
 
-// [Post] /DeletePositionmodal (부서 삭제)
-app.post('/ViewPositionmodal', (req, res) => {
+// [Post] /DeletePosition (부서 삭제)
+app.post('/DeletePosition', (req, res) => {
     var id = req.body.positionscheck;
     console.log(id);
     // [delete] 부서 삭제
