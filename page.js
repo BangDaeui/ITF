@@ -95,7 +95,7 @@ function SettingSamba() {
     if (os.type() == 'Windows_NT')
         return;
     
-    exec("cat smb.txt > /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {
+    exec("cat smb.txt > /etc/samba/smb.conf", function (error, stdout, stderr) {
         console.log('stdout: ' + stdout);
         console.log('stderr: ' + stderr);
         if (error !== null) {
