@@ -97,7 +97,7 @@ ALTER TABLE Folder COMMENT '폴더정책';
 -- Auth Table Create SQL
 CREATE TABLE Auth
 (
-    `Auth_No`    INT            NOT NULL    COMMENT '사용자 번호', 
+    `Auth_No`    INT            NOT NULL AUTO_INCREMENT COMMENT '사용자 번호', 
     `Auth_ID`    VARCHAR(45)    NOT NULL    COMMENT '사용자 아이디', 
     `Auth_Pass`  VARCHAR(45)    NOT NULL    COMMENT '사용자 비밀번호', 
     PRIMARY KEY (Auth_No)
