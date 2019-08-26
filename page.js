@@ -95,7 +95,7 @@ function SettingSamba() {
     if (os.type() == 'Windows_NT')
         return;
     
-    exec("cat smb.txt > /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {
+    exec("cat smb.txt > /etc/samba/smb.conf", function (error, stdout, stderr) {
         console.log('stdout: ' + stdout);
         console.log('stderr: ' + stderr);
         if (error !== null) {
@@ -114,26 +114,26 @@ function SettingSamba() {
                 function(callback){
                     console.log('2' + i);
                     renum = result[i].Folder_No;
-                    exec("echo -e \"\n[" + result[i].Folder_Name + "]\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("echo -e \"\n[" + result[i].Folder_Name + "]\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     exec("echo -e \"\tcomment = " + result[i].Folder_Comment + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
-                    exec("echo -e \"\tpath = " + result[i].Folder_Path + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("echo -e \"\tpublic = yes\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tpath = " + result[i].Folder_Path + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tpublic = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     if (result[i].Folder_Writeable) {
-                        exec("echo -e \"\twritable = yes\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                        exec("echo -e \"\twritable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     }
                     else {
-                        exec("echo -e \"\twritable = no\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                        exec("echo -e \"\twritable = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     }
                     if (result[i].Folder_Browsable) {
-                        exec("echo -e \"\tbrowseable = yes\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                        exec("echo -e \"\tbrowseable = yes\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     }
                     else {
-                        exec("echo -e \"\tbrowseable = no\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                        exec("echo -e \"\tbrowseable = no\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     }
 
-                    exec("echo -e \"\tcreate mask = " + result[i].Folder_Createmask + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("echo -e \"\tdirectory mask = " + result[i].Folder_Directorymask + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("printf \"\tvalid users = \" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tcreate mask = " + result[i].Folder_Createmask + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("echo -e \"\tdirectory mask = " + result[i].Folder_Directorymask + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
+                    exec("printf \"\tvalid users = \" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     callback(null);
                 }, 
 
@@ -142,11 +142,11 @@ function SettingSamba() {
                         for (var j = 0; j < user.length; j++) {
                             console.log(j);
                             if (j == user.length - 1){
-                                exec("printf \"" + user[j].User_SMB + "\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                                exec("printf \"" + user[j].User_SMB + "\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                                 callback(null);
                             }
                             else {
-                                exec("printf \"" + user[j].User_SMB + ",\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                                exec("printf \"" + user[j].User_SMB + ",\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                             }
                         }
                     })                   
@@ -154,13 +154,13 @@ function SettingSamba() {
 
                 function(callback){
                     console.log('done');
-                    exec("printf \"\n\" >> /etc/samba/smb.conf > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("printf \"\n\" >> /etc/samba/smb.conf", function (error, stdout, stderr) {});
                     callback(null);
                 }
             ])
 
         }
-        exec("sudo service smb restart > /dev/null 2>&1", function (error, stdout, stderr) {});
+        exec("sudo service smb restart", function (error, stdout, stderr) {});
     });
 }
 
@@ -328,28 +328,28 @@ app.post('/Adduser', (req, res) => {
             if (os.type() == 'Windows_NT')
                 return;
             if (!foldercheck) {
-                exec("sudo useradd " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                exec("sudo chmod 755 /home/" + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+                exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
+                exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
+                exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
             }
             else if (Array.isArray(foldercheck) == true) {
                 foldercheck.forEach(function (items) {
                     console.log(items + "[FolderPolicy]");
                     conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {
-                        exec("sudo useradd " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                        exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                        exec("sudo chmod 755 /home/" + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+                        exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
+                        exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
+                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                        exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
                         SettingSamba();
                     });
                 });
             } else {
                 conn.query(sql3, [foldercheck, tmp2[0].User_No], function (err, result) {
-                    exec("sudo useradd " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("sudo chmod 755 /home/" + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("sudo useradd " + User_SMB, function (error, stdout, stderr) {});
+                    exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
+                    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
+                    exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
                     SettingSamba();
                 });
             }
@@ -381,15 +381,15 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                 if(Array.isArray(csvData) == true) {
                     csvData.forEach(function(items){
                         console.log(items[1] + "[csvData]");
-                        exec("sudo useradd " + items[1] + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                        exec("echo 'kit2019' | sudo passwd --stdin " + items[1] + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + items[1] + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+                        exec("sudo useradd " + items[1], function (error, stdout, stderr) {});
+                        exec("echo 'kit2019' | sudo passwd --stdin " + items[1], function (error, stdout, stderr) {});
+                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + items[1], function (error, stdout, stderr) {});
                     })
                 } else {
                     console.log(csvData[1]);
-                    exec("sudo useradd " + csvData[1] + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("echo 'kit2019' | sudo passwd --stdin " + csvData[1] + " > /dev/null 2>&1", function (error, stdout, stderr) {});
-                    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + csvData[1] + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+                    exec("sudo useradd " + csvData[1], function (error, stdout, stderr) {});
+                    exec("echo 'kit2019' | sudo passwd --stdin " + csvData[1], function (error, stdout, stderr) {});
+                    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + csvData[1], function (error, stdout, stderr) {});
                 }
                 console.log(tmp);
             })
@@ -812,7 +812,7 @@ app.post('/Addfolderpolicy', (req, res) => {
         console.log(tmp);
     });
     if (os.type() == 'Linux') {
-        exec("sudo mkdir " + Folder_Path + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+        exec("sudo mkdir " + Folder_Path, function (error, stdout, stderr) {});
     }
     res.redirect('/Folderpolicy');
 });
