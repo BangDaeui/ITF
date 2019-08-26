@@ -942,6 +942,19 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var Folder_Createmask = req.body.Folder_Createmask;
     var Folder_Directorymask = req.body.Folder_Directorymask;
 
+    if(typeof Folder_Readonly == "undefined"){
+        Folder_Readonly = 0;
+    }
+    if(typeof Folder_Writeable == "undefined"){
+        Folder_Writeable = 0;
+    }
+    if(typeof Folder_Guest == "undefined"){
+        Folder_Guest = 0;
+    }
+    if(typeof Folder_Browsable == "undefined"){
+        Folder_Browsable = 0;
+    }
+    
     // [select] 폴더 검색
     var sql1 = 'select * from Folder where Folder_No = ?';
     // [update] 폴더 정책 수정
