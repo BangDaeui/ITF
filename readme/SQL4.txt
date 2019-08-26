@@ -1,36 +1,25 @@
 ﻿INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('Default', '기본적인 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('회장', '회장 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
-
-INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('비서', '비서 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
-
-INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('사장', '사장 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
-
 INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('팀장', '팀장 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('팀원', '팀원 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
+INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('부장', '부장 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
 
+INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('대리', '대리 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
 
+INSERT INTO Policy(Policy_Name, Policy_Comment, Policy_Update, Policy_Mask, Policy_Taskmgr, Policy_Regedit, Policy_Cmd, Policy_Snippingtools, Policy_Usbwrite, Policy_Usbaccess, Policy_Disk, Policy_Clipboard) VALUES('사원', '사원 전용 정책입니다.', 5, 3, 1, 1, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO Positions(Positions_Name) VALUES('회장');
-INSERT INTO Positions(Positions_Name) VALUES('비서');
-INSERT INTO Positions(Positions_Name) VALUES('사장');
 INSERT INTO Positions(Positions_Name) VALUES('팀장');
-INSERT INTO Positions(Positions_Name) VALUES('팀원');
+INSERT INTO Positions(Positions_Name) VALUES('부장');
+INSERT INTO Positions(Positions_Name) VALUES('대리');
+INSERT INTO Positions(Positions_Name) VALUES('사원');
 
-
-INSERT INTO Department(Department_Name) VALUES('비서실');
 INSERT INTO Department(Department_Name) VALUES('인사관리');
 INSERT INTO Department(Department_Name) VALUES('마케팅관리');
 INSERT INTO Department(Department_Name) VALUES('연구개발관리');
 INSERT INTO Department(Department_Name) VALUES('경영지원관리');
 
 
-
-
 INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('ALL', '모든 사용자가 사용하는 폴더입니다.', '/home/all', 5, 0, 1, 0, 0, '0700', '0700', '4Az5UBoNno3dksf5fEuZoiSWXXAAOiS7');
-
-INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('Secretary', '비서실 전용 폴더입니다.', '/home/Secretary', 5, 0, 1, 0, 0, '0750', '0700', 'nxDjOR7purIiYdFBIeWOOq0rsUaABegf');
 
 INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('HR', '인사관리 전용 폴더입니다.', '/home/HR', 5, 0, 1, 0, 0, '0750', '0750', 'Np0O1usFTd8vw6r8G2h8csbGReON5lCC');
 
@@ -39,12 +28,6 @@ INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Fold
 INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('Research', '연구개발관리 전용 폴더입니다.', '/home/Research', 5, 0, 1, 0, 0, '0750', '0750', 'BhUEoY65sZYuxgYCkc7o4pEmoWn70ety');
 
 INSERT INTO Folder(Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, Folder_Key) VALUES('Management', '경영지원관리 전용 폴더입니다.', '/home/Management', 5, 0, 1, 0, 0, '0700', '0700', '00rLY8xdZt8woAu9dPVVVGWmRgaatMAC');
-
-
-
-
-
-
 
 
 INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('지현수', 'hyunsoo9', '192.168.0.2', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
@@ -57,17 +40,17 @@ INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, 
 
 INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김연정', 'younjung5', '192.168.0.24', 1, 1, 1, 'r1MhBiVamUFs3i1cRNgCFQIb8jTUTd3m');
 
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.25', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
 
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.26', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
 
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.28', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
 
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.29', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
 
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.30', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
 
-INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.21', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
+INSERT INTO User(User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) VALUES('김규진', 'Kyujin', '192.168.0.32', 1, 1, 1, 'zRKPRs1ITRRx220oLxeoJCB8oQVt0gp4');
 
 
 
