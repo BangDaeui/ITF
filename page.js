@@ -995,8 +995,20 @@ app.post('/Updatefolderpolicy/:folderno', (req, res) => {
     var sql1 = 'select * from Folder where Folder_No = ?';
     // [update] 폴더 정책 수정
     var sql2 = 'update Folder set Folder_Name=?, Folder_Comment=?, Folder_Path=?, Folder_Update=?, Folder_Readonly=?, Folder_Writeable=?, Folder_Guest=?, Folder_Browsable=?, Folder_Createmask=?, Folder_Directorymask=? where Folder_No=?';
+    // [select] 폴더 검색
+    var sql3 = 'select Folder_Path from Folder';
+    var flag = 0;
     conn.query(sql1, [folderno], function (err, folder, fields) {
-        if (os.type() == 'Linux')
+        conn.query(sql3, function (err, folderlist, fields) {
+            if (Array.isArray(folderlist) == true) {
+                id.forEach(function (items) {
+                    if (items[0].Folder_Path == Folder_Path) {
+                        flag = 1;       
+                    }
+                });
+            }
+        })
+        if (os.type() == 'Linux' && !flag)
             exec("sudo mv " + folder[0].Folder_Path + " " + Folder_Path + " > /dev/null 2>&1", function (error, stdout, stderr) {});
         conn.query(sql2, [Folder_Name, Folder_Comment, Folder_Path, Folder_Update, Folder_Readonly, Folder_Writeable, Folder_Guest, Folder_Browsable, Folder_Createmask, Folder_Directorymask, folderno], function (err, tmp, fields) {
             console.log(tmp);
