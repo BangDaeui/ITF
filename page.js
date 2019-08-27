@@ -376,22 +376,25 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
             console.log(csvData);
             var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy) values ?';
             conn.query(sql1, [csvData], function (err, tmp, result){
-                if (os.type() == 'Windows_NT')
-                return;
-                if(Array.isArray(csvData) == true) {
-                    csvData.forEach(function(items){
-                        console.log(items[1] + "[csvData]");
-                        exec("sudo useradd " + items[1], function (error, stdout, stderr) {});
-                        exec("echo 'kit2019' | sudo passwd --stdin " + items[1], function (error, stdout, stderr) {});
-                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + items[1], function (error, stdout, stderr) {});
-                    })
+                if (os.type() == 'Windows_NT'){
+                    
                 } else {
-                    console.log(csvData[1]);
-                    exec("sudo useradd " + csvData[1], function (error, stdout, stderr) {});
-                    exec("echo 'kit2019' | sudo passwd --stdin " + csvData[1], function (error, stdout, stderr) {});
-                    exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + csvData[1], function (error, stdout, stderr) {});
+                    if(Array.isArray(csvData) == true) {
+                        csvData.forEach(function(items){
+                            console.log(items[1] + "[csvData]");
+                            exec("sudo useradd " + items[1], function (error, stdout, stderr) {});
+                            exec("echo 'kit2019' | sudo passwd --stdin " + items[1], function (error, stdout, stderr) {});
+                            exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + items[1], function (error, stdout, stderr) {});
+                        })
+                    } else {
+                        console.log(csvData[1]);
+                        exec("sudo useradd " + csvData[1], function (error, stdout, stderr) {});
+                        exec("echo 'kit2019' | sudo passwd --stdin " + csvData[1], function (error, stdout, stderr) {});
+                        exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + csvData[1], function (error, stdout, stderr) {});
+                    }
+                    console.log(tmp);
                 }
-                console.log(tmp);
+
             })
         });
     res.redirect('/Users');
@@ -813,6 +816,7 @@ app.post('/Addfolderpolicy', (req, res) => {
     });
     if (os.type() == 'Linux') {
         exec("sudo mkdir " + Folder_Path, function (error, stdout, stderr) {});
+        exec("sudo chmod 777 " + Folder_Path, function (error, stdout, stderr) {});
     }
     res.redirect('/Folderpolicy');
 });

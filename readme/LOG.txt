@@ -1,0 +1,19 @@
+﻿ALTER TABLE FileLog CONVERT TO CHARACTER SET UTF8;
+INSERT INTO UserLog(Userlog_Name, Userlog_MAC, UserLog_State, Userlog_IP) 
+VALUES('Kyujin', '32-24-32-6C-12-77', 1, '192.168.0.21');
+INSERT INTO UserLog(Userlog_Name, Userlog_MAC, UserLog_State, Userlog_IP) 
+VALUES('Kyujin', '32-24-32-6C-12-77', 2, '192.168.0.21');
+INSERT INTO UserLog(Userlog_Name, Userlog_MAC, UserLog_State, Userlog_IP) 
+VALUES('Kyujin', '32-24-32-6C-12-77', 3, '192.168.0.21');
+
+ALTER TABLE UserLog CONVERT TO CHARACTER SET UTF8;
+INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
+VALUES('Kyujin', '/home/samba/1.txt', 1, '192.168.0.21');
+INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
+VALUES('Kyujin', '/home/samba/1.txt', 2, '192.168.0.21');
+INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
+VALUES('Kyujin', '/home/samba/1.txt', 3, '192.168.0.21');
+INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
+VALUES('Kyujin', '/home/samba/1.txt', 4, '192.168.0.21');
+INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
+VALUES('Kyujin', '/home/samba/1.txt', 5, '192.168.0.21');
