@@ -405,7 +405,7 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                             exec("sudo mkdir /home/" + items[1] + "/.start", function (error, stdout, stderr) {});
                             exec("sudo chmod 777 /home/" + items[1] + "/.start", function (error, stdout, stderr) {});
                             conn.query(sql2, [items[1]], function (err, tmp2, result) {
-                                conn.query(sql3, [tmp2[0].User_No, times[1], 'kit2019'], function (err, tmp3, result) {
+                                conn.query(sql3, [tmp2[0].User_No, items[1], 'kit2019'], function (err, tmp3, result) {
                                     
                                 });
                             });
