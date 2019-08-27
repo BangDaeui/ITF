@@ -407,8 +407,8 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                             conn.query(sql2, [items[1]], function (err, tmp2, result) {
                                 conn.query(sql3, [tmp2[0].User_No, times[1], 'kit2019'], function (err, tmp3, result) {
                                     
-                                })
-                            }
+                                });
+                            });
                         })
                     } else {
                         console.log(csvData[1]);
@@ -422,7 +422,7 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                             conn.query(sql3, [tmp2[0].User_No, csvData[1], 'kit2019'], function (err, tmp3, result) {
                                     
                             })
-                        }
+                        });
                     }
                     console.log(tmp);
                 }
