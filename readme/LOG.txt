@@ -10,7 +10,7 @@ VALUES('yunjung201', '32-24-32-6C-12-77', 3, '192.168.0.3');
 
 
 INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
-VALUES('yunjung201', '/home/all/업무문서.doc', 1, '192.168.0.3');
+VALUES('yunjung201', '/home/all/2019년총정리.doc', 1, '192.168.0.3');
 INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
 VALUES('yunjung201', '/home/all/1.txt', 2, '192.168.0.3');
 INSERT INTO FileLog(Filelog_Name, FIlelog_Path, Filelog_State, Filelog_IP) 
