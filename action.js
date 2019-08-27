@@ -191,9 +191,9 @@ var tls_server3 = tls.createServer(options, function(cleartextStream) {
         conn.query(sql1, [strData[0]], function(err, Folder, fields){  
             console.log(Folder);
             if(!PathCount) {
-                strData[1] = "/home/" + strData[0] + Path[1].replace("\\", "/");
+                strData[1] = "/home/" + strData[0] + Path[1].replace(/\\/gi, '/');
             } else {
-                strData[1] = Folder[PathCount - 1].Folder_Path + Path[1].replace("\\", "/"); 
+                strData[1] = Folder[PathCount - 1].Folder_Path + Path[1].replace(/\\/gi, '/'); 
             }
             conn.query(sql2, [strData[0], strData[1], strData[2], strData[3]], function(err, Filelog, fields){
                 console.log(Filelog);
