@@ -79,13 +79,13 @@ function DiskCheck() {
     {
         checkDiskSpace('C:/').then((diskSpace) => {
             free = Math.round((diskSpace.free / 1024 / 1024 / 1024 * 100)) / 100;
-            size = Math.round((diskSpace.size / 1024 / 1024 / 1024 * 100)) / 100;
+            size = Math.round(((diskSpace.size - diskSpace.free) / 1024 / 1024 / 1024 * 100)) / 100;
             console.log(diskSpace);
         });
     } else {
         checkDiskSpace('/').then((diskSpace) => {
             free = Math.round((diskSpace.free / 1024 / 1024 / 1024 * 100)) / 100;
-            size = Math.round((diskSpace.size / 1024 / 1024 / 1024 * 100)) / 100;
+            size = Math.round(((diskSpace.size - diskSpace.free) / 1024 / 1024 / 1024 * 100)) / 100;
             console.log(diskSpace);
         });
     }
