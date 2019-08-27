@@ -68,3 +68,33 @@ $ vi page.js
 $ node app.js
 ```
 
+
+## Results
+
+### Dashboard
+
+<p align="center"><img width="100%" src="png/dashboard.png" /></p>
+
+### Event / Log
+
+<p align="center"><img width="100%" src="png/eventlog.png" /></p>
+
+### User
+
+<p align="center"><img width="100%" src="png/User.png" /></p>
+<p align="center"><img width="100%" src="png/User2.png" /></p>
+
+### System Policy
+
+<p align="center"><img width="100%" src="png/System.png" /></p>
+
+### Folder Policy
+
+<p align="center"><img width="100%" src="png/Folder.png" /></p>
+
+
+
+
+
+
+
