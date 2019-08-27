@@ -332,15 +332,19 @@ app.post('/Adduser', (req, res) => {
                 exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
                 exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
                 exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
+                exec("sudo mkdir /home/" + User_SMB + "/.start", function (error, stdout, stderr) {});
+                exec("sudo chmod 777 /home/" + User_SMB + "/.start", function (error, stdout, stderr) {});
             }
             else if (Array.isArray(foldercheck) == true) {
                 exec("sudo useradd " + User_SMB + " > /dev/null 2>&1", function (error, stdout, stderr) {});
+                exec("sudo mkdir /home/" + User_SMB + "/.start", function (error, stdout, stderr) {});
                 foldercheck.forEach(function (items) {
                     console.log(items + "[FolderPolicy]");
                     conn.query(sql3, [items, tmp2[0].User_No], function (err, result) {
                         exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
                         exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
                         exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
+                        exec("sudo chmod 777 /home/" + User_SMB + "/.start", function (error, stdout, stderr) {});
                         SettingSamba();
                     });
                 });
@@ -350,6 +354,8 @@ app.post('/Adduser', (req, res) => {
                     exec("echo 'kit2019' | sudo passwd --stdin " + User_SMB, function (error, stdout, stderr) {});
                     exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + User_SMB, function (error, stdout, stderr) {});
                     exec("sudo chmod 755 /home/" + User_SMB, function (error, stdout, stderr) {});
+                    exec("sudo mkdir /home/" + User_SMB + "/.start", function (error, stdout, stderr) {});
+                    exec("sudo chmod 777 /home/" + User_SMB + "/.start", function (error, stdout, stderr) {});
                     SettingSamba();
                 });
             }
@@ -378,7 +384,12 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                 csvData[i].push(randomstring.generate(32));
             }
             console.log(csvData);
+            // [insert] insert Uservalue
             var sql1 = 'insert into User (User_Name, User_SMB, User_IP, User_Department, User_Positions, User_Policy, User_Key) values ?';
+            // [select] 위에서 생성된 사용자 확인
+            var sql2 = 'select * from User where User_SMB = ?';
+            // [insert] Auth insert
+            var sql3 = 'insert into Auth(Auth_No, Auth_ID, Auth_Pass) VALUES(?, ?, ?)';
             conn.query(sql1, [csvData], function (err, tmp, result){
                 if (os.type() == 'Windows_NT'){
                     console.log(tmp);
@@ -391,6 +402,13 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                             exec("echo 'kit2019' | sudo passwd --stdin " + items[1], function (error, stdout, stderr) {});
                             exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + items[1], function (error, stdout, stderr) {});
                             exec("sudo chmod 755 /home/" + items[1], function (error, stdout, stderr) {});
+                            exec("sudo mkdir /home/" + items[1] + "/.start", function (error, stdout, stderr) {});
+                            exec("sudo chmod 777 /home/" + items[1] + "/.start", function (error, stdout, stderr) {});
+                            conn.query(sql2, [items[1]], function (err, tmp2, result) {
+                                conn.query(sql3, [tmp2[0].User_No, times[1], 'kit2019'], function (err, tmp3, result) {
+                                    
+                                })
+                            }
                         })
                     } else {
                         console.log(csvData[1]);
@@ -398,6 +416,13 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                         exec("echo 'kit2019' | sudo passwd --stdin " + csvData[1], function (error, stdout, stderr) {});
                         exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + csvData[1], function (error, stdout, stderr) {});
                         exec("sudo chmod 755 /home/" + csvData[1], function (error, stdout, stderr) {});
+                        exec("sudo mkdir /home/" + csvData[1] + "/.start", function (error, stdout, stderr) {});
+                        exec("sudo chmod 777 /home/" + csvData[1] + "/.start", function (error, stdout, stderr) {});
+                        conn.query(sql2, [csvData[1]], function (err, tmp2, result) {
+                            conn.query(sql3, [tmp2[0].User_No, csvData[1], 'kit2019'], function (err, tmp3, result) {
+                                    
+                            })
+                        }
                     }
                     console.log(tmp);
                 }
