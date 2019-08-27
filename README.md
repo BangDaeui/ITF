@@ -23,22 +23,22 @@
 * [Node.js 10.16.0](https://nodejs.org/en/)
 
 ## Node module
-* [express]
-* [app]
-* [mysql]
-* [body-parser]
-* [path]
-* [child_process]
-* [async]
-* [cookie-parser]
-* [fast-csv]
-* [fs]
-* [os]
-* [multer]
-* [randomstring]
-* [get-folder-size]
-* [tls]
-* [net]
+* express
+* app
+* mysql
+* body-parser
+* path
+* child_process
+* async
+* cookie-parser
+* fast-csv
+* fs
+* os
+* multer
+* randomstring
+* get-folder-size
+* tls
+* net
 
 ## Usage
 

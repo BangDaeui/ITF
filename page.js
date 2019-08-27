@@ -1057,7 +1057,7 @@ app.post('/AddPosition', (req, res) => {
   res.redirect('Setting');
 });
 
-// [Post] /DeletePosition (부서 삭제)
+// [Post] /DeletePosition (직책 삭제)
 app.post('/DeletePosition', (req, res) => {
     var id = req.body.positionscheck;
     console.log(id);
