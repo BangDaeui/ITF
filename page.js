@@ -849,6 +849,8 @@ app.post('/Addfolderpolicy', (req, res) => {
     if (os.type() == 'Linux') {
         exec("sudo mkdir " + Folder_Path, function (error, stdout, stderr) {});
         exec("sudo chmod 777 " + Folder_Path, function (error, stdout, stderr) {});
+        exec("sudo mkdir " + Folder_Path + "/.start", function (error, stdout, stderr) {});
+        exec("sudo chmod 777 " + Folder_Path + "/.start", function (error, stdout, stderr) {});
     }
     res.redirect('/Folderpolicy');
 });
