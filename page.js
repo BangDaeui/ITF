@@ -274,7 +274,7 @@ app.get('/Eventlog', (req, res) => {
 // [Get] /Users (유저 페이지)
 app.get('/Users', (req, res) => {
     // [select] 사용자 데이터
-    var sql1 = 'select * from User left outer join Policy on User_Policy=Policy_No where User_Policy is null or User_Policy=Policy_No order by User_No;';
+    var sql1 = 'select * from User left outer join Department on User_Department=Department_No where User_Department is null or User_Department=Department_No order by User_No;';
     // [select] 시스템 정책
     var sql2 = 'select * from Policy';
     // [select] 부서
@@ -390,12 +390,14 @@ app.post('/Addusercsv', upload.single('avatar'), (req, res, next) => {
                             exec("sudo useradd " + items[1], function (error, stdout, stderr) {});
                             exec("echo 'kit2019' | sudo passwd --stdin " + items[1], function (error, stdout, stderr) {});
                             exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + items[1], function (error, stdout, stderr) {});
+                            exec("sudo chmod 755 /home/" + items[1], function (error, stdout, stderr) {});
                         })
                     } else {
                         console.log(csvData[1]);
                         exec("sudo useradd " + csvData[1], function (error, stdout, stderr) {});
                         exec("echo 'kit2019' | sudo passwd --stdin " + csvData[1], function (error, stdout, stderr) {});
                         exec("echo -e 'kit2019\nkit2019\n' | sudo smbpasswd -s -a " + csvData[1], function (error, stdout, stderr) {});
+                        exec("sudo chmod 755 /home/" + csvData[1], function (error, stdout, stderr) {});
                     }
                     console.log(tmp);
                 }
